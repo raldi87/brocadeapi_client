@@ -1,0 +1,29 @@
+{  
+   "resourceGroups":[  
+      {  
+         "key":"All",
+         "name":"All",
+         "type":"ALL"
+      },
+      {  
+         "key":"Fabric1-Site1",
+         "name":"Fabric1-Site1",
+         "type":"FC_FABRIC"
+      },
+      {  
+         "key":"Fabric0-Site1",
+         "name":"Fabric0-Site1",
+         "type":"FC_FABRIC"
+      },
+      {  
+         "key":"Fabric1-Site2",
+         "name":"Fabric1-Site2",
+         "type":"FC_FABRIC"
+      },
+      {  
+         "key":"Fabric0-Site2",
+         "name":"Fabric0-Site2",
+         "type":"FC_FABRIC"
+      }
+   ]
+}
