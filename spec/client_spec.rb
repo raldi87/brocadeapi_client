@@ -42,11 +42,11 @@ describe "BrocadeAPI_client::Client" do
   end
 
 
-  it 'validate_getresources' do
+  it 'validate_getfabrics' do
       http = BrocadeAPI_client::JSONRestClient.new(@url, false, false, false, nil)
       client = BrocadeAPI_client::Client.new(@url)
       result = client.get_fabrics
-      expect(result.has_key?("resourceGroups")).to eq(true)
+      expect(result.has_key?("fcFabrics")).to eq(true)
   end
 
 end

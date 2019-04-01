@@ -1,4 +1,4 @@
-# BrocadesanSdk
+# BrocadeAPI_client
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/brocadesan_sdk`. To experiment with that code, run `bin/console` for an interactive prompt.
 
@@ -9,7 +9,7 @@ TODO: Delete this and the text above, and describe your gem
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'brocadesan_sdk'
+gem 'brocadeapi_client'
 ```
 
 And then execute:
@@ -18,7 +18,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install brocadesan_sdk
+    $ gem install brocadeapi_client
 
 ## Usage
 
@@ -36,7 +36,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+This project is licensed under the Apache 2.0 license.
 
 ## Code of Conduct
 
