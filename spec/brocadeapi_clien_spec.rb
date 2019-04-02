@@ -1,4 +1,4 @@
-
+require 'spec_helper'
 
 RSpec.describe BrocadeAPI_client do
   it "has a version number" do

@@ -1,8 +1,15 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed
+# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+# CONDITIONS OF ANY KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations under the License.
 require 'httparty'
 require 'json'
 require 'logger'
 require_relative 'exceptions'
-
 
 module BrocadeAPI_client
   class JSONRestClient
@@ -26,6 +33,7 @@ module BrocadeAPI_client
       @httparty_log_format = :curl
       set_debug_flag
     end
+
     # This turns on/off http request/response debugging output to console
     def set_debug_flag
       if @http_log_debug
@@ -33,6 +41,7 @@ module BrocadeAPI_client
         @httparty_log_format = :curl
       end
     end
+
     def authenticate(user, password, _optional = nil)
       begin
         @session_key = nil
@@ -40,13 +49,15 @@ module BrocadeAPI_client
         headers, body = post(auth_url)
         @session_key = headers['WStoken']
       rescue => ex
-        @client_logger.error("cannot login")
+        @client_logger.error('cannot login')
       end
     end
+
     def set_url(api_url)
       # should be http://<Server:Port>/api/v1
       @api_url = api_url.chomp('/')
     end
+
     def get(url, **kwargs)
       headers, payload = get_headers_and_payload(kwargs)
       response = HTTParty.get(api_url + url,
@@ -56,6 +67,7 @@ module BrocadeAPI_client
                               log_format: @httparty_log_format)
       process_response(response)
     end
+
     def post(url, **kwargs)
       headers, payload = get_headers_and_payload(kwargs)
       response = HTTParty.post(api_url + url,
@@ -67,6 +79,7 @@ module BrocadeAPI_client
                                log_format: @httparty_log_format)
       process_response(response)
     end
+
     def put(url, **kwargs)
       headers, payload = get_headers_and_payload(kwargs)
       response = HTTParty.put(api_url + url,
@@ -77,6 +90,7 @@ module BrocadeAPI_client
                               log_format: @httparty_log_format)
       process_response(response)
     end
+
     def delete(url, **kwargs)
       headers, payload = get_headers_and_payload(kwargs)
       response = HTTParty.delete(api_url + url,
@@ -86,6 +100,7 @@ module BrocadeAPI_client
                                  log_format: @httparty_log_format)
       process_response(response)
     end
+
     def process_response(response)
       headers = response.headers
       body = response.parsed_response
@@ -99,6 +114,7 @@ module BrocadeAPI_client
       end
       [headers, body]
     end
+
     def unauthenticate
       # delete the session on the brocade network advisor
       unless @session_key.nil?
@@ -106,7 +122,7 @@ module BrocadeAPI_client
           post('/logout')
         rescue => ex
           @session_key = nil
-          @client_logger.error("Logout")
+          @client_logger.error('Logout')
         end
       end
     end

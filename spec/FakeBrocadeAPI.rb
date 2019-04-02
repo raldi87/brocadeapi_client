@@ -10,7 +10,7 @@ require 'sinatra'
 
 class FakeBrocadeAPI < Sinatra::Base
   post '/rest/login' do
-    response.headers['WStoken'] = "logintest"
+    response.headers['WStoken'] = 'logintest'
   end
 
   post '/rest/logout' do
@@ -25,7 +25,6 @@ class FakeBrocadeAPI < Sinatra::Base
   get '/rest/resourcegroups/All/fcfabrics' do
      json_response 200, 'fabrics.json'
   end
- 
   
   get '/rest/resourcegroups/All/fcfabrics/*/fcswitches' do
      json_response 200, 'switches.json'
@@ -38,7 +37,6 @@ class FakeBrocadeAPI < Sinatra::Base
   get '/rest/resourcegroups/All/fcswitches' do
      json_response 200, 'switches.json'
   end
-     
 
   private
 

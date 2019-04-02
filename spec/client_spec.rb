@@ -7,9 +7,9 @@ require 'json'
 describe "BrocadeAPI_client::Client" do
 
   before(:all) do
-      @url = "http://localhost/rest"
-      @user = "testuser"
-      @password = "password"
+      @url = 'http://localhost/rest'
+      @user = 'testuser'
+      @password = 'password'
   end
   
   after(:all) do
@@ -19,7 +19,7 @@ describe "BrocadeAPI_client::Client" do
   app_type= "ruby-brocade"
 
   it 'validate_login' do
-      session_key = "logintest"
+      session_key = 'logintest'
       http = BrocadeAPI_client::JSONRestClient.new(@url, false, false, false, nil)    
       client = BrocadeAPI_client::Client.new(@url)
       client.login(@user, @password)

@@ -1,5 +1,3 @@
-# Copyright 2016-2017 Hewlett Packard Enterprise Development LP
-#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,13 +14,11 @@ module BrocadeAPI_client
                  @http_client = http_client  
                  @base_url = '/resourcegroups/All'
              end
-
               
              def get_fabricswitches(fabricID)
                  api_url = @base_url + '/fcfabrics/' + fabricID + '/fcswitches'
                  response,body = @http_client.get(api_url)
              end
-
              
              def get_allswitches
                  api_url =  @base_url + '/fcswitches'
