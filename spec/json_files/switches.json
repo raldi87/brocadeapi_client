@@ -1,0 +1,30 @@
+{  
+   "fcSwitches":[  
+      {  
+         "key":"10:00:00:05:1E:A5:59:B3",
+         "type":72,
+         "name":"edgesw24-05",
+         "wwn":"10:00:00:05:1E:A5:59:B3",
+         "virtualFabricId":-1,
+         "domainId":23,
+         "baseSwitch":false,
+         "role":"SUBORDINATE",
+         "fcsRole":"None",
+         "adCapable":true,
+         "operationalStatus":"HEALTHY",
+         "state":"ONLINE",
+         "statusReason":"Switch Status is HEALTHY. Contributors:",
+         "lfEnabled":false,
+         "defaultLogicalSwitch":true,
+         "fmsMode":false,
+         "dynamicLoadSharingCapable":true,
+         "portBasedRoutingPresent":false,
+         "inOrderDeliveryCapable":true,
+         "persistentDidEnabled":false,
+         "autoSnmpEnabled":true
+      }
+   ],
+   "startIndex":null,
+   "itemsPerPage":null,
+   "totalResults":null
+}
