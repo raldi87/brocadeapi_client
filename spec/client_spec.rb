@@ -48,5 +48,21 @@ describe "BrocadeAPI_client::Client" do
       result = client.get_fabrics
       expect(result.has_key?("fcFabrics")).to eq(true)
   end
+ 
+  
+  it 'validate_getfabrics_withinput' do
+      input = "10:00:50:EB:1A:A8:2C:54"
+      http = BrocadeAPI_client::JSONRestClient.new(@url, false, false, false, nil)
+      client = BrocadeAPI_client::Client.new(@url)
+      result = client.get_fabric(input)
+      expect(result["fcFabrics"][0]["key"]).to eq(input)
+  end
+
+  it 'validate_getallswitches' do
+      http = BrocadeAPI_client::JSONRestClient.new(@url, false, false, false, nil)
+      client = BrocadeAPI_client::Client.new(@url)
+      result = client.get_allswitches
+      expect(result.has_key?("fcSwitches")).to eq(true)
+  end
 
 end
