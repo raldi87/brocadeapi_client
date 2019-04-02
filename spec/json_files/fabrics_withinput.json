@@ -1,0 +1,21 @@
+{  
+   "fcFabrics":[  
+      {  
+         "key":"10:00:50:EB:1A:A8:2C:54",
+         "seedSwitchWwn":"10:00:50:EB:1A:A8:2C:54",
+         "name":"Fabric0-Site1",
+         "secure":false,
+         "adEnvironment":false,
+         "contact":null,
+         "location":null,
+         "description":null,
+         "principalSwitchWwn":"10:00:50:EB:1A:A8:2C:54",
+         "fabricName":"",
+         "virtualFabricId":-1,
+         "seedSwitchIpAddress":"172.26.232.99"
+      }
+   ],
+   "startIndex":null,
+   "itemsPerPage":null,
+   "totalResults":null
+}
