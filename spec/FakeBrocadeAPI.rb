@@ -18,11 +18,16 @@ class FakeBrocadeAPI < Sinatra::Base
   get '/rest/resourcegroups/All/fcfabrics' do
      json_response 200, 'fabrics.json'
   end
+ 
+  
+  get '/rest/resourcegroups/All/fcfabrics/*/fcswitches' do
+     json_response 200, 'switches.json'
+  end
 
   get '/rest/resourcegroups/All/fcfabrics/*' do
      json_response 200, 'fabrics_withinput.json'
   end
-
+  
   get '/rest/resourcegroups/All/fcswitches' do
      json_response 200, 'switches.json'
   end
