@@ -73,7 +73,7 @@ module BrocadeAPI_client
       response = HTTParty.post(api_url + url,
                                headers: headers,
                                body: payload,
-                               verify: false, 
+                               verify: false,
                                logger: @client_logger,
                                log_level: @httparty_log_level,
                                log_format: @httparty_log_format)
@@ -105,7 +105,7 @@ module BrocadeAPI_client
       headers = response.headers
       body = response.parsed_response
       if response.code != 200
-        if body.nil? 
+        if body.nil?
           exception = BrocadeAPI_client.exception_from_response(response, body)
           puts exception.inspect
           @client_logger.error(exception)
@@ -126,6 +126,7 @@ module BrocadeAPI_client
         end
       end
     end
+
     def get_headers_and_payload(**kwargs)
       kwargs['headers'] = kwargs.fetch('headers', {})
       if session_key

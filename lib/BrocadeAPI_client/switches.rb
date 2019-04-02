@@ -8,22 +8,21 @@
 # specific language governing permissions and limitations under the License.
 
 module BrocadeAPI_client
-        #Switches REST API Methods
-	class Switches
-             def initialize(http_client)
-                 @http_client = http_client  
-                 @base_url = '/resourcegroups/All'
-             end
-              
-             def get_fabricswitches(fabricID)
-                 api_url = @base_url + '/fcfabrics/' + fabricID + '/fcswitches'
-                 response,body = @http_client.get(api_url)
-             end
-             
-             def get_allswitches
-                 api_url =  @base_url + '/fcswitches'
-                 response,body = @http_client.get(api_url)
-             end
+  #Switches REST API Methods
+  class Switches
+    def initialize(http_client)
+      @http_client = http_client
+      @base_url = '/resourcegroups/All'
+    end
 
-       end
+    def get_fabricswitches(fabricid)
+      api_url = @base_url + '/fcfabrics/' + fabricid + '/fcswitches'
+      _response,_body = @http_client.get(api_url)
+    end
+
+    def get_allswitches
+      api_url =  @base_url + '/fcswitches'
+      response,body = @http_client.get(api_url)
+    end
+  end
 end

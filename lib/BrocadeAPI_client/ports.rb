@@ -27,7 +27,7 @@ module BrocadeAPI_client
       payload['fcPortWWNs'] = portwwns
       _response, _body = @http_client.post(api_url, body: payload)
     end
-           
+
     def change_persistentportstates(rgkey, switchwwn, portwwns, state)
       api_url = @base_url + rgkey + '/fcswitches/' + switchwwn + '/fcports/fcportpersistentstate'
       payload['fcPortState'] = state

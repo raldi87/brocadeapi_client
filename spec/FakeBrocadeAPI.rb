@@ -16,16 +16,15 @@ class FakeBrocadeAPI < Sinatra::Base
   post '/rest/logout' do
     status 204
   end
- 
-  get '/rest/resourcegroups' do
-     json_response 200, 'resourcegroups.json' 
 
+  get '/rest/resourcegroups' do
+     json_response 200, 'resourcegroups.json'
   end
-  
+
   get '/rest/resourcegroups/All/fcfabrics' do
      json_response 200, 'fabrics.json'
   end
-  
+
   get '/rest/resourcegroups/All/fcfabrics/*/fcswitches' do
      json_response 200, 'switches.json'
   end
@@ -33,7 +32,7 @@ class FakeBrocadeAPI < Sinatra::Base
   get '/rest/resourcegroups/All/fcfabrics/*' do
      json_response 200, 'fabrics_withinput.json'
   end
-  
+
   get '/rest/resourcegroups/All/fcswitches' do
      json_response 200, 'switches.json'
   end
@@ -46,4 +45,3 @@ class FakeBrocadeAPI < Sinatra::Base
     File.open(File.dirname(__FILE__) + '/json_files/' + file_name, 'rb').read
   end
 end
-

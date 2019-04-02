@@ -10,14 +10,14 @@ module BrocadeAPI_client
   #Fabrics REST API Methods
   class Fabrics
     def initialize(http_client)
-      @http_client = http_client  
+      @http_client = http_client
       @fabrics_url = '/resourcegroups/All/fcfabrics'
     end
 
     def fabrics
       _response, _body = @http_client.get(@fabrics_url)
     end
-             
+
     def fabric(fabricid)
       _response, _body = @http_client.get(@fabrics_url + '/' + fabricid)
     end

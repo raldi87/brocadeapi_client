@@ -11,7 +11,7 @@ describe "BrocadeAPI_client::Client" do
       @user = 'testuser'
       @password = 'password'
   end
-  
+
   after(:all) do
       @url = nil
   end
@@ -20,7 +20,7 @@ describe "BrocadeAPI_client::Client" do
 
   it 'validate_login' do
       session_key = 'logintest'
-      http = BrocadeAPI_client::JSONRestClient.new(@url, false, false, false, nil)    
+      http = BrocadeAPI_client::JSONRestClient.new(@url, false, false, false, nil)
       client = BrocadeAPI_client::Client.new(@url)
       client.login(@user, @password)
       expect(client.http.session_key).to eq(session_key)
@@ -36,11 +36,10 @@ describe "BrocadeAPI_client::Client" do
 
   it 'validate_getresources' do
       http = BrocadeAPI_client::JSONRestClient.new(@url, false, false, false, nil)
-      client = BrocadeAPI_client::Client.new(@url)  
+      client = BrocadeAPI_client::Client.new(@url)
       result = client.get_resourcegroups
       expect(result.has_key?("resourceGroups")).to eq(true)
   end
-
 
   it 'validate_getfabrics' do
       http = BrocadeAPI_client::JSONRestClient.new(@url, false, false, false, nil)
@@ -48,8 +47,7 @@ describe "BrocadeAPI_client::Client" do
       result = client.get_fabrics
       expect(result.has_key?("fcFabrics")).to eq(true)
   end
- 
-  
+
   it 'validate_getfabrics_withinput' do
       input = "10:00:50:EB:1A:A8:2C:54"
       http = BrocadeAPI_client::JSONRestClient.new(@url, false, false, false, nil)
@@ -72,5 +70,4 @@ describe "BrocadeAPI_client::Client" do
       result = client.get_fabricswitches(input)
       expect(result.has_key?("fcSwitches")).to eq(true)
   end
-
 end
