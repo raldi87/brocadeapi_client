@@ -2,7 +2,8 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 #
-# Unless required by applicable law or agreed to in writing, software distributed
+# Unless required by applicable law or agreed to in writing,
+# software distributed
 # under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
@@ -12,6 +13,7 @@ require 'logger'
 require_relative 'exceptions'
 
 module BrocadeAPIClient
+  # Class for talking to API
   class JSONRestClient
     USER_AGENT = 'ruby-brocadeclient'.freeze
     ACCEPT_TYPE = 'application/vnd.brocade.networkadvisor+json;version=v1'.freeze
@@ -43,17 +45,15 @@ module BrocadeAPIClient
     end
 
     def authenticate(user, password, _optional = nil)
-      begin
-        @session_key = nil
-        auth_url = '/login'
-        headers, body = post(auth_url)
-        @session_key = headers['WStoken']
-      rescue => ex
-        @client_logger.error('cannot login')
-      end
+      @session_key = nil
+      auth_url = '/login'
+      headers, body = post(auth_url)
+      @session_key = headers['WStoken']
+    rescue => ex
+      @client_logger.error('cannot login')
     end
 
-    def set_url(api_url)
+    def url(api_url)
       # should be http://<Server:Port>/api/v1
       @api_url = api_url.chomp('/')
     end
@@ -120,7 +120,7 @@ module BrocadeAPIClient
       unless @session_key.nil?
         begin
           post('/logout')
-        rescue => ex
+        rescue
           @session_key = nil
           @client_logger.error('Logout')
         end

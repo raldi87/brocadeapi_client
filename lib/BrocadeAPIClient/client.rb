@@ -15,13 +15,13 @@ require_relative 'zones'
 require_relative 'exceptions'
 
 module BrocadeAPIClient
+  # Class for connecting to BNA
   class Client
-    # Class for connecting to BNA
     attr_reader :http
-    def initialize(api_url, debug:false, secure: false, timeout: nil, app_type: 'ruby_brocade', log_file_path: nil)
+    def initialize(api_url, debug: false, secure: false, timeout: nil, app_type: 'ruby_brocade', log_file_path: nil)
       unless api_url.is_a?(String)
         raise BrocadeAPIClient::BrocadeException.new(nil,
-         "'api_url' parameter is mandatory and should be of type String")
+          "'api_url' parameter is mandatory and should be of type String")
       end
       @api_url = api_url
       @debug = debug
@@ -42,7 +42,8 @@ module BrocadeAPIClient
       @zones = Zones.new(@http)
       @app_type = app_type
     end
-    private def init_log
+
+    def init_log
       # Create Logger
       unless @log_file_path.nil?
         @client_logger = Logger.new(@log_file_path, 'daily')
@@ -56,16 +57,15 @@ module BrocadeAPIClient
 
     def login(username, password, options = nil)
       # Authenticate on the Brocade Network Advisor API
-      @http.authenticate(username,password,options)
+      @http.authenticate(username, password, options)
     end
 
     def logout
       # Delete Session on REST API
-      begin
-        @http.unauthenticate
-        rescue BrocadeAPIClient::BrocadeException => ex
-          # we dont do anything because Brocade Network Advisor return HTTP 204 if logout is OK and session was deleted
-      end
+      @http.unauthenticate
+    rescue BrocadeAPIClient::BrocadeException => ex
+      # we dont do anything because Brocade Network Advisor
+      # return HTTP 204 if logout is OK and session was deleted
     end
 
     # Get All networks
@@ -167,7 +167,8 @@ module BrocadeAPIClient
 
     # Set Port Name for a specified port
     # Input:
-    # rgkey: - resource group ID(it can be retrived usint the resource method(ussualy the of the Fabric)
+    # rgkey: - resource group ID(it can be retrived using
+    # the resource method(ussualy the of the Fabric)
     # switchWWN -  switch WWN (it can be retrived using the Switches method)
     # portWWN -  Port WWN
     # portNames - the name for the PortName
@@ -182,7 +183,8 @@ module BrocadeAPIClient
 
     # Get all Zones in a Fabric(both active and defined)
     # Input:
-    # rgkey: - resource group ID(it can be retrived usint the resource method(ussualy the of the Fabric)
+    # rgkey: - resource group ID(it can be retrived using
+    # the resource method(ussualy the of the Fabric)
     # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
     #
     # ==== Returns
@@ -195,8 +197,10 @@ module BrocadeAPIClient
 
     # Get all Zones in a Fabric(active)
     # Input:
-    # rgkey: - resource group ID(it can be retrived usint the resource method(ussualy the of the Fabric)
-    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # rgkey: - resource group ID(it can be retrived using
+    #          the resource method(ussualy the of the Fabric)
+    # fabrickey - fabric key WWN(it can be retrived
+    #          using the fabrics methond
     #
     # ==== Returns
     #
@@ -208,7 +212,8 @@ module BrocadeAPIClient
 
     # Get all Zones in a Fabric( defined)
     # Input:
-    # rgkey: - resource group ID(it can be retrived usint the resource method(ussualy the of the Fabric)
+    # rgkey: - resource group ID(it can be retrived using
+    #         the resource method(ussualy the of the Fabric)
     # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
     #
     # ==== Returns
@@ -218,5 +223,8 @@ module BrocadeAPIClient
       result = @zones.allzonesinfabric(rgkey, fabrickey, zones: 'defined')
       result[1]
     end
+
+    private :init_log
+
   end
 end

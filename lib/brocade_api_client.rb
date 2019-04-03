@@ -11,6 +11,7 @@
 
 require 'BrocadeAPIClient/version'
 
+# Brocade Module for API calls
 module BrocadeAPIClient
   require 'BrocadeAPIClient/exceptions'
   require 'BrocadeAPIClient/client'

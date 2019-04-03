@@ -2,11 +2,13 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 #
-# Unless required by applicable law or agreed to in writing, software distributed
+# Unless required by applicable law or agreed to in writing,
+# software distributed
 # under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 module BrocadeAPIClient
+  # Brocade Exception Classes
   class BrocadeException < StandardError
     attr_reader :message, :code, :ref, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
@@ -30,33 +32,43 @@ module BrocadeAPIClient
       super(formatted_string)
     end
   end
+
   class UnsupportedVersion < BrocadeException
   end
+
+  # Failed SSL cert class
   class SSLCertFailed < BrocadeException
     @http_status = ''
     @message = 'SSL Certificate Verification Failed'
   end
+
   class RequestException < BrocadeException
     # There was an ambiguous exception that occurred in Requests
   end
+
   class ConnectionError < BrocadeException
     # There was an error connecting to the server
   end
+
   class HTTPError < BrocadeException
     # An HTTP error occurred
   end
+
   class URLRequired < BrocadeException
     # A valid URL is required to make a request
   end
+
   class TooManyRedirects < BrocadeException
     # Too many redirects
   end
+
   class Timeout < BrocadeException
     # The request timed out
   end
-# 400 Errors
+
+  # 400 Errors
+  # HTTP 400 - Bad request: you sent some malformed data.
   class HTTPBadRequest < BrocadeException
-    # HTTP 400 - Bad request: you sent some malformed data.
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 400
@@ -66,9 +78,10 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 401 - Unauthorized: bad credentials.
   class HTTPUnauthorized < BrocadeException
     attr_reader :message, :http_status
-    # HTTP 401 - Unauthorized: bad credentials.
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 401
       @message = 'Unauthorized'
@@ -77,9 +90,10 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 403 - Forbidden: your credentials don't give you access to this
+  # resource.
   class HTTPForbidden < BrocadeException
-    # HTTP 403 - Forbidden: your credentials don't give you access to this
-    #resource.
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 403
@@ -89,8 +103,9 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 404 - Not found
   class HTTPNotFound < BrocadeException
-    # HTTP 404 - Not found
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 404
@@ -100,8 +115,9 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 405 - Method not Allowed
   class HTTPMethodNotAllowed < BrocadeException
-    # HTTP 405 - Method not Allowed
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 405
@@ -111,8 +127,9 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 406 - Method not Acceptable
   class HTTPNotAcceptable < BrocadeException
-    # HTTP 406 - Method not Acceptable
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 406
@@ -122,8 +139,9 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 407 - The client must first authenticate itself with the proxy.
   class HTTPProxyAuthRequired < BrocadeException
-    # HTTP 407 - The client must first authenticate itself with the proxy.
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 407
@@ -133,10 +151,11 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 408 - The server timed out waiting for the request.
   class HTTPRequestTimeout < BrocadeException
-    # HTTP 408 - The server timed out waiting for the request.
     attr_reader :message, :http_status
-    def initialize(code = nil, message = nil, ref = nil, http_status= nil)
+    def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 408
       @message = 'Request Timeout'
       super(code, message.nil? ? @message : message,
@@ -144,8 +163,9 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 409 - Conflict: A Conflict happened on the server
   class HTTPConflict < BrocadeException
-    # HTTP 409 - Conflict: A Conflict happened on the server
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 409
@@ -155,9 +175,10 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 410 - Indicates that the resource requested is
+  # no longer available and will not be available again.
   class HTTPGone < BrocadeException
-    # HTTP 410 - Indicates that the resource requested is no longer available and
-    #           will not be available again.
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 410
@@ -167,9 +188,10 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 411 - The request did not specify the length of its content, which is
+  #           required by the requested resource.
   class HTTPLengthRequired < BrocadeException
-    # HTTP 411 - The request did not specify the length of its content, which is
-    #           required by the requested resource.
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 411
@@ -179,9 +201,10 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 412 - The server does not meet one of the preconditions that the
+  #           requester put on the request.
   class HTTPPreconditionFailed < BrocadeException
-    # HTTP 412 - The server does not meet one of the preconditions that the
-    #           requester put on the request.
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 412
@@ -191,9 +214,10 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 413 - The request is larger than the server is willing or able to
+  #           process
   class HTTPRequestEntityTooLarge < BrocadeException
-    # HTTP 413 - The request is larger than the server is willing or able to
-    #           process
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 413
@@ -203,8 +227,9 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 414 - The URI provided was too long for the server to process.
   class HTTPRequestURITooLong < BrocadeException
-    # HTTP 414 - The URI provided was too long for the server to process.
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 414
@@ -214,9 +239,10 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 415 - The request entity has a media type which the server or resource
+  #           does not support.
   class HTTPUnsupportedMediaType < BrocadeException
-    # HTTP 415 - The request entity has a media type which the server or resource
-    #           does not support.
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 415
@@ -226,9 +252,10 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 416 - The client has asked for a portion of the file, but the server
+  #           cannot supply that portion.
   class HTTPRequestedRangeNotSatisfiable < BrocadeException
-    # HTTP 416 - The client has asked for a portion of the file, but the server
-    #           cannot supply that portion.
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 416
@@ -238,9 +265,10 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 417 - The server cannot meet the requirements of the Expect
+  #           request-header field.
   class HTTPExpectationFailed < BrocadeException
-    # HTTP 417 - The server cannot meet the requirements of the Expect
-    #           request-header field.
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 417
@@ -250,8 +278,9 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 418 - I'm a Tea Pot
   class HTTPTeaPot < BrocadeException
-    # HTTP 418 - I'm a Tea Pot
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 418
@@ -261,9 +290,9 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
-# 500 Errors
+  # 500 Errors
+  # HTTP 500 - Internal Server Error: an internal error occured.
   class HTTPInternalServerError < BrocadeException
-    # HTTP 500 - Internal Server Error: an internal error occured.
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 500
@@ -273,8 +302,9 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 501 - Not Implemented: the server does not support this operation.
   class HTTPNotImplemented < BrocadeException
-    # HTTP 501 - Not Implemented: the server does not support this operation.
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 501
@@ -284,9 +314,10 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 502 - The server was acting as a gateway or proxy and received an
+  #           invalid response from the upstream server.
   class HTTPBadGateway < BrocadeException
-    # HTTP 502 - The server was acting as a gateway or proxy and received an
-    #           invalid response from the upstream server.
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 502
@@ -296,10 +327,11 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 503 - The server is currently unavailable
   class HTTPServiceUnavailable < BrocadeException
-    # HTTP 503 - The server is currently unavailable
     attr_reader :message, :http_status
-    def initialize(code = nil, message =nil, ref =nil, http_status=nil)
+    def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 503
       @message = 'Service Unavailable'
       super(code, message.nil? ? @message : message,
@@ -307,11 +339,12 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 504 - The server was acting as a gateway or proxy and did
+  #          not receive a timely response from the upstream server.
   class HTTPGatewayTimeout < BrocadeException
-    # HTTP 504 - The server was acting as a gateway or proxy and did
-    #          not receive a timely response from the upstream server.
     attr_reader :message, :http_status
-    def initialize(code = nil, message =nil, ref =nil, http_status=nil)
+    def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 504
       @message = 'Gateway Timeout'
       super(code, message.nil? ? @message : message,
@@ -319,11 +352,12 @@ module BrocadeAPIClient
             http_status.nil? ? @http_status : http_status)
     end
   end
+
+  # HTTP 505 - The server does not support the HTTP protocol version used
+  #           in the request.
   class HTTPVersionNotSupported < BrocadeException
-    # HTTP 505 - The server does not support the HTTP protocol version used
-    #           in the request.
     attr_reader :message, :http_status
-    def initialize(code = nil, message =nil, ref =nil, http_status=nil)
+    def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 505
       @message = 'Version Not Supported'
       super(code, message.nil? ? @message : message,

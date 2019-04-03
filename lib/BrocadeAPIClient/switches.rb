@@ -2,13 +2,14 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 #
-# Unless required by applicable law or agreed to in writing, software distributed
+# Unless required by applicable law or agreed to in writing,
+# software distributed
 # under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
 module BrocadeAPIClient
-  #Switches REST API Methods
+  # Switches REST API Methods
   class Switches
     def initialize(http_client)
       @http_client = http_client
@@ -17,12 +18,12 @@ module BrocadeAPIClient
 
     def fabricswitches(fabricid)
       api_url = @base_url + '/fcfabrics/' + fabricid + '/fcswitches'
-      _response,_body = @http_client.get(api_url)
+      _response, _body = @http_client.get(api_url)
     end
 
     def allswitches
       api_url =  @base_url + '/fcswitches'
-      response,body = @http_client.get(api_url)
+      _response, _body = @http_client.get(api_url)
     end
   end
 end

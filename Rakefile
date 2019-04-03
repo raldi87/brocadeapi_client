@@ -1,5 +1,5 @@
-require "bundler/gem_tasks"
-require "rspec/core/rake_task"
+require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
 
 task :console do
   exec 'irb -r BrocadeAPIClient -I ./lib'
@@ -29,8 +29,8 @@ namespace :build do
       puts '', 'Rubocop Task started....'
       # task.patterns = ['lib/**/*.rb']
       task.fail_on_error = false
-      task.formatters = ['html']
-      task.options = ['--out', 'rubocop_report.html']
+      task.formatters = ['simple']
+      task.options = ['--out', 'rubocop_report.txt']
     end
   rescue LoadError => le
     # no rspec available
