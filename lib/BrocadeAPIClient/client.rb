@@ -21,7 +21,7 @@ module BrocadeAPIClient
     def initialize(api_url, debug: false, secure: false, timeout: nil, app_type: 'ruby_brocade', log_file_path: nil)
       unless api_url.is_a?(String)
         raise BrocadeAPIClient::BrocadeException.new(nil,
-          "'api_url' parameter is mandatory and should be of type String")
+                                                     "'api_url' parameter is mandatory and should be of type String")
       end
       @api_url = api_url
       @debug = debug
@@ -41,18 +41,6 @@ module BrocadeAPIClient
       @ports = Ports.new(@http)
       @zones = Zones.new(@http)
       @app_type = app_type
-    end
-
-    def init_log
-      # Create Logger
-      unless @log_file_path.nil?
-        @client_logger = Logger.new(@log_file_path, 'daily')
-      else
-        @client_logger = Logger.new(STDOUT)
-      end
-      if @debug
-        @log_level = Logger::DEBUG
-      end
     end
 
     def login(username, password, options = nil)
@@ -224,7 +212,16 @@ module BrocadeAPIClient
       result[1]
     end
 
-    private :init_log
+    private
 
+    def init_log
+      # Create Logger
+      @client_logger = if @log_file_path.nil?
+                         Logger.new(STDOUT)
+                       else
+                         Logger.new(@log_file_path, 'daily')
+                       end
+      @log_level = Logger::DEBUG if @debug
+    end
   end
 end

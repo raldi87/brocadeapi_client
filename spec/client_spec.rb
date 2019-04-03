@@ -41,12 +41,15 @@ describe 'BrocadeAPIClient::Client' do
 
   it 'validate_getresources' do
     client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
     result = client.resourcegroups
+    puts result
     expect(result.key?('resourceGroups')).to eq(true)
   end
 
   it 'validate_getfabrics' do
     client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
     result = client.fabrics
     expect(result.key?('fcFabrics')).to eq(true)
   end
@@ -54,12 +57,14 @@ describe 'BrocadeAPIClient::Client' do
   it 'validate_getfabrics_withinput' do
     input = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
     result = client.fabric(input)
     expect(result['fcFabrics'][0]['key']).to eq(input)
   end
 
   it 'validate_getallswitches' do
     client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
     result = client.allswitches
     expect(result.key?('fcSwitches')).to eq(true)
   end
@@ -67,6 +72,7 @@ describe 'BrocadeAPIClient::Client' do
   it 'validate_getfabricswitches' do
     input = '10:00:00:05:1E:A5:59:B3'
     client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
     result = client.fabricswitches(input)
     expect(result.key?('fcSwitches')).to eq(true)
   end

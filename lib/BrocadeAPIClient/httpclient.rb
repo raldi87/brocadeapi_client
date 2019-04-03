@@ -45,11 +45,13 @@ module BrocadeAPIClient
     end
 
     def authenticate(user, password, _optional = nil)
+      @username = user
+      @pasword = password
       @session_key = nil
       auth_url = '/login'
-      headers, body = post(auth_url)
+      headers, _body = post(auth_url)
       @session_key = headers['WStoken']
-    rescue => ex
+    rescue StandardError => ex
       @client_logger.error('cannot login')
     end
 
@@ -120,7 +122,7 @@ module BrocadeAPIClient
       unless @session_key.nil?
         begin
           post('/logout')
-        rescue
+        rescue StandardError
           @session_key = nil
           @client_logger.error('Logout')
         end
@@ -133,8 +135,8 @@ module BrocadeAPIClient
         kwargs['headers'] = kwargs.fetch('headers', {})
         kwargs['headers'][SESSION_COOKIE_NAME] = session_key
       else
-        kwargs['headers']['WSUsername'] = 'radud'
-        kwargs['headers']['WSPassword'] = 'radud'
+        kwargs['headers']['WSUsername'] = @username
+        kwargs['headers']['WSPassword'] = @username
       end
       kwargs['headers']['User-Agent'] = USER_AGENT
       kwargs['headers']['Accept'] = ACCEPT_TYPE

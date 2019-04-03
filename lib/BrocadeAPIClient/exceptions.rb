@@ -17,18 +17,10 @@ module BrocadeAPIClient
       @ref = ref
       @http_status = http_status
       formatted_string = 'Error: '
-      if @http_status
-        formatted_string += ' (HTTP %s)' % @http_status
-      end
-      if @code
-        formatted_string += ' API code: %s' % @code
-      end
-      if @message
-        formatted_string += ' - %s' % @message
-      end
-      if @ref
-        formatted_string += ' - %s' % @ref
-      end
+      formatted_string += format(' (HTTP %s)', @http_status) if @http_status
+      formatted_string += format(' API code: %s', @code) if @code
+      formatted_string += format(' - %s', @message) if @message
+      formatted_string += format(' - %s', @ref) if @ref
       super(formatted_string)
     end
   end
@@ -367,28 +359,28 @@ module BrocadeAPIClient
   end
   attr_accessor :code_map
   @@code_map = Hash.new('BrocadeException')
-  exp = ['HTTPBadRequest', 'HTTPUnauthorized',
-         'HTTPForbidden', 'HTTPNotFound', 'HTTPMethodNotAllowed',
-         'HTTPNotAcceptable', 'HTTPProxyAuthRequired',
-         'HTTPRequestTimeout', 'HTTPConflict', 'HTTPGone',
-         'HTTPLengthRequired', 'HTTPPreconditionFailed',
-         'HTTPRequestEntityTooLarge', 'HTTPRequestURITooLong',
-         'HTTPUnsupportedMediaType', 'HTTPRequestedRangeNotSatisfiable',
-         'HTTPExpectationFailed', 'HTTPTeaPot',
-         'HTTPNotImplemented', 'HTTPBadGateway',
-         'HTTPServiceUnavailable', 'HTTPGatewayTimeout',
-         'HTTPVersionNotSupported', 'HTTPInternalServerError']
+  exp = %w[HTTPBadRequest HTTPUnauthorized
+           HTTPForbidden HTTPNotFound HTTPMethodNotAllowed
+           HTTPNotAcceptable HTTPProxyAuthRequired
+           HTTPRequestTimeout HTTPConflict HTTPGone
+           HTTPLengthRequired HTTPPreconditionFailed
+           HTTPRequestEntityTooLarge HTTPRequestURITooLong
+           HTTPUnsupportedMediaType HTTPRequestedRangeNotSatisfiable
+           HTTPExpectationFailed HTTPTeaPot
+           HTTPNotImplemented HTTPBadGateway
+           HTTPServiceUnavailable HTTPGatewayTimeout
+           HTTPVersionNotSupported HTTPInternalServerError]
   exp.each do |c|
     inst = BrocadeAPIClient.const_get(c).new
     @@code_map[inst.http_status] = c
   end
-  def self.exception_from_response(response, body)
+  def self.exception_from_response(response, _body)
     # Return an instance of an ClientException
     #
     cls = @@code_map[response.code]
     code = nil
     msg = nil
     ref = nil
-    return BrocadeAPIClient.const_get(cls).new(code, msg, ref, response.code)
+    BrocadeAPIClient.const_get(cls).new(code, msg, ref, response.code)
   end
 end
