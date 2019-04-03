@@ -1,10 +1,19 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed
+# under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+# CONDITIONS OF ANY KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations under the License.
 require 'httparty'
 require 'json'
 require 'logger'
 require_relative 'exceptions'
 
-
-module BrocadeAPI_client
+module BrocadeAPIClient
+  # Class for talking to API
   class JSONRestClient
     USER_AGENT = 'ruby-brocadeclient'.freeze
     ACCEPT_TYPE = 'application/vnd.brocade.networkadvisor+json;version=v1'.freeze
@@ -26,6 +35,7 @@ module BrocadeAPI_client
       @httparty_log_format = :curl
       set_debug_flag
     end
+
     # This turns on/off http request/response debugging output to console
     def set_debug_flag
       if @http_log_debug
@@ -33,22 +43,25 @@ module BrocadeAPI_client
         @httparty_log_format = :curl
       end
     end
+
     def authenticate(user, password, _optional = nil)
-      begin
-        @session_key = nil
-        auth_url = '/login'
-        headers, body = post(auth_url)
-        @session_key = headers['WStoken']
-      rescue => ex
-        @client_logger.error("cannot login")
-      end
+      @username = user
+      @pasword = password
+      @session_key = nil
+      auth_url = '/login'
+      headers, _body = post(auth_url)
+      @session_key = headers['WStoken']
+    rescue StandardError => ex
+      @client_logger.error('cannot login')
     end
-    def set_url(api_url)
+
+    def url(api_url)
       # should be http://<Server:Port>/api/v1
       @api_url = api_url.chomp('/')
     end
+
     def get(url, **kwargs)
-      headers, payload = get_headers_and_payload(kwargs)
+      headers, _payload = get_headers_and_payload(kwargs)
       response = HTTParty.get(api_url + url,
                               headers: headers,
                               verify: false, logger: @client_logger,
@@ -56,17 +69,19 @@ module BrocadeAPI_client
                               log_format: @httparty_log_format)
       process_response(response)
     end
+
     def post(url, **kwargs)
       headers, payload = get_headers_and_payload(kwargs)
       response = HTTParty.post(api_url + url,
                                headers: headers,
                                body: payload,
-                               verify: false, 
+                               verify: false,
                                logger: @client_logger,
                                log_level: @httparty_log_level,
                                log_format: @httparty_log_format)
       process_response(response)
     end
+
     def put(url, **kwargs)
       headers, payload = get_headers_and_payload(kwargs)
       response = HTTParty.put(api_url + url,
@@ -77,8 +92,9 @@ module BrocadeAPI_client
                               log_format: @httparty_log_format)
       process_response(response)
     end
+
     def delete(url, **kwargs)
-      headers, payload = get_headers_and_payload(kwargs)
+      headers, _payload = get_headers_and_payload(kwargs)
       response = HTTParty.delete(api_url + url,
                                  headers: headers,
                                  verify: false, logger: @client_logger,
@@ -86,12 +102,13 @@ module BrocadeAPI_client
                                  log_format: @httparty_log_format)
       process_response(response)
     end
+
     def process_response(response)
       headers = response.headers
       body = response.parsed_response
       if response.code != 200
-        if body.nil? 
-          exception = BrocadeAPI_client.exception_from_response(response, body)
+        if body.nil?
+          exception = BrocadeAPIClient.exception_from_response(response, body)
           puts exception.inspect
           @client_logger.error(exception)
           raise exception
@@ -99,25 +116,27 @@ module BrocadeAPI_client
       end
       [headers, body]
     end
+
     def unauthenticate
       # delete the session on the brocade network advisor
       unless @session_key.nil?
         begin
           post('/logout')
-        rescue => ex
+        rescue StandardError
           @session_key = nil
-          @client_logger.error("Logout")
+          @client_logger.error('Logout')
         end
       end
     end
+
     def get_headers_and_payload(**kwargs)
       kwargs['headers'] = kwargs.fetch('headers', {})
       if session_key
         kwargs['headers'] = kwargs.fetch('headers', {})
         kwargs['headers'][SESSION_COOKIE_NAME] = session_key
       else
-        kwargs['headers']['WSUsername'] = 'radud'
-        kwargs['headers']['WSPassword'] = 'radud'
+        kwargs['headers']['WSUsername'] = @username
+        kwargs['headers']['WSPassword'] = @username
       end
       kwargs['headers']['User-Agent'] = USER_AGENT
       kwargs['headers']['Accept'] = ACCEPT_TYPE

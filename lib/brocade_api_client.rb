@@ -9,12 +9,10 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
-require 'bundler/setup'
-require 'webmock/rspec'
-require_relative 'fake_brocade_api'
+require 'BrocadeAPIClient/version'
 
-RSpec.configure do |config|
-  config.before(:each) do
-    stub_request(:any, /localhost/).to_rack(FakeBrocadeAPI)
-  end
+# Brocade Module for API calls
+module BrocadeAPIClient
+  require 'BrocadeAPIClient/exceptions'
+  require 'BrocadeAPIClient/client'
 end
