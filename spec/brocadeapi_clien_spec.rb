@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-RSpec.describe BrocadeAPI_client do
+RSpec.describe BrocadeAPIClient do
   it "has a version number" do
-    expect(BrocadeAPI_client::VERSION).not_to be nil
+    expect(BrocadeAPIClient::VERSION).not_to be nil
   end
 
 end

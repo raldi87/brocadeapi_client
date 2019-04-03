@@ -14,13 +14,13 @@ require_relative 'ports'
 require_relative 'zones'
 require_relative 'exceptions'
 
-module BrocadeAPI_client
+module BrocadeAPIClient
   class Client
     # Class for connecting to BNA
     attr_reader :http
     def initialize(api_url, debug:false, secure: false, timeout: nil, app_type: 'ruby_brocade', log_file_path: nil)
       unless api_url.is_a?(String)
-        raise BrocadeAPI_client::BrocadeException.new(nil,
+        raise BrocadeAPIClient::BrocadeException.new(nil,
          "'api_url' parameter is mandatory and should be of type String")
       end
       @api_url = api_url
@@ -63,7 +63,7 @@ module BrocadeAPI_client
       # Delete Session on REST API
       begin
         @http.unauthenticate
-        rescue BrocadeAPI_client::BrocadeException => ex
+        rescue BrocadeAPIClient::BrocadeException => ex
           # we dont do anything because Brocade Network Advisor return HTTP 204 if logout is OK and session was deleted
       end
     end

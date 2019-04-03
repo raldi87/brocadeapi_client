@@ -11,11 +11,11 @@
 
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'BrocadeAPI_client/version'
+require 'BrocadeAPIClient/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'brocadeapi_client'
-  spec.version       = BrocadeAPI_client::VERSION
+  spec.name          = 'brocade_api_client'
+  spec.version       = BrocadeAPIClient::VERSION
   spec.authors       = ['Raldi87']
   spec.email         = ['dima.radu.lucian@gmail.com']
 

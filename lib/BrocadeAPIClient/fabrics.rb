@@ -6,23 +6,20 @@
 # under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
-
-module BrocadeAPI_client
-  #Switches REST API Methods
-  class Switches
+module BrocadeAPIClient
+  #Fabrics REST API Methods
+  class Fabrics
     def initialize(http_client)
       @http_client = http_client
-      @base_url = '/resourcegroups/All'
+      @fabrics_url = '/resourcegroups/All/fcfabrics'
     end
 
-    def get_fabricswitches(fabricid)
-      api_url = @base_url + '/fcfabrics/' + fabricid + '/fcswitches'
-      _response,_body = @http_client.get(api_url)
+    def fabrics
+      _response, _body = @http_client.get(@fabrics_url)
     end
 
-    def get_allswitches
-      api_url =  @base_url + '/fcswitches'
-      response,body = @http_client.get(api_url)
+    def fabric(fabricid)
+      _response, _body = @http_client.get(@fabrics_url + '/' + fabricid)
     end
   end
 end

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    brocadeapi_client (0.1.0)
+    brocade_api_client (0.1.0)
       httparty (~> 0.15.7)
 
 GEM
@@ -68,7 +68,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  brocadeapi_client!
+  brocade_api_client!
   bundler (~> 1.16)
   rake (~> 10.0)
   rspec (~> 3.0)

@@ -7,7 +7,7 @@
 # under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
-module BrocadeAPI_client
+module BrocadeAPIClient
   # Ports REST API Methods
   class Ports
     def initialize(http_client)

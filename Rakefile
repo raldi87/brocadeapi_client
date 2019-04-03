@@ -2,7 +2,7 @@ require "bundler/gem_tasks"
 require "rspec/core/rake_task"
 
 task :console do
-  exec 'irb -r BrocadeAPI_client -I ./lib'
+  exec 'irb -r BrocadeAPIClient -I ./lib'
 end
 
 namespace :build do

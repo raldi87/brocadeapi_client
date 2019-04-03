@@ -11,7 +11,7 @@ require 'json'
 require 'logger'
 require_relative 'exceptions'
 
-module BrocadeAPI_client
+module BrocadeAPIClient
   class JSONRestClient
     USER_AGENT = 'ruby-brocadeclient'.freeze
     ACCEPT_TYPE = 'application/vnd.brocade.networkadvisor+json;version=v1'.freeze
@@ -106,7 +106,7 @@ module BrocadeAPI_client
       body = response.parsed_response
       if response.code != 200
         if body.nil?
-          exception = BrocadeAPI_client.exception_from_response(response, body)
+          exception = BrocadeAPIClient.exception_from_response(response, body)
           puts exception.inspect
           @client_logger.error(exception)
           raise exception
