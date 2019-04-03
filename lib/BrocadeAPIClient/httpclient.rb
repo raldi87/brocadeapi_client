@@ -59,7 +59,7 @@ module BrocadeAPIClient
     end
 
     def get(url, **kwargs)
-      headers, payload = get_headers_and_payload(kwargs)
+      headers, _payload = get_headers_and_payload(kwargs)
       response = HTTParty.get(api_url + url,
                               headers: headers,
                               verify: false, logger: @client_logger,
@@ -92,7 +92,7 @@ module BrocadeAPIClient
     end
 
     def delete(url, **kwargs)
-      headers, payload = get_headers_and_payload(kwargs)
+      headers, _payload = get_headers_and_payload(kwargs)
       response = HTTParty.delete(api_url + url,
                                  headers: headers,
                                  verify: false, logger: @client_logger,
