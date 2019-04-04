@@ -17,24 +17,24 @@ require_relative 'exceptions'
 module BrocadeAPIClient
   # Class for connecting to BNA
   class Client
-    attr_reader :http
-    def initialize(api_url, debug: false, secure: false, timeout: nil, app_type: 'ruby_brocade', log_file_path: nil)
+    attr_reader :http, :logger
+    def initialize(api_url, debug: false, secure: false, app_type: 'ruby_brocade', enable_logger: nil, log_file_path: nil)
       unless api_url.is_a?(String)
         raise BrocadeAPIClient::BrocadeException.new(nil,
                                                      "'api_url' parameter is mandatory and should be of type String")
       end
       @api_url = api_url
       @debug = debug
-      puts debug
       @secure = secure
-      @timeout = timeout
       @log_level = Logger::INFO
+      @enable_logger = enable_logger
       @client_logger = nil
       @log_file_path = log_file_path
       init_log
+      puts @client_logger
       @http = JSONRestClient.new(
         @api_url, @secure, @debug,
-        @timeout = nil, @client_logger
+        @client_logger
       )
       @fabrics = Fabrics.new(@http)
       @switches = Switches.new(@http)
@@ -216,11 +216,15 @@ module BrocadeAPIClient
 
     def init_log
       # Create Logger
-      @client_logger = if @log_file_path.nil?
-                         Logger.new(STDOUT)
-                       else
-                         Logger.new(@log_file_path, 'daily')
+      @client_logger = if @enable_logger
+                         if @log_file_path.nil?
+                           Logger.new(STDOUT)
+                         else
+                           Logger.new(@log_file_path, 'daily')
+                         end
+                       else @enable_logger = false
                        end
+
       @log_level = Logger::DEBUG if @debug
     end
   end

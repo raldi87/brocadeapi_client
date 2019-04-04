@@ -24,15 +24,14 @@ module BrocadeAPIClient
     @username = nil
     @password = nil
     def initialize(api_url, secure = false, http_log_debug = false,
-                   timeout = nil, client_logger = nil)
+                   client_logger = nil)
       @api_url = api_url
       @secure = secure
       @http_log_debug = http_log_debug
-      @timeout = timeout
       @session_key = nil
       @client_logger = client_logger
       @httparty_log_level = :info
-      @httparty_log_format = :curl
+      @httparty_log_format = :logstash
       set_debug_flag
     end
 
@@ -109,7 +108,6 @@ module BrocadeAPIClient
       if response.code != 200
         if body.nil?
           exception = BrocadeAPIClient.exception_from_response(response, body)
-          puts exception.inspect
           @client_logger.error(exception)
           raise exception
         end
@@ -124,7 +122,6 @@ module BrocadeAPIClient
           post('/logout')
         rescue StandardError
           @session_key = nil
-          @client_logger.error('Logout')
         end
       end
     end
