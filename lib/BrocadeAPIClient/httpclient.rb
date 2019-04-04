@@ -65,7 +65,7 @@ module BrocadeAPIClient
                               headers: headers,
                               verify: false, logger: @client_logger,
                               log_level: @httparty_log_level,
-                              log_format: @httparty_log_format)
+                              log_format: @client_logger )
       process_response(response)
     end
 

@@ -1,197 +1,30 @@
-E, [2019-03-29T11:29:00.550056 #24789] ERROR -- : cannot login
-E, [2019-03-29T11:30:50.891425 #25104] ERROR -- : cannot login
-I, [2019-04-04T13:29:23.036636 #41193]  INFO -- : [HTTParty] [2019-04-04 13:29:23 +0300] 200 "POST https://dcfm.office.orange.intra/rest/login" - 
-I, [2019-04-04T13:29:23.080473 #41193]  INFO -- : [HTTParty] [2019-04-04 13:29:23 +0300] 200 "GET https://dcfm.office.orange.intra/rest/resourcegroups" - 
-I, [2019-04-04T13:29:23.116938 #41193]  INFO -- : [HTTParty] [2019-04-04 13:29:23 +0300] 204 "POST https://dcfm.office.orange.intra/rest/logout" 0 
-E, [2019-04-04T13:29:23.117063 #41193] ERROR -- :  (BrocadeAPIClient::BrocadeException)
+I, [2019-04-04T14:45:28.647287 #49315]  INFO -- : [HTTParty] [2019-04-04 14:45:28 +0300] 200 "POST https://dcfm.office.orange.intra/rest/login" - 
+I, [2019-04-04T14:45:28.690126 #49315]  INFO -- : [HTTParty] [2019-04-04 14:45:28 +0300] 200 "GET https://dcfm.office.orange.intra/rest/resourcegroups" - 
+I, [2019-04-04T14:45:28.724931 #49315]  INFO -- : [HTTParty] [2019-04-04 14:45:28 +0300] 204 "POST https://dcfm.office.orange.intra/rest/logout" 0 
+E, [2019-04-04T14:45:28.725038 #49315] ERROR -- :  (BrocadeAPIClient::BrocadeException)
 
-E, [2019-04-04T13:29:23.117210 #41193] ERROR -- : Logout
-D, [2019-04-04T13:30:05.593063 #41305] DEBUG -- : [HTTParty] [2019-04-04 13:30:05 +0300] 200 "POST https://dcfm.office.orange.intra/rest/login" - 
-D, [2019-04-04T13:30:05.645245 #41305] DEBUG -- : [HTTParty] [2019-04-04 13:30:05 +0300] 200 "GET https://dcfm.office.orange.intra/rest/resourcegroups" - 
-D, [2019-04-04T13:30:05.685010 #41305] DEBUG -- : [HTTParty] [2019-04-04 13:30:05 +0300] 204 "POST https://dcfm.office.orange.intra/rest/logout" 0 
-E, [2019-04-04T13:30:05.685127 #41305] ERROR -- :  (BrocadeAPIClient::BrocadeException)
+I, [2019-04-04T14:46:27.787618 #49334]  INFO -- : [HTTParty] [2019-04-04 14:46:27 +0300] 200 "POST https://dcfm.office.orange.intra/rest/login" - 
+I, [2019-04-04T14:46:27.828401 #49334]  INFO -- : [HTTParty] [2019-04-04 14:46:27 +0300] 200 "GET https://dcfm.office.orange.intra/rest/resourcegroups" - 
+I, [2019-04-04T14:46:27.866105 #49334]  INFO -- : [HTTParty] [2019-04-04 14:46:27 +0300] 204 "POST https://dcfm.office.orange.intra/rest/logout" 0 
+E, [2019-04-04T14:46:27.866239 #49334] ERROR -- :  (BrocadeAPIClient::BrocadeException)
 
-E, [2019-04-04T13:30:05.685310 #41305] ERROR -- : Logout
-D, [2019-04-04T13:31:46.549225 #41326] DEBUG -- : [HTTParty] [2019-04-04 13:31:46 +0300] 200 "POST https://dcfm.office.orange.intra/rest/login" - 
-D, [2019-04-04T13:31:46.592275 #41326] DEBUG -- : [HTTParty] [2019-04-04 13:31:46 +0300] 200 "GET https://dcfm.office.orange.intra/rest/resourcegroups" - 
-D, [2019-04-04T13:31:46.631545 #41326] DEBUG -- : [HTTParty] [2019-04-04 13:31:46 +0300] 204 "POST https://dcfm.office.orange.intra/rest/logout" 0 
-E, [2019-04-04T13:31:46.631666 #41326] ERROR -- :  (BrocadeAPIClient::BrocadeException)
+I, [2019-04-04T14:47:57.464078 #49620]  INFO -- : [HTTParty] [2019-04-04 14:47:57 +0300] 200 "POST https://dcfm.office.orange.intra/rest/login" - 
+I, [2019-04-04T14:47:57.505738 #49620]  INFO -- : [HTTParty] [2019-04-04 14:47:57 +0300] 200 "GET https://dcfm.office.orange.intra/rest/resourcegroups" - 
+I, [2019-04-04T14:47:57.541850 #49620]  INFO -- : [HTTParty] [2019-04-04 14:47:57 +0300] 204 "POST https://dcfm.office.orange.intra/rest/logout" 0 
+E, [2019-04-04T14:47:57.541959 #49620] ERROR -- :  (BrocadeAPIClient::BrocadeException)
 
-E, [2019-04-04T13:31:46.631750 #41326] ERROR -- : Logout
-D, [2019-04-04T13:32:08.505615 #41340] DEBUG -- : [HTTParty] [2019-04-04 13:32:08 +0300] > POST https://dcfm.office.orange.intra/rest/login
-[HTTParty] [2019-04-04 13:32:08 +0300] > Headers: 
-[HTTParty] [2019-04-04 13:32:08 +0300] > WSUsername: radud
-[HTTParty] [2019-04-04 13:32:08 +0300] > WSPassword: radud
-[HTTParty] [2019-04-04 13:32:08 +0300] > User-Agent: ruby-brocadeclient
-[HTTParty] [2019-04-04 13:32:08 +0300] > Accept: application/vnd.brocade.networkadvisor+json;version=v1
-[HTTParty] [2019-04-04 13:32:08 +0300] > 
-[HTTParty] [2019-04-04 13:32:08 +0300] > 
-[HTTParty] [2019-04-04 13:32:08 +0300] < HTTP/1.1 200
-[HTTParty] [2019-04-04 13:32:08 +0300] < Connection: close
-[HTTParty] [2019-04-04 13:32:08 +0300] < X-powered-by: Undertow/1
-[HTTParty] [2019-04-04 13:32:08 +0300] < Server: WildFly/8
-[HTTParty] [2019-04-04 13:32:08 +0300] < Content-type: application/vnd.brocade.networkadvisor+json;version=v1
-[HTTParty] [2019-04-04 13:32:08 +0300] < Wstoken: rm08UuyF0KJRBsFc3i12+e3k1Ek=
-[HTTParty] [2019-04-04 13:32:08 +0300] < Date: Thu, 04 Apr 2019 10:32:08 GMT
-[HTTParty] [2019-04-04 13:32:08 +0300] < 
-{"serverName":"node1297.prod.orange.intra","serverIp":"172.18.48.216","version":"14.4.2"}
-[HTTParty] [2019-04-04 13:32:08 +0300] < 
-D, [2019-04-04T13:32:08.547453 #41340] DEBUG -- : [HTTParty] [2019-04-04 13:32:08 +0300] > GET https://dcfm.office.orange.intra/rest/resourcegroups
-[HTTParty] [2019-04-04 13:32:08 +0300] > Headers: 
-[HTTParty] [2019-04-04 13:32:08 +0300] > WStoken: rm08UuyF0KJRBsFc3i12+e3k1Ek=
-[HTTParty] [2019-04-04 13:32:08 +0300] > User-Agent: ruby-brocadeclient
-[HTTParty] [2019-04-04 13:32:08 +0300] > Accept: application/vnd.brocade.networkadvisor+json;version=v1
-[HTTParty] [2019-04-04 13:32:08 +0300] > 
-[HTTParty] [2019-04-04 13:32:08 +0300] < HTTP/1.1 200
-[HTTParty] [2019-04-04 13:32:08 +0300] < Connection: close
-[HTTParty] [2019-04-04 13:32:08 +0300] < X-powered-by: Undertow/1
-[HTTParty] [2019-04-04 13:32:08 +0300] < Server: WildFly/8
-[HTTParty] [2019-04-04 13:32:08 +0300] < Content-type: application/vnd.brocade.networkadvisor+json;version=v1
-[HTTParty] [2019-04-04 13:32:08 +0300] < Date: Thu, 04 Apr 2019 10:32:08 GMT
-[HTTParty] [2019-04-04 13:32:08 +0300] < 
-{"resourceGroups":[{"key":"All","name":"All","type":"ALL"},{"key":"Fabric1-FARM2-Cluj","name":"Fabric1-FARM2-Cluj","type":"FC_FABRIC"},{"key":"Fabric0-FARM2-CLUJ","name":"Fabric0-FARM2-CLUJ","type":"FC_FABRIC"},{"key":"Fabric1-Farm1","name":"Fabric1-Farm1","type":"FC_FABRIC"},{"key":"Fabric0-Farm1","name":"Fabric0-Farm1","type":"FC_FABRIC"}]}
-[HTTParty] [2019-04-04 13:32:08 +0300] < 
-D, [2019-04-04T13:32:08.597479 #41340] DEBUG -- : [HTTParty] [2019-04-04 13:32:08 +0300] > POST https://dcfm.office.orange.intra/rest/logout
-[HTTParty] [2019-04-04 13:32:08 +0300] > Headers: 
-[HTTParty] [2019-04-04 13:32:08 +0300] > WStoken: rm08UuyF0KJRBsFc3i12+e3k1Ek=
-[HTTParty] [2019-04-04 13:32:08 +0300] > User-Agent: ruby-brocadeclient
-[HTTParty] [2019-04-04 13:32:08 +0300] > Accept: application/vnd.brocade.networkadvisor+json;version=v1
-[HTTParty] [2019-04-04 13:32:08 +0300] > 
-[HTTParty] [2019-04-04 13:32:08 +0300] > 
-[HTTParty] [2019-04-04 13:32:08 +0300] < HTTP/1.1 204
-[HTTParty] [2019-04-04 13:32:08 +0300] < Connection: close
-[HTTParty] [2019-04-04 13:32:08 +0300] < X-powered-by: Undertow/1
-[HTTParty] [2019-04-04 13:32:08 +0300] < Server: WildFly/8
-[HTTParty] [2019-04-04 13:32:08 +0300] < Content-length: 0
-[HTTParty] [2019-04-04 13:32:08 +0300] < Date: Thu, 04 Apr 2019 10:32:08 GMT
-[HTTParty] [2019-04-04 13:32:08 +0300] < 
+I, [2019-04-04T14:48:48.846261 #49631]  INFO -- : [HTTParty] [2019-04-04 14:48:48 +0300] 200 "POST https://dcfm.office.orange.intra/rest/login" - 
+I, [2019-04-04T14:48:48.887099 #49631]  INFO -- : [HTTParty] [2019-04-04 14:48:48 +0300] 200 "GET https://dcfm.office.orange.intra/rest/resourcegroups" - 
+I, [2019-04-04T14:48:48.921907 #49631]  INFO -- : [HTTParty] [2019-04-04 14:48:48 +0300] 204 "POST https://dcfm.office.orange.intra/rest/logout" 0 
+E, [2019-04-04T14:48:48.922073 #49631] ERROR -- :  (BrocadeAPIClient::BrocadeException)
 
-[HTTParty] [2019-04-04 13:32:08 +0300] < 
-E, [2019-04-04T13:32:08.597582 #41340] ERROR -- :  (BrocadeAPIClient::BrocadeException)
+I, [2019-04-04T14:57:07.622100 #50527]  INFO -- : [HTTParty] [2019-04-04 14:57:07 +0300] 200 "POST https://dcfm.office.orange.intra/rest/login" - 
+I, [2019-04-04T14:57:07.687875 #50527]  INFO -- : [HTTParty] [2019-04-04 14:57:07 +0300] 200 "GET https://dcfm.office.orange.intra/rest/resourcegroups" - 
+I, [2019-04-04T14:57:07.859721 #50527]  INFO -- : [HTTParty] [2019-04-04 14:57:07 +0300] 204 "POST https://dcfm.office.orange.intra/rest/logout" 0 
+E, [2019-04-04T14:57:07.859882 #50527] ERROR -- :  (BrocadeAPIClient::BrocadeException)
 
-E, [2019-04-04T13:32:08.597662 #41340] ERROR -- : Logout
-D, [2019-04-04T13:39:38.203991 #42250] DEBUG -- : [HTTParty] [2019-04-04 13:39:38 +0300] > POST https://dcfm.office.orange.intra/rest/login
-[HTTParty] [2019-04-04 13:39:38 +0300] > Headers: 
-[HTTParty] [2019-04-04 13:39:38 +0300] > WSUsername: radud
-[HTTParty] [2019-04-04 13:39:38 +0300] > WSPassword: radud
-[HTTParty] [2019-04-04 13:39:38 +0300] > User-Agent: ruby-brocadeclient
-[HTTParty] [2019-04-04 13:39:38 +0300] > Accept: application/vnd.brocade.networkadvisor+json;version=v1
-[HTTParty] [2019-04-04 13:39:38 +0300] > 
-[HTTParty] [2019-04-04 13:39:38 +0300] > 
-[HTTParty] [2019-04-04 13:39:38 +0300] < HTTP/1.1 200
-[HTTParty] [2019-04-04 13:39:38 +0300] < Connection: close
-[HTTParty] [2019-04-04 13:39:38 +0300] < X-powered-by: Undertow/1
-[HTTParty] [2019-04-04 13:39:38 +0300] < Server: WildFly/8
-[HTTParty] [2019-04-04 13:39:38 +0300] < Content-type: application/vnd.brocade.networkadvisor+json;version=v1
-[HTTParty] [2019-04-04 13:39:38 +0300] < Wstoken: Rrp2OfIk/A1wqxl42xWCxJtfu2Q=
-[HTTParty] [2019-04-04 13:39:38 +0300] < Date: Thu, 04 Apr 2019 10:39:38 GMT
-[HTTParty] [2019-04-04 13:39:38 +0300] < 
-{"serverName":"node1297.prod.orange.intra","serverIp":"172.18.48.216","version":"14.4.2"}
-[HTTParty] [2019-04-04 13:39:38 +0300] < 
-D, [2019-04-04T13:39:38.250914 #42250] DEBUG -- : [HTTParty] [2019-04-04 13:39:38 +0300] > GET https://dcfm.office.orange.intra/rest/resourcegroups
-[HTTParty] [2019-04-04 13:39:38 +0300] > Headers: 
-[HTTParty] [2019-04-04 13:39:38 +0300] > WStoken: Rrp2OfIk/A1wqxl42xWCxJtfu2Q=
-[HTTParty] [2019-04-04 13:39:38 +0300] > User-Agent: ruby-brocadeclient
-[HTTParty] [2019-04-04 13:39:38 +0300] > Accept: application/vnd.brocade.networkadvisor+json;version=v1
-[HTTParty] [2019-04-04 13:39:38 +0300] > 
-[HTTParty] [2019-04-04 13:39:38 +0300] < HTTP/1.1 200
-[HTTParty] [2019-04-04 13:39:38 +0300] < Connection: close
-[HTTParty] [2019-04-04 13:39:38 +0300] < X-powered-by: Undertow/1
-[HTTParty] [2019-04-04 13:39:38 +0300] < Server: WildFly/8
-[HTTParty] [2019-04-04 13:39:38 +0300] < Content-type: application/vnd.brocade.networkadvisor+json;version=v1
-[HTTParty] [2019-04-04 13:39:38 +0300] < Date: Thu, 04 Apr 2019 10:39:38 GMT
-[HTTParty] [2019-04-04 13:39:38 +0300] < 
-{"resourceGroups":[{"key":"All","name":"All","type":"ALL"},{"key":"Fabric1-FARM2-Cluj","name":"Fabric1-FARM2-Cluj","type":"FC_FABRIC"},{"key":"Fabric0-FARM2-CLUJ","name":"Fabric0-FARM2-CLUJ","type":"FC_FABRIC"},{"key":"Fabric1-Farm1","name":"Fabric1-Farm1","type":"FC_FABRIC"},{"key":"Fabric0-Farm1","name":"Fabric0-Farm1","type":"FC_FABRIC"}]}
-[HTTParty] [2019-04-04 13:39:38 +0300] < 
-D, [2019-04-04T13:39:38.289036 #42250] DEBUG -- : [HTTParty] [2019-04-04 13:39:38 +0300] > POST https://dcfm.office.orange.intra/rest/logout
-[HTTParty] [2019-04-04 13:39:38 +0300] > Headers: 
-[HTTParty] [2019-04-04 13:39:38 +0300] > WStoken: Rrp2OfIk/A1wqxl42xWCxJtfu2Q=
-[HTTParty] [2019-04-04 13:39:38 +0300] > User-Agent: ruby-brocadeclient
-[HTTParty] [2019-04-04 13:39:38 +0300] > Accept: application/vnd.brocade.networkadvisor+json;version=v1
-[HTTParty] [2019-04-04 13:39:38 +0300] > 
-[HTTParty] [2019-04-04 13:39:38 +0300] > 
-[HTTParty] [2019-04-04 13:39:38 +0300] < HTTP/1.1 204
-[HTTParty] [2019-04-04 13:39:38 +0300] < Connection: close
-[HTTParty] [2019-04-04 13:39:38 +0300] < X-powered-by: Undertow/1
-[HTTParty] [2019-04-04 13:39:38 +0300] < Server: WildFly/8
-[HTTParty] [2019-04-04 13:39:38 +0300] < Content-length: 0
-[HTTParty] [2019-04-04 13:39:38 +0300] < Date: Thu, 04 Apr 2019 10:39:38 GMT
-[HTTParty] [2019-04-04 13:39:38 +0300] < 
-
-[HTTParty] [2019-04-04 13:39:38 +0300] < 
-E, [2019-04-04T13:39:38.289241 #42250] ERROR -- :  (BrocadeAPIClient::BrocadeException)
-
-E, [2019-04-04T13:39:38.289366 #42250] ERROR -- : Logout
-D, [2019-04-04T13:51:54.958370 #43415] DEBUG -- : [HTTParty] [2019-04-04 13:51:54 +0300] > POST https://dcfm.office.orange.intra/rest/login
-[HTTParty] [2019-04-04 13:51:54 +0300] > Headers: 
-[HTTParty] [2019-04-04 13:51:54 +0300] > WSUsername: radud
-[HTTParty] [2019-04-04 13:51:54 +0300] > WSPassword: radud
-[HTTParty] [2019-04-04 13:51:54 +0300] > User-Agent: ruby-brocadeclient
-[HTTParty] [2019-04-04 13:51:54 +0300] > Accept: application/vnd.brocade.networkadvisor+json;version=v1
-[HTTParty] [2019-04-04 13:51:54 +0300] > 
-[HTTParty] [2019-04-04 13:51:54 +0300] > 
-[HTTParty] [2019-04-04 13:51:54 +0300] < HTTP/1.1 200
-[HTTParty] [2019-04-04 13:51:54 +0300] < Connection: close
-[HTTParty] [2019-04-04 13:51:54 +0300] < X-powered-by: Undertow/1
-[HTTParty] [2019-04-04 13:51:54 +0300] < Server: WildFly/8
-[HTTParty] [2019-04-04 13:51:54 +0300] < Content-type: application/vnd.brocade.networkadvisor+json;version=v1
-[HTTParty] [2019-04-04 13:51:54 +0300] < Wstoken: Tic4QFJ9anStT5Klw9QQc57tdhY=
-[HTTParty] [2019-04-04 13:51:54 +0300] < Date: Thu, 04 Apr 2019 10:51:54 GMT
-[HTTParty] [2019-04-04 13:51:54 +0300] < 
-{"serverName":"node1297.prod.orange.intra","serverIp":"172.18.48.216","version":"14.4.2"}
-[HTTParty] [2019-04-04 13:51:54 +0300] < 
-D, [2019-04-04T13:51:55.003735 #43415] DEBUG -- : [HTTParty] [2019-04-04 13:51:55 +0300] > GET https://dcfm.office.orange.intra/rest/resourcegroups
-[HTTParty] [2019-04-04 13:51:55 +0300] > Headers: 
-[HTTParty] [2019-04-04 13:51:55 +0300] > WStoken: Tic4QFJ9anStT5Klw9QQc57tdhY=
-[HTTParty] [2019-04-04 13:51:55 +0300] > User-Agent: ruby-brocadeclient
-[HTTParty] [2019-04-04 13:51:55 +0300] > Accept: application/vnd.brocade.networkadvisor+json;version=v1
-[HTTParty] [2019-04-04 13:51:55 +0300] > 
-[HTTParty] [2019-04-04 13:51:55 +0300] < HTTP/1.1 200
-[HTTParty] [2019-04-04 13:51:55 +0300] < Connection: close
-[HTTParty] [2019-04-04 13:51:55 +0300] < X-powered-by: Undertow/1
-[HTTParty] [2019-04-04 13:51:55 +0300] < Server: WildFly/8
-[HTTParty] [2019-04-04 13:51:55 +0300] < Content-type: application/vnd.brocade.networkadvisor+json;version=v1
-[HTTParty] [2019-04-04 13:51:55 +0300] < Date: Thu, 04 Apr 2019 10:51:55 GMT
-[HTTParty] [2019-04-04 13:51:55 +0300] < 
-{"resourceGroups":[{"key":"All","name":"All","type":"ALL"},{"key":"Fabric0-FARM2-CLUJ","name":"Fabric0-FARM2-CLUJ","type":"FC_FABRIC"},{"key":"Fabric1-Farm1","name":"Fabric1-Farm1","type":"FC_FABRIC"},{"key":"Fabric0-Farm1","name":"Fabric0-Farm1","type":"FC_FABRIC"},{"key":"Fabric1-FARM2-Cluj","name":"Fabric1-FARM2-Cluj","type":"FC_FABRIC"}]}
-[HTTParty] [2019-04-04 13:51:55 +0300] < 
-D, [2019-04-04T13:51:55.044503 #43415] DEBUG -- : [HTTParty] [2019-04-04 13:51:55 +0300] > POST https://dcfm.office.orange.intra/rest/logout
-[HTTParty] [2019-04-04 13:51:55 +0300] > Headers: 
-[HTTParty] [2019-04-04 13:51:55 +0300] > WStoken: Tic4QFJ9anStT5Klw9QQc57tdhY=
-[HTTParty] [2019-04-04 13:51:55 +0300] > User-Agent: ruby-brocadeclient
-[HTTParty] [2019-04-04 13:51:55 +0300] > Accept: application/vnd.brocade.networkadvisor+json;version=v1
-[HTTParty] [2019-04-04 13:51:55 +0300] > 
-[HTTParty] [2019-04-04 13:51:55 +0300] > 
-[HTTParty] [2019-04-04 13:51:55 +0300] < HTTP/1.1 204
-[HTTParty] [2019-04-04 13:51:55 +0300] < Connection: close
-[HTTParty] [2019-04-04 13:51:55 +0300] < X-powered-by: Undertow/1
-[HTTParty] [2019-04-04 13:51:55 +0300] < Server: WildFly/8
-[HTTParty] [2019-04-04 13:51:55 +0300] < Content-length: 0
-[HTTParty] [2019-04-04 13:51:55 +0300] < Date: Thu, 04 Apr 2019 10:51:55 GMT
-[HTTParty] [2019-04-04 13:51:55 +0300] < 
-
-[HTTParty] [2019-04-04 13:51:55 +0300] < 
-E, [2019-04-04T13:51:55.044648 #43415] ERROR -- :  (BrocadeAPIClient::BrocadeException)
-
-E, [2019-04-04T13:51:55.044765 #43415] ERROR -- : Logout
-I, [2019-04-04T13:57:35.112032 #44056]  INFO -- : [HTTParty] [2019-04-04 13:57:35 +0300] 200 "POST https://dcfm.office.orange.intra/rest/login" - 
-I, [2019-04-04T13:57:35.158947 #44056]  INFO -- : [HTTParty] [2019-04-04 13:57:35 +0300] 200 "GET https://dcfm.office.orange.intra/rest/resourcegroups" - 
-I, [2019-04-04T13:57:35.195543 #44056]  INFO -- : [HTTParty] [2019-04-04 13:57:35 +0300] 204 "POST https://dcfm.office.orange.intra/rest/logout" 0 
-E, [2019-04-04T13:57:35.195684 #44056] ERROR -- :  (BrocadeAPIClient::BrocadeException)
-
-E, [2019-04-04T13:57:35.195839 #44056] ERROR -- : Logout
-I, [2019-04-04T14:30:28.044357 #47722]  INFO -- : [HTTParty] [2019-04-04 14:30:28 +0300] 200 "POST https://dcfm.office.orange.intra/rest/login" - 
-I, [2019-04-04T14:30:28.087299 #47722]  INFO -- : [HTTParty] [2019-04-04 14:30:28 +0300] 200 "GET https://dcfm.office.orange.intra/rest/resourcegroups" - 
-I, [2019-04-04T14:30:28.125267 #47722]  INFO -- : [HTTParty] [2019-04-04 14:30:28 +0300] 204 "POST https://dcfm.office.orange.intra/rest/logout" 0 
-E, [2019-04-04T14:30:28.125459 #47722] ERROR -- :  (BrocadeAPIClient::BrocadeException)
-
-I, [2019-04-04T14:35:37.450279 #48261]  INFO -- : [HTTParty] [2019-04-04 14:35:37 +0300] 200 "POST https://dcfm.office.orange.intra/rest/login" - 
-I, [2019-04-04T14:35:37.492296 #48261]  INFO -- : [HTTParty] [2019-04-04 14:35:37 +0300] 200 "GET https://dcfm.office.orange.intra/rest/resourcegroups" - 
-I, [2019-04-04T14:35:37.529281 #48261]  INFO -- : [HTTParty] [2019-04-04 14:35:37 +0300] 204 "POST https://dcfm.office.orange.intra/rest/logout" 0 
-E, [2019-04-04T14:35:37.529384 #48261] ERROR -- :  (BrocadeAPIClient::BrocadeException)
-
-I, [2019-04-04T14:38:58.349412 #48689]  INFO -- : [HTTParty] [2019-04-04 14:38:58 +0300] 200 "POST https://dcfm.office.orange.intra/rest/login" - 
-I, [2019-04-04T14:38:58.393897 #48689]  INFO -- : [HTTParty] [2019-04-04 14:38:58 +0300] 200 "GET https://dcfm.office.orange.intra/rest/resourcegroups" - 
-I, [2019-04-04T14:38:58.435942 #48689]  INFO -- : [HTTParty] [2019-04-04 14:38:58 +0300] 204 "POST https://dcfm.office.orange.intra/rest/logout" 0 
-E, [2019-04-04T14:38:58.436052 #48689] ERROR -- :  (BrocadeAPIClient::BrocadeException)
+I, [2019-04-04T15:00:10.842406 #50833]  INFO -- : {"@timestamp":"2019-04-04 15:00:10 +0300","@version":1,"content_length":"-","http_method":"POST","message":"[HTTParty] 200 \"POST https://dcfm.office.orange.intra/rest/login\" - ","path":"https://dcfm.office.orange.intra/rest/login","response_code":200,"severity":"info","tags":["HTTParty"]}
+I, [2019-04-04T15:00:10.885647 #50833]  INFO -- : [HTTParty] [2019-04-04 15:00:10 +0300] 200 "GET https://dcfm.office.orange.intra/rest/resourcegroups" - 
+I, [2019-04-04T15:00:10.921546 #50833]  INFO -- : {"@timestamp":"2019-04-04 15:00:10 +0300","@version":1,"content_length":"0","http_method":"POST","message":"[HTTParty] 204 \"POST https://dcfm.office.orange.intra/rest/logout\" 0 ","path":"https://dcfm.office.orange.intra/rest/logout","response_code":204,"severity":"info","tags":["HTTParty"]}
+E, [2019-04-04T15:00:10.921687 #50833] ERROR -- :  (BrocadeAPIClient::BrocadeException)
 

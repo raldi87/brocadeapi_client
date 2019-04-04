@@ -31,7 +31,6 @@ module BrocadeAPIClient
       @client_logger = nil
       @log_file_path = log_file_path
       init_log
-      puts @client_logger
       @http = JSONRestClient.new(
         @api_url, @secure, @debug,
         @client_logger
