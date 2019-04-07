@@ -276,7 +276,7 @@ module BrocadeAPIClient
     attr_reader :message, :http_status
     def initialize(code = nil, message = nil, ref = nil, http_status = nil)
       @http_status = 418
-      @message = 'I' 'm A Teapot. (RFC 2324)'
+      @message = 'I\'m A Teapot. (RFC 2324)'
       super(code, message.nil? ? @message : message,
             ref,
             http_status.nil? ? @http_status : http_status)

@@ -43,7 +43,6 @@ describe 'BrocadeAPIClient::Client' do
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
     result = client.resourcegroups
-    puts result
     expect(result.key?('resourceGroups')).to eq(true)
   end
 
