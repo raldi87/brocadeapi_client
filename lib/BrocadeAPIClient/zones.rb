@@ -29,5 +29,18 @@ module BrocadeAPIClient
       else 'Not supported'
       end
     end
+
+    def zonedbs(fabrickey)
+       api_url = @base_url + 'All/fcfabrics/' + fabrickey + '/zonedbs'
+       puts api_url
+       _response, _body = @http_client.get(api_url)
+    end 
+   
+    def fabricaliases(rgkey, fabrickey)
+       api_url =  @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonealiases'
+       puts api_url
+        _response, _body = @http_client.get(api_url)
+    end
+
   end
 end

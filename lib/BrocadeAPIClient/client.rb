@@ -17,6 +17,7 @@ require_relative 'exceptions'
 module BrocadeAPIClient
   # Class for connecting to BNA
   class Client
+    @http = nil
     attr_reader :http, :logger
     def initialize(api_url, debug: false, secure: false, app_type: 'ruby_brocade', enable_logger: nil, log_file_path: nil)
       unless api_url.is_a?(String)
@@ -210,6 +211,32 @@ module BrocadeAPIClient
       result = @zones.allzonesinfabric(rgkey, fabrickey, zones: 'defined')
       result[1]
     end
+   
+    # Get Zone DB in a fabric(active and defined)
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    #
+    # ==== Returns
+    #
+    # Hash - Key zones  , Value Array of Hashes with all zones
+    def zonedbs(fabrickey)
+      result = @zones.zonedbs(fabrickey)
+      result[1]
+    end
+    
+    # Get Zone Aliases in a fabric
+    # Input:
+    # rgkey: - resource group ID(it can be retrived using
+    #        the resource method(ussualy the of the Fabric)
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    #
+    # ==== Returns
+    #
+    # Hash - Key zoneAliases , Value Array of Hashes with all aliases
+    def fabricaliases(rgkey, fabrickey)
+      result = @zones.fabricaliases(rgkey, fabrickey)
+      result[1]
+    end
 
     private
 
@@ -226,5 +253,6 @@ module BrocadeAPIClient
 
       @log_level = Logger::DEBUG if @debug
     end
+   
   end
 end
