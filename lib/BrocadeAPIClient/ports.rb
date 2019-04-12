@@ -16,7 +16,8 @@ module BrocadeAPIClient
     end
 
     def allports
-      api_url = @base_url + '/fcports'
+      api_url = @base_url + 'All/fcports'
+       puts api_url
       _response, _body = @http_client.get(api_url)
     end
 

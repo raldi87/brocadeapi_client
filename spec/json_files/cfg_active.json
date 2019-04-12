@@ -1,0 +1,16 @@
+{  
+   "zonesets":[  
+      {  
+         "key":"cfg_perhba-true",
+         "name":"cfg_perhba",
+         "active":true,
+         "zoneNames":[  
+            "z_test1",
+            "z_test2",
+            "z_test3",
+            "z_test4",
+            "z_test5"
+         ]
+      }
+   ]
+}

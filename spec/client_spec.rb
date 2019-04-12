@@ -75,4 +75,22 @@ describe 'BrocadeAPIClient::Client' do
     result = client.fabricswitches(input)
     expect(result.key?('fcSwitches')).to eq(true)
   end
+
+  it 'validate_getallports' do
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.allports
+    expect(result.key?('fcPorts')).to eq(true)
+  end
+
+  it 'validate_portstate' do
+    rgkey = '10:00:50:EB:1A:A8:2C:54'
+    skey = '10:00:50:EB:1A:A8:2C:54'
+    ports = ['10:00:00:00:00:00','10:00:00:00:00:01']
+    state = 'enable'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.change_portstates(rgkey,skey,ports,state)
+  end
+
 end

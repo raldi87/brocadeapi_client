@@ -39,11 +39,26 @@ class FakeBrocadeAPI < Sinatra::Base
     json_response 200, 'switches.json'
   end
 
+  get '/rest/resourcegroups/All/fcports' do
+    json_response 200, 'ports.json'
+  end
+
+  post '/rest/resourcegroups/*/fcswitches/*/fcports/fcportstate' do
+    content_type :json
+    hashkey = [ 'fcPortState','fcPortWWNs' ]
+    post_response 200, JSON.parse(request.body.read), hashkey 
+  end
+
   private
 
   def json_response(response_code, file_name)
     content_type :json
     status response_code
     File.open(File.dirname(__FILE__) + '/json_files/' + file_name, 'rb').read
+  end
+
+  def post_response(response_code,post_input,hashkeys)
+    content_type :json
+    status 200 if( post_input.key?(hashkeys[0]) && post_input.key(hashkeys[1]))
   end
 end
