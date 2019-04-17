@@ -143,7 +143,7 @@ describe 'BrocadeAPIClient::Client' do
     expect(result.key?('zones')).to eq(true)
   end
 
-   it 'validate_getzonedbs' do
+  it 'validate_getzonedbs' do
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
@@ -165,7 +165,7 @@ describe 'BrocadeAPIClient::Client' do
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.cfgshow(rgkey, fckey,'active')
+    result = client.cfgshow(rgkey, fckey, 'active')
     expect(result.key?('zonesets')).to eq(true)
   end
 
@@ -174,7 +174,7 @@ describe 'BrocadeAPIClient::Client' do
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.cfgshow(rgkey, fckey,'defined')
+    result = client.cfgshow(rgkey, fckey, 'defined')
     expect(result.key?('zonesets')).to eq(true)
   end
 end

@@ -30,7 +30,7 @@ class FakeBrocadeAPI < Sinatra::Base
   get '/rest/resourcegroups/All/fcfabrics/*/fcswitches' do
     json_response 200, 'switches.json'
   end
-  
+
   get '/rest/resourcegroups/All/fcfabrics/*/zonedbs' do
     json_response 200, 'zonedbs.json'
   end
@@ -54,13 +54,13 @@ class FakeBrocadeAPI < Sinatra::Base
   get '/rest/resourcegroups/*/fcfabrics/*/zonealiases' do
     json_response 200, 'aliases.json'
   end
- 
+
   get '/rest/resourcegroups/*/fcfabrics/*/zonesets' do
     p params[:active]
     if params[:active]
-    json_response 200, 'cfg_active.json' 
+      json_response 200, 'cfg_active.json'
     else
-    json_response 200, 'cfg_defined.json'
+      json_response 200, 'cfg_defined.json'
     end
   end
 
