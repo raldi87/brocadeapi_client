@@ -17,7 +17,7 @@ module BrocadeAPIClient
 
     def allports
       api_url = @base_url + 'All/fcports'
-       puts api_url
+      puts api_url
       _response, _body = @http_client.get(api_url)
     end
 
@@ -30,6 +30,7 @@ module BrocadeAPIClient
     end
 
     def change_persistentportstates(rgkey, switchwwn, portwwns, state)
+      payload = {}
       api_url = @base_url + rgkey + '/fcswitches/' + switchwwn + '/fcports/fcportpersistentstate'
       payload['fcPortState'] = state
       payload['fcPortWWNs'] = portwwns
@@ -40,6 +41,7 @@ module BrocadeAPIClient
       porthash = {}
       portarray = []
       api_url = @base_url + rgkey + '/fcswitches/' + switchwwn + '/fcports/fcportnames'
+      p api_url
       porthash['fcPortWWN'] = portwwn
       porthash['fcPortName'] = portname
       portarray.push(porthash)

@@ -1,0 +1,101 @@
+{  
+   "zones":[  
+      {  
+         "key":"z_test1-false",
+         "name":"z_test1",
+         "type":"STANDARD",
+         "active":false,
+         "aliasNames":[  
+
+         ],
+         "memberNames":[  
+
+         ],
+         "peerZone":true,
+         "peerZoneDetails":{  
+            "principalAliasName":[  
+
+            ],
+            "principalMemberName":[  
+               "20:24:00:02:AC:01:56:ED",
+               "21:22:00:02:AC:01:56:ED"
+            ],
+            "peerMembers":{  
+               "peerAliasName":[  
+
+               ],
+               "peerMemberName":[  
+                  "51:40:2E:C0:11:0B:27:BE",
+                  "51:40:2E:C0:11:0B:26:98",
+                  "51:40:2E:C0:11:0B:26:9A"
+               ]
+            }
+         }
+      },
+      {  
+         "key":"z_test2-false",
+         "name":"z_test2",
+         "type":"STANDARD",
+         "active":false,
+         "aliasNames":[  
+            "testalias_p1",
+            "testalias_p2"
+         ],
+         "memberNames":[  
+
+         ],
+         "peerZone":false,
+         "peerZoneDetails":{  
+            "principalAliasName":[  
+
+            ],
+            "principalMemberName":[  
+
+            ],
+            "peerMembers":{  
+               "peerAliasName":[  
+
+               ],
+               "peerMemberName":[  
+
+               ]
+            }
+         }
+      },
+      {  
+         "key":"z_test3-false",
+         "name":"z_test3",
+         "type":"STANDARD",
+         "active":false,
+         "aliasNames":[  
+
+         ],
+         "memberNames":[  
+
+         ],
+         "peerZone":true,
+         "peerZoneDetails":{  
+            "principalAliasName":[  
+
+            ],
+            "principalMemberName":[  
+               "20:21:00:02:AC:01:5B:19",
+               "23:21:00:02:AC:01:5B:19",
+               "23:23:00:02:AC:01:5B:19"
+            ],
+            "peerMembers":{  
+               "peerAliasName":[  
+
+               ],
+               "peerMemberName":[  
+                  "10:00:70:10:6F:40:00:8A",
+                  "10:00:70:10:6F:40:00:8B",
+                  "10:00:94:57:A5:A6:EF:76",
+                  "10:00:94:57:A5:A6:EF:77",
+                  "10:00:94:57:A5:A6:AF:DB"
+               ]
+            }
+        }
+      }
+   ]
+}

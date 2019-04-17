@@ -1,0 +1,26 @@
+
+{  
+   "zoneAliases":[  
+      {  
+         "key":"Alias_00",
+         "name":"Alias_00",
+         "memberNames":[  
+            "50:01:04:F0:00:91:19:C5"
+         ]
+      },
+      {  
+         "key":"Alias_01",
+         "name":"Alias_01",
+         "memberNames":[  
+            "50:01:04:F0:00:91:19:CE"
+         ]
+      },
+      {  
+         "key":"Alias_02",
+         "name":"Alias_02",
+         "memberNames":[  
+            "50:01:04:F0:00:91:19:F5"
+         ]
+      }
+   ]
+}

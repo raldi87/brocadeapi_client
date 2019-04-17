@@ -31,32 +31,31 @@ module BrocadeAPIClient
     end
 
     def zonedbs(fabrickey)
-       api_url = @base_url + 'All/fcfabrics/' + fabrickey + '/zonedbs'
-       puts api_url
-       _response, _body = @http_client.get(api_url)
-    end 
-   
-    def alishow(rgkey, fabrickey)
-       api_url =  @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonealiases'
-       puts api_url
-        _response, _body = @http_client.get(api_url)
-    end
-    
-    def cfgshow(rgkey, fabrickey, type)
-       puts rgkey
-       puts fabrickey
-       puts type
-       if type == 'all'
-         api_url =  @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonesets'
-       elsif type == 'active'
-         api_url =  @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonesets?active=true'
-       elsif type == 'defined'
-         api_url =  @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonesets?active=false'
-       else puts 'Not supported'
-       end
-       puts api_url
-       _response, _body = @http_client.get(api_url)
+      api_url = @base_url + 'All/fcfabrics/' + fabrickey + '/zonedbs'
+      puts api_url
+      _response, _body = @http_client.get(api_url)
     end
 
+    def alishow(rgkey, fabrickey)
+      api_url = @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonealiases'
+      puts api_url
+      _response, _body = @http_client.get(api_url)
+    end
+
+    def cfgshow(rgkey, fabrickey, type)
+      puts rgkey
+      puts fabrickey
+      puts type
+      if type == 'all'
+        api_url =  @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonesets'
+      elsif type == 'active'
+        api_url =  @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonesets?active=true'
+      elsif type == 'defined'
+        api_url =  @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonesets?active=false'
+      else puts 'Not supported'
+      end
+      puts api_url
+      _response, _body = @http_client.get(api_url)
+    end
   end
 end

@@ -86,11 +86,95 @@ describe 'BrocadeAPIClient::Client' do
   it 'validate_portstate' do
     rgkey = '10:00:50:EB:1A:A8:2C:54'
     skey = '10:00:50:EB:1A:A8:2C:54'
-    ports = ['10:00:00:00:00:00','10:00:00:00:00:01']
+    ports = ['10:00:00:00:00:00', '10:00:00:00:00:01']
     state = 'enable'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.change_portstates(rgkey,skey,ports,state)
+    result = client.change_portstates(rgkey, skey, ports, state)
+    expect(result).to eq(nil)
   end
 
+  it 'validate_persistentportstate' do
+    rgkey = '10:00:50:EB:1A:A8:2C:54'
+    skey = '10:00:50:EB:1A:A8:2C:54'
+    ports = ['10:00:00:00:00:00', '10:00:00:00:00:01']
+    state = 'enable'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.change_persistentportstates(rgkey, skey, ports, state)
+    expect(result).to eq(nil)
+  end
+
+  it 'validate_changeportname' do
+    rgkey = '10:00:50:EB:1A:A8:2C:54'
+    skey = '10:00:50:EB:1A:A8:2C:54'
+    port = '10:00:00:00:00:00'
+    portname = 'testport'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.set_portname(rgkey, skey, port, portname)
+    expect(result).to eq(nil)
+  end
+
+  it 'validate_getallzones_infabric' do
+    rgkey = '10:00:50:EB:1A:A8:2C:54'
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.fabriczones_all(rgkey, fckey)
+    expect(result.key?('zones')).to eq(true)
+  end
+
+  it 'validate_getactivezones_infabric' do
+    rgkey = '10:00:50:EB:1A:A8:2C:54'
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.fabriczones_active(rgkey, fckey)
+    expect(result.key?('zones')).to eq(true)
+  end
+
+  it 'validate_getdefinedzones_infabric' do
+    rgkey = '10:00:50:EB:1A:A8:2C:54'
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.fabriczones_defined(rgkey, fckey)
+    expect(result.key?('zones')).to eq(true)
+  end
+
+   it 'validate_getzonedbs' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.zonedbs(fckey)
+    expect(result.key?('zonedbs')).to eq(true)
+  end
+
+  it 'validate_getaliases_infabric' do
+    rgkey = '10:00:50:EB:1A:A8:2C:54'
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.alishow(rgkey, fckey)
+    expect(result.key?('zoneAliases')).to eq(true)
+  end
+
+  it 'validate_cfgshow_active' do
+    rgkey = '10:00:50:EB:1A:A8:2C:54'
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.cfgshow(rgkey, fckey,'active')
+    expect(result.key?('zonesets')).to eq(true)
+  end
+
+  it 'validate_cfgshow_defined' do
+    rgkey = '10:00:50:EB:1A:A8:2C:54'
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.cfgshow(rgkey, fckey,'defined')
+    expect(result.key?('zonesets')).to eq(true)
+  end
 end

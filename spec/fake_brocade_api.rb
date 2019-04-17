@@ -30,6 +30,10 @@ class FakeBrocadeAPI < Sinatra::Base
   get '/rest/resourcegroups/All/fcfabrics/*/fcswitches' do
     json_response 200, 'switches.json'
   end
+  
+  get '/rest/resourcegroups/All/fcfabrics/*/zonedbs' do
+    json_response 200, 'zonedbs.json'
+  end
 
   get '/rest/resourcegroups/All/fcfabrics/*' do
     json_response 200, 'fabrics_withinput.json'
@@ -43,10 +47,39 @@ class FakeBrocadeAPI < Sinatra::Base
     json_response 200, 'ports.json'
   end
 
+  get '/rest/resourcegroups/*/fcfabrics/*/zones' do
+    json_response 200, 'zones.json'
+  end
+
+  get '/rest/resourcegroups/*/fcfabrics/*/zonealiases' do
+    json_response 200, 'aliases.json'
+  end
+ 
+  get '/rest/resourcegroups/*/fcfabrics/*/zonesets' do
+    p params[:active]
+    if params[:active]
+    json_response 200, 'cfg_active.json' 
+    else
+    json_response 200, 'cfg_defined.json'
+    end
+  end
+
   post '/rest/resourcegroups/*/fcswitches/*/fcports/fcportstate' do
     content_type :json
-    hashkey = [ 'fcPortState','fcPortWWNs' ]
-    post_response 200, JSON.parse(request.body.read), hashkey 
+    hashkey = %w[fcPortState fcPortWWNs]
+    post_response 200, JSON.parse(request.body.read), hashkey
+  end
+
+  post '/rest/resourcegroups/*/fcswitches/*/fcports/fcportpersistentstate' do
+    content_type :json
+    hashkey = %w[fcPortState fcPortWWNs]
+    post_response 200, JSON.parse(request.body.read), hashkey
+  end
+
+  post '/rest/resourcegroups/*/fcswitches/*/fcports/fcportnames' do
+    content_type :json
+    input = JSON.parse(request.body.read)
+    status 200 if input.key?('fcPortNameChangeReqEntry')
   end
 
   private
@@ -57,8 +90,11 @@ class FakeBrocadeAPI < Sinatra::Base
     File.open(File.dirname(__FILE__) + '/json_files/' + file_name, 'rb').read
   end
 
-  def post_response(response_code,post_input,hashkeys)
+  def post_response(_response_code, post_input, hashkeys)
     content_type :json
-    status 200 if( post_input.key?(hashkeys[0]) && post_input.key(hashkeys[1]))
+    if post_input.key?(hashkeys[0]) && post_input.key?(hashkeys[1])
+      status 200
+    else status 204
+    end
   end
 end
