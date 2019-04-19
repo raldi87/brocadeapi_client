@@ -16,7 +16,7 @@ module BrocadeAPIClient
       @base_url = '/resourcegroups/'
     end
 
-    def allzonesinfabric(rgkey, fabrickey, zones='all')
+    def allzonesinfabric(rgkey, fabrickey, zones = 'all')
       api_url = @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zones'
       p zones
       if zones == 'all'
@@ -39,14 +39,14 @@ module BrocadeAPIClient
       _response, _body = @http_client.get(api_url)
     end
 
-    def alishow(rgkey, fabrickey, zakey='none')
+    def alishow(rgkey, fabrickey, zakey = 'none')
       p zakey
       api_url = @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonealiases'
       if zakey == 'none'
-      _response, _body = @http_client.get(api_url)
-      else 
-      api_url += '/' + zakey
-      _response, _body = @http_client.get(api_url)
+        _response, _body = @http_client.get(api_url)
+      else
+        api_url += '/' + zakey
+        _response, _body = @http_client.get(api_url)
       end
     end
 

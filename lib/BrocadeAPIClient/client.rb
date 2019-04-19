@@ -194,7 +194,7 @@ module BrocadeAPIClient
     #
     # Hash - Key zones  , Value Array of Hashes with all zones
     def fabriczones_active(rgkey, fabrickey)
-      result = @zones.allzonesinfabric(rgkey, fabrickey,'active')
+      result = @zones.allzonesinfabric(rgkey, fabrickey, 'active')
       result[1]
     end
 
@@ -233,7 +233,7 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key zoneAliases , Value Array of Hashes with all aliases
-    def alishow(rgkey, fabrickey, zakey='none')
+    def alishow(rgkey, fabrickey, zakey = 'none')
       p zakey
       result = @zones.alishow(rgkey, fabrickey, zakey)
       result[1]
