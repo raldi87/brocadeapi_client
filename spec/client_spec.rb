@@ -131,6 +131,7 @@ describe 'BrocadeAPIClient::Client' do
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
     result = client.fabriczones_active(rgkey, fckey)
+    p result
     expect(result.key?('zones')).to eq(true)
   end
 
@@ -140,6 +141,7 @@ describe 'BrocadeAPIClient::Client' do
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
     result = client.fabriczones_defined(rgkey, fckey)
+    p result
     expect(result.key?('zones')).to eq(true)
   end
 
@@ -157,6 +159,16 @@ describe 'BrocadeAPIClient::Client' do
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
     result = client.alishow(rgkey, fckey)
+    expect(result.key?('zoneAliases')).to eq(true)
+  end
+
+  it 'validate_getalias_info' do
+    rgkey = '10:00:50:EB:1A:A8:2C:54'
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    zakey = '10:00:50:EB:1A:A8:2C:54'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.alishow(rgkey, fckey, zakey)
     expect(result.key?('zoneAliases')).to eq(true)
   end
 

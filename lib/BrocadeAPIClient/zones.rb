@@ -16,15 +16,18 @@ module BrocadeAPIClient
       @base_url = '/resourcegroups/'
     end
 
-    def allzonesinfabric(rgkey, fabrickey, zones: 'all')
+    def allzonesinfabric(rgkey, fabrickey, zones='all')
+      api_url = @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zones'
+      p zones
       if zones == 'all'
-        api_url =  @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zones'
         _response, _body = @http_client.get(api_url)
       elsif zones == 'active'
-        api_url =  @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zones?active=true'
+        api_url += '?active=true'
+        p api_url
         _response, _body = @http_client.get(api_url)
       elsif zones == 'defined'
-        api_url =  @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zones?active=false'
+        api_url += '?active=false'
+        p api_url
         _response, _body = @http_client.get(api_url)
       else 'Not supported'
       end
@@ -36,22 +39,27 @@ module BrocadeAPIClient
       _response, _body = @http_client.get(api_url)
     end
 
-    def alishow(rgkey, fabrickey)
+    def alishow(rgkey, fabrickey, zakey='none')
+      p zakey
       api_url = @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonealiases'
-      puts api_url
+      if zakey == 'none'
       _response, _body = @http_client.get(api_url)
+      else 
+      api_url += '/' + zakey
+      _response, _body = @http_client.get(api_url)
+      end
     end
 
     def cfgshow(rgkey, fabrickey, type)
       puts rgkey
       puts fabrickey
       puts type
+      api_url =  @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonesets'
       if type == 'all'
-        api_url =  @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonesets'
       elsif type == 'active'
-        api_url =  @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonesets?active=true'
+        api_url += '?active=true'
       elsif type == 'defined'
-        api_url =  @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonesets?active=false'
+        api_url +=  '?active=false'
       else puts 'Not supported'
       end
       puts api_url

@@ -51,7 +51,7 @@ class FakeBrocadeAPI < Sinatra::Base
     json_response 200, 'zones.json'
   end
 
-  get '/rest/resourcegroups/*/fcfabrics/*/zonealiases' do
+  get '/rest/resourcegroups/*/fcfabrics/*/zonealiases*' do
     json_response 200, 'aliases.json'
   end
 
