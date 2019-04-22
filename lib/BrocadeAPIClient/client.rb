@@ -125,7 +125,6 @@ module BrocadeAPIClient
 
     # Change port states for on FC switch(non-persistent)
     # Input:
-    # rgkey: - resource group ID(it can be retrived usint the resource method(ussualy the of the Fabric)
     # switchWWN -  switch WWN (it can be retrived using the Switches method)
     # portWWNs -  Array of PortWWN that should be changed
     # state - 'disabled|enable'
@@ -133,14 +132,13 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key fcPortStateChangeResponseEntry  , Value Array of Hashes with all ports changed
-    def change_portstates(rgkey, switchwwn, portwwns, state)
-      result = @ports.change_portstates(rgkey, switchwwn, portwwns, state)
+    def change_portstates(switchwwn, portwwns, state)
+      result = @ports.change_portstates(switchwwn, portwwns, state)
       result[1]
     end
 
     # Change port states for on FC switch(persistent)
     # Input:
-    # rgkey: - resource group ID(it can be retrived usint the resource method(ussualy the of the Fabric)
     # switchWWN -  switch WWN (it can be retrived using the Switches method)
     # portWWNs -  Array of PortWWN that should be changed
     # state - 'disabled|enable'
@@ -148,14 +146,13 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key fcPortStateChangeResponseEntry  , Value Array of Hashes with all ports changed
-    def change_persistentportstates(rgkey, switchwwn, portwwns, state)
-      result = @ports.change_persistentportstates(rgkey, switchwwn, portwwns, state)
+    def change_persistentportstates(switchwwn, portwwns, state)
+      result = @ports.change_persistentportstates(switchwwn, portwwns, state)
       result[1]
     end
 
     # Set Port Name for a specified port
     # Input:
-    # rgkey: - resource group ID(it can be retrived using
     # the resource method(ussualy the of the Fabric)
     # switchWWN -  switch WWN (it can be retrived using the Switches method)
     # portWWN -  Port WWN
@@ -164,8 +161,8 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key fcPortStateChangeResponseEntry  , Value Array of Hashes with all ports changed
-    def set_portname(rgkey, switchwwn, portwwns, portname)
-      result = @ports.set_portname(rgkey, switchwwn, portwwns, portname)
+    def set_portname(switchwwn, portwwns, portname)
+      result = @ports.set_portname(switchwwn, portwwns, portname)
       result[1]
     end
 
@@ -178,8 +175,8 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key zones  , Value Array of Hashes with all zones
-    def fabriczones_all(rgkey, fabrickey)
-      result = @zones.allzonesinfabric(rgkey, fabrickey)
+    def fabriczones_all(fabrickey)
+      result = @zones.allzonesinfabric(fabrickey)
       result[1]
     end
 
@@ -193,8 +190,8 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key zones  , Value Array of Hashes with all zones
-    def fabriczones_active(rgkey, fabrickey)
-      result = @zones.allzonesinfabric(rgkey, fabrickey, 'active')
+    def fabriczones_active(fabrickey)
+      result = @zones.allzonesinfabric(fabrickey, 'active')
       result[1]
     end
 
@@ -207,8 +204,8 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key zones  , Value Array of Hashes with all zones
-    def fabriczones_defined(rgkey, fabrickey)
-      result = @zones.allzonesinfabric(rgkey, fabrickey, 'defined')
+    def fabriczones_defined(fabrickey)
+      result = @zones.allzonesinfabric(fabrickey, 'defined')
       result[1]
     end
 
@@ -233,9 +230,9 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key zoneAliases , Value Array of Hashes with all aliases
-    def alishow(rgkey, fabrickey, zakey = 'none')
+    def alishow(fabrickey, zakey = 'none')
       p zakey
-      result = @zones.alishow(rgkey, fabrickey, zakey)
+      result = @zones.alishow(fabrickey, zakey)
       result[1]
     end
 
@@ -248,8 +245,8 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key zoneAliases , Value Array of Hashes with all aliases
-    def cfgshow(rgkey, fabrickey, type)
-      result = @zones.cfgshow(rgkey, fabrickey, type)
+    def cfgshow(fabrickey, type)
+      result = @zones.cfgshow(fabrickey, type)
       result[1]
     end
 

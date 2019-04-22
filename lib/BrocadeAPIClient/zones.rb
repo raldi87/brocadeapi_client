@@ -13,11 +13,11 @@ module BrocadeAPIClient
   class Zones
     def initialize(http_client)
       @http_client = http_client
-      @base_url = '/resourcegroups/'
+      @base_url = '/resourcegroups/All'
     end
 
-    def allzonesinfabric(rgkey, fabrickey, zones = 'all')
-      api_url = @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zones'
+    def allzonesinfabric(fabrickey, zones = 'all')
+      api_url = @base_url + '/fcfabrics/' + fabrickey + '/zones'
       p zones
       if zones == 'all'
         _response, _body = @http_client.get(api_url)
@@ -34,14 +34,14 @@ module BrocadeAPIClient
     end
 
     def zonedbs(fabrickey)
-      api_url = @base_url + 'All/fcfabrics/' + fabrickey + '/zonedbs'
+      api_url = @base_url + '/fcfabrics/' + fabrickey + '/zonedbs'
       puts api_url
       _response, _body = @http_client.get(api_url)
     end
 
     def alishow(rgkey, fabrickey, zakey = 'none')
       p zakey
-      api_url = @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonealiases'
+      api_url = @base_url + '/fcfabrics/' + fabrickey + '/zonealiases'
       if zakey == 'none'
         _response, _body = @http_client.get(api_url)
       else
@@ -50,11 +50,8 @@ module BrocadeAPIClient
       end
     end
 
-    def cfgshow(rgkey, fabrickey, type)
-      puts rgkey
-      puts fabrickey
-      puts type
-      api_url =  @base_url + rgkey + '/fcfabrics/' + fabrickey + '/zonesets'
+    def cfgshow(fabrickey, type)
+      api_url =  @base_url + '/fcfabrics/' + fabrickey + '/zonesets'
       if type == 'all'
       elsif type == 'active'
         api_url += '?active=true'
@@ -64,6 +61,11 @@ module BrocadeAPIClient
       end
       puts api_url
       _response, _body = @http_client.get(api_url)
+    end
+
+    def alicreate(rgkey, fabrickey, wwn, aliname)
+
+
     end
   end
 end

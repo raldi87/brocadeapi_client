@@ -12,38 +12,43 @@ module BrocadeAPIClient
   class Ports
     def initialize(http_client)
       @http_client = http_client
-      @base_url = '/resourcegroups/'
+      @base_url = '/resourcegroups/All'
     end
 
     def allports
-      api_url = @base_url + 'All/fcports'
+      api_url = @base_url + '/fcports'
       puts api_url
       _response, _body = @http_client.get(api_url)
     end
 
     def change_portstates(rgkey, switchwwn, portwwns, state)
       payload = {}
-      api_url = @base_url + rgkey + '/fcswitches/' + switchwwn + '/fcports/fcportstate'
+      portarray = []
+      portarray.push(portwwns.upcase)
+      api_url = @base_url + '/fcswitches/' + switchwwn.upcase + '/fcports/fcportstate'
       payload['fcPortState'] = state
-      payload['fcPortWWNs'] = portwwns
+      payload['fcPortWWNs'] = portarray
+      p payload
+      p @http_client.inspect
       _response, _body = @http_client.post(api_url, body: payload)
     end
 
     def change_persistentportstates(rgkey, switchwwn, portwwns, state)
       payload = {}
-      api_url = @base_url + rgkey + '/fcswitches/' + switchwwn + '/fcports/fcportpersistentstate'
+      portarray = []
+      portarray.push(portwwns.upcase)
+      api_url = @base_url + '/fcswitches/' + switchwwn.upcase + '/fcports/fcportpersistentstate'
       payload['fcPortState'] = state
-      payload['fcPortWWNs'] = portwwns
+      payload['fcPortWWNs'] = portarray
       _response, _body = @http_client.post(api_url, body: payload)
     end
 
     def set_portname(rgkey, switchwwn, portwwn, portname)
       porthash = {}
       portarray = []
-      api_url = @base_url + rgkey + '/fcswitches/' + switchwwn + '/fcports/fcportnames'
-      p api_url
-      porthash['fcPortWWN'] = portwwn
-      porthash['fcPortName'] = portname
+      api_url = @base_url + '/fcswitches/' + switchwwn.upcase + '/fcports/fcportnames'
+      porthash['fcPortWWN'] = portwwn.upcase
+      porthash['fcPortName'] = portname.upcase
       portarray.push(porthash)
       payload = { 'fcPortNameChangeReqEntry' => portarray }
       _response, _body = @http_client.post(api_url, body: payload)
