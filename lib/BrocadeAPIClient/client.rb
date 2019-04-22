@@ -126,7 +126,7 @@ module BrocadeAPIClient
     # Change port states for on FC switch(non-persistent)
     # Input:
     # switchWWN -  switch WWN (it can be retrived using the Switches method)
-    # portWWNs -  Array of PortWWN that should be changed
+    # portWWNs -  Multiple PortWWN in the same switch that should be changed
     # state - 'disabled|enable'
     #
     # ==== Returns
@@ -140,7 +140,7 @@ module BrocadeAPIClient
     # Change port states for on FC switch(persistent)
     # Input:
     # switchWWN -  switch WWN (it can be retrived using the Switches method)
-    # portWWNs -  Array of PortWWN that should be changed
+    # portWWNs -  Multiple PortWWN in same switch that should be changed
     # state - 'disabled|enable'
     #
     # ==== Returns
@@ -245,16 +245,49 @@ module BrocadeAPIClient
       result[1]
     end
 
-
     # Create Zone Aliases in a fabric
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # aliname - name for new alias
+    # wwn - to be added to aliname , it supports multiple wwns separated by comma
+    # ==== Returns
+    #
+    # Status of request
+    def alicreate(fabrickey, aliname, *wwn)
+      result = @zones.alicreate(fabrickey, aliname, *wwn)
+      result[1]
+    end
+
+    # Start Fabric transaction
     # Input:
     # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
     #
     # ==== Returns
+    # Status of request
+    def trans_start(fabrickey)
+      result = @zones.control_transaction(fabrickey, 'start')
+      result[1]
+    end
+
+    # Commit Fabric transaction
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
     #
-    # Hash - Key zoneAliases , Value Array of Hashes with all aliases
-    def alicreate(fabrickey,aliname,*wwn)
-      result = @zones.alicreate(fabrickey, aliname, *wwn)
+    # ==== Returns
+    # Status of request
+    def trans_commit(fabrickey)
+      result = @zones.control_transaction(fabrickey, 'commit')
+      result[1]
+    end
+
+    # Abort Fabric transaction
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    #
+    # ==== Returns
+    # Status of request
+    def trans_abort(fabrickey)
+      result = @zones.control_transaction(fabrickey, 'abort')
       result[1]
     end
 

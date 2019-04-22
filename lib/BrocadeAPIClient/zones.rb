@@ -55,9 +55,9 @@ module BrocadeAPIClient
       _response, _body = @http_client.get(api_url)
     end
 
-    def alicreate(fabrickey, aliname, *wwn) 
-      aliarray= []
-      alihash= {}
+    def alicreate(fabrickey, aliname, *wwn)
+      aliarray = []
+      alihash = {}
       payload = {}
       wwn.map!(&:upcase)
       api_url = @base_url + '/fcfabrics/' + fabrickey.upcase + '/createzoningobject'
@@ -65,12 +65,15 @@ module BrocadeAPIClient
       alihash['memberNames'] = wwn
       aliarray.push(alihash)
       payload['zoneAliases'] = aliarray
-      puts payload
-      puts api_url
       _response, _body = @http_client.post(api_url, body: payload)
     end
 
-
-
+    def control_transaction(fabrickey, action)
+      payload = {}
+      payload['lsanZoning'] = 'false'
+      payload['action'] = action.upcase
+      api_url = @base_url + '/fcfabrics/' + fabrickey.upcase + '/controlzonetransaction'
+      _response, _body = @http_client.post(api_url, body: payload)
+    end
   end
 end

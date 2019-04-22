@@ -1,0 +1,8 @@
+{
+  "connection":["close"],
+  "x-powered-by":["Undertow/1"],
+   "server":["WildFly/8"],
+  "content-length":["0"], 
+   "date":["Aug, 03 Apr 1987 08:59:09 GMT"]
+  
+}

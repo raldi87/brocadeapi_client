@@ -16,7 +16,7 @@ class FakeBrocadeAPI < Sinatra::Base
   end
 
   post '/rest/logout' do
-    status 204
+    json_response 204, 'logout.json'
   end
 
   get '/rest/resourcegroups' do
@@ -44,7 +44,6 @@ class FakeBrocadeAPI < Sinatra::Base
   end
 
   get '/rest/resourcegroups/All/fcfabrics/*/zonesets' do
-    p params[:active]
     if params[:active]
       json_response 200, 'cfg_active.json'
     else
@@ -55,7 +54,7 @@ class FakeBrocadeAPI < Sinatra::Base
   get '/rest/resourcegroups/All/fcfabrics/*' do
     json_response 200, 'fabrics_withinput.json'
   end
-   
+
   get '/rest/resourcegroups/All/fcswitches' do
     json_response 200, 'switches.json'
   end
@@ -80,6 +79,27 @@ class FakeBrocadeAPI < Sinatra::Base
     content_type :json
     input = JSON.parse(request.body.read)
     status 200 if input.key?('fcPortNameChangeReqEntry')
+  end
+
+  post '/rest/resourcegroups/All/fcfabrics/*/controlzonetransaction' do
+    content_type :json
+    input = JSON.parse(request.body.read)
+    case input['action']
+    when 'START'
+      status 200
+    when 'COMMIT'
+      status 200
+    when 'ABORT'
+      status 200
+    else
+      status 666
+    end
+  end
+
+  post '/rest/resourcegroups/All/fcfabrics/*/createzoningobject' do
+    content_type :json
+    input = JSON.parse(request.body.read)
+    status 200 if input.key?('zoneAliases')
   end
 
   private

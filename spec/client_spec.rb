@@ -90,18 +90,18 @@ describe 'BrocadeAPIClient::Client' do
     state = 'enable'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.change_portstates( skey, state, ports, ports2)
+    result = client.change_portstates(skey, state, ports, ports2)
     expect(result).to eq(nil)
   end
 
   it 'validate_persistentportstate' do
     skey = '10:00:50:EB:1A:A8:2C:54'
     ports = '10:00:00:00:00:00'
-    ports2 =  '10:00:00:00:00:01'
+    ports2 = '10:00:00:00:00:01'
     state = 'enable'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.change_persistentportstates(skey, state, ports, ports2 )
+    result = client.change_persistentportstates(skey, state, ports, ports2)
     expect(result).to eq(nil)
   end
 
@@ -127,7 +127,7 @@ describe 'BrocadeAPIClient::Client' do
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.fabriczones_active( fckey)
+    result = client.fabriczones_active(fckey)
     expect(result.key?('zones')).to eq(true)
   end
 
@@ -160,7 +160,7 @@ describe 'BrocadeAPIClient::Client' do
     zakey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.alishow( fckey, zakey)
+    result = client.alishow(fckey, zakey)
     expect(result.key?('zoneAliases')).to eq(true)
   end
 
@@ -176,7 +176,41 @@ describe 'BrocadeAPIClient::Client' do
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.cfgshow( fckey, 'defined')
+    result = client.cfgshow(fckey, 'defined')
     expect(result.key?('zonesets')).to eq(true)
+  end
+
+  it 'validate_alicreate' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    aliname = 'test1_hba0'
+    aliwwn  = '10:00:50:EB:1A:A8:2C:54'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.alicreate(fckey, aliname, aliwwn)
+    expect(result).to eq(nil)
+  end
+
+  it 'validate_transstart' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.trans_start(fckey)
+    expect(result).to eq(nil)
+  end
+
+  it 'validate_transcommit' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.trans_commit(fckey)
+    expect(result).to eq(nil)
+  end
+
+  it 'validate_transabort' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.trans_abort(fckey)
+    expect(result).to eq(nil)
   end
 end

@@ -105,7 +105,8 @@ module BrocadeAPIClient
     def process_response(response)
       headers = response.headers
       body = response.parsed_response
-      if response.code != 200
+      code_array = %w[200 204]
+      unless code_array.include?(response.code.to_s)
         if body.nil?
           exception = BrocadeAPIClient.exception_from_response(response, body)
           @client_logger.error(exception)
@@ -118,11 +119,8 @@ module BrocadeAPIClient
     def unauthenticate
       # delete the session on the brocade network advisor
       unless @session_key.nil?
-        begin
-          post('/logout')
-        rescue StandardError
-          @session_key = nil
-        end
+        post('/logout')
+        @session_key = nil
       end
     end
 
