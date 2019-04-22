@@ -132,8 +132,8 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key fcPortStateChangeResponseEntry  , Value Array of Hashes with all ports changed
-    def change_portstates(switchwwn, portwwns, state)
-      result = @ports.change_portstates(switchwwn, portwwns, state)
+    def change_portstates(switchwwn, state, *portwwns)
+      result = @ports.change_portstates(switchwwn, state, *portwwns)
       result[1]
     end
 
@@ -146,8 +146,8 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key fcPortStateChangeResponseEntry  , Value Array of Hashes with all ports changed
-    def change_persistentportstates(switchwwn, portwwns, state)
-      result = @ports.change_persistentportstates(switchwwn, portwwns, state)
+    def change_persistentportstates(switchwwn, state, *portwwns)
+      result = @ports.change_persistentportstates(switchwwn, state, *portwwns)
       result[1]
     end
 
@@ -231,7 +231,6 @@ module BrocadeAPIClient
     #
     # Hash - Key zoneAliases , Value Array of Hashes with all aliases
     def alishow(fabrickey, zakey = 'none')
-      p zakey
       result = @zones.alishow(fabrickey, zakey)
       result[1]
     end

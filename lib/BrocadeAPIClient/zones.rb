@@ -18,16 +18,13 @@ module BrocadeAPIClient
 
     def allzonesinfabric(fabrickey, zones = 'all')
       api_url = @base_url + '/fcfabrics/' + fabrickey + '/zones'
-      p zones
       if zones == 'all'
         _response, _body = @http_client.get(api_url)
       elsif zones == 'active'
         api_url += '?active=true'
-        p api_url
         _response, _body = @http_client.get(api_url)
       elsif zones == 'defined'
         api_url += '?active=false'
-        p api_url
         _response, _body = @http_client.get(api_url)
       else 'Not supported'
       end
@@ -35,12 +32,10 @@ module BrocadeAPIClient
 
     def zonedbs(fabrickey)
       api_url = @base_url + '/fcfabrics/' + fabrickey + '/zonedbs'
-      puts api_url
       _response, _body = @http_client.get(api_url)
     end
 
     def alishow(rgkey, fabrickey, zakey = 'none')
-      p zakey
       api_url = @base_url + '/fcfabrics/' + fabrickey + '/zonealiases'
       if zakey == 'none'
         _response, _body = @http_client.get(api_url)
@@ -59,7 +54,6 @@ module BrocadeAPIClient
         api_url +=  '?active=false'
       else puts 'Not supported'
       end
-      puts api_url
       _response, _body = @http_client.get(api_url)
     end
 

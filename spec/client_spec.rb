@@ -84,64 +84,58 @@ describe 'BrocadeAPIClient::Client' do
   end
 
   it 'validate_portstate' do
-    rgkey = '10:00:50:EB:1A:A8:2C:54'
     skey = '10:00:50:EB:1A:A8:2C:54'
-    ports = ['10:00:00:00:00:00', '10:00:00:00:00:01']
+    ports = '10:00:00:00:00:00'
+    ports2 = '10:00:00:00:00:01'
     state = 'enable'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.change_portstates(rgkey, skey, ports, state)
+    result = client.change_portstates( skey, state, ports, ports2)
     expect(result).to eq(nil)
   end
 
   it 'validate_persistentportstate' do
-    rgkey = '10:00:50:EB:1A:A8:2C:54'
     skey = '10:00:50:EB:1A:A8:2C:54'
-    ports = ['10:00:00:00:00:00', '10:00:00:00:00:01']
+    ports = '10:00:00:00:00:00'
+    ports2 =  '10:00:00:00:00:01'
     state = 'enable'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.change_persistentportstates(rgkey, skey, ports, state)
+    result = client.change_persistentportstates(skey, state, ports, ports2 )
     expect(result).to eq(nil)
   end
 
   it 'validate_changeportname' do
-    rgkey = '10:00:50:EB:1A:A8:2C:54'
     skey = '10:00:50:EB:1A:A8:2C:54'
     port = '10:00:00:00:00:00'
     portname = 'testport'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.set_portname(rgkey, skey, port, portname)
+    result = client.set_portname(skey, port, portname)
     expect(result).to eq(nil)
   end
 
   it 'validate_getallzones_infabric' do
-    rgkey = '10:00:50:EB:1A:A8:2C:54'
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.fabriczones_all(rgkey, fckey)
+    result = client.fabriczones_all(fckey)
     expect(result.key?('zones')).to eq(true)
   end
 
   it 'validate_getactivezones_infabric' do
-    rgkey = '10:00:50:EB:1A:A8:2C:54'
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.fabriczones_active(rgkey, fckey)
-    p result
+    result = client.fabriczones_active( fckey)
     expect(result.key?('zones')).to eq(true)
   end
 
   it 'validate_getdefinedzones_infabric' do
-    rgkey = '10:00:50:EB:1A:A8:2C:54'
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.fabriczones_defined(rgkey, fckey)
-    p result
+    result = client.fabriczones_defined(fckey)
     expect(result.key?('zones')).to eq(true)
   end
 
@@ -154,39 +148,35 @@ describe 'BrocadeAPIClient::Client' do
   end
 
   it 'validate_getaliases_infabric' do
-    rgkey = '10:00:50:EB:1A:A8:2C:54'
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.alishow(rgkey, fckey)
+    result = client.alishow(fckey)
     expect(result.key?('zoneAliases')).to eq(true)
   end
 
   it 'validate_getalias_info' do
-    rgkey = '10:00:50:EB:1A:A8:2C:54'
     fckey = '10:00:50:EB:1A:A8:2C:54'
     zakey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.alishow(rgkey, fckey, zakey)
+    result = client.alishow( fckey, zakey)
     expect(result.key?('zoneAliases')).to eq(true)
   end
 
   it 'validate_cfgshow_active' do
-    rgkey = '10:00:50:EB:1A:A8:2C:54'
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.cfgshow(rgkey, fckey, 'active')
+    result = client.cfgshow(fckey, 'active')
     expect(result.key?('zonesets')).to eq(true)
   end
 
   it 'validate_cfgshow_defined' do
-    rgkey = '10:00:50:EB:1A:A8:2C:54'
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.cfgshow(rgkey, fckey, 'defined')
+    result = client.cfgshow( fckey, 'defined')
     expect(result.key?('zonesets')).to eq(true)
   end
 end

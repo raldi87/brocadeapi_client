@@ -35,27 +35,15 @@ class FakeBrocadeAPI < Sinatra::Base
     json_response 200, 'zonedbs.json'
   end
 
-  get '/rest/resourcegroups/All/fcfabrics/*' do
-    json_response 200, 'fabrics_withinput.json'
-  end
-
-  get '/rest/resourcegroups/All/fcswitches' do
-    json_response 200, 'switches.json'
-  end
-
-  get '/rest/resourcegroups/All/fcports' do
-    json_response 200, 'ports.json'
-  end
-
-  get '/rest/resourcegroups/*/fcfabrics/*/zones' do
+  get '/rest/resourcegroups/All/fcfabrics/*/zones' do
     json_response 200, 'zones.json'
   end
 
-  get '/rest/resourcegroups/*/fcfabrics/*/zonealiases*' do
+  get '/rest/resourcegroups/All/fcfabrics/*/zonealiases*' do
     json_response 200, 'aliases.json'
   end
 
-  get '/rest/resourcegroups/*/fcfabrics/*/zonesets' do
+  get '/rest/resourcegroups/All/fcfabrics/*/zonesets' do
     p params[:active]
     if params[:active]
       json_response 200, 'cfg_active.json'
@@ -64,19 +52,31 @@ class FakeBrocadeAPI < Sinatra::Base
     end
   end
 
-  post '/rest/resourcegroups/*/fcswitches/*/fcports/fcportstate' do
+  get '/rest/resourcegroups/All/fcfabrics/*' do
+    json_response 200, 'fabrics_withinput.json'
+  end
+   
+  get '/rest/resourcegroups/All/fcswitches' do
+    json_response 200, 'switches.json'
+  end
+
+  get '/rest/resourcegroups/All/fcports' do
+    json_response 200, 'ports.json'
+  end
+
+  post '/rest/resourcegroups/All/fcswitches/*/fcports/fcportstate' do
     content_type :json
     hashkey = %w[fcPortState fcPortWWNs]
     post_response 200, JSON.parse(request.body.read), hashkey
   end
 
-  post '/rest/resourcegroups/*/fcswitches/*/fcports/fcportpersistentstate' do
+  post '/rest/resourcegroups/All/fcswitches/*/fcports/fcportpersistentstate' do
     content_type :json
     hashkey = %w[fcPortState fcPortWWNs]
     post_response 200, JSON.parse(request.body.read), hashkey
   end
 
-  post '/rest/resourcegroups/*/fcswitches/*/fcports/fcportnames' do
+  post '/rest/resourcegroups/All/fcswitches/*/fcports/fcportnames' do
     content_type :json
     input = JSON.parse(request.body.read)
     status 200 if input.key?('fcPortNameChangeReqEntry')

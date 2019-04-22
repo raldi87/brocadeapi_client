@@ -18,7 +18,6 @@ module BrocadeAPIClient
     end
 
     def fabrics
-      puts @http_client.inspect
       _response, _body = @http_client.get(@fabrics_url)
     end
 
