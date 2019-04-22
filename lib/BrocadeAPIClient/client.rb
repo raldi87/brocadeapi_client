@@ -223,8 +223,6 @@ module BrocadeAPIClient
 
     # Get Zone Aliases in a fabric
     # Input:
-    # rgkey: - resource group ID(it can be retrived using
-    #        the resource method(ussualy the of the Fabric)
     # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
     #
     # ==== Returns
@@ -235,10 +233,8 @@ module BrocadeAPIClient
       result[1]
     end
 
-    # Get Zone Aliases in a fabric
+    # Get Zones n a fabric
     # Input:
-    # rgkey: - resource group ID(it can be retrived using
-    #        the resource method(ussualy the of the Fabric)
     # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
     #
     # ==== Returns
@@ -246,6 +242,19 @@ module BrocadeAPIClient
     # Hash - Key zoneAliases , Value Array of Hashes with all aliases
     def cfgshow(fabrickey, type)
       result = @zones.cfgshow(fabrickey, type)
+      result[1]
+    end
+
+
+    # Create Zone Aliases in a fabric
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    #
+    # ==== Returns
+    #
+    # Hash - Key zoneAliases , Value Array of Hashes with all aliases
+    def alicreate(fabrickey,aliname,*wwn)
+      result = @zones.alicreate(fabrickey, aliname, *wwn)
       result[1]
     end
 

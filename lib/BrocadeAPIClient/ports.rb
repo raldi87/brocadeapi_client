@@ -20,25 +20,25 @@ module BrocadeAPIClient
       _response, _body = @http_client.get(api_url)
     end
 
-    def change_portstates( switchwwn, state, *portwwns)
+    def change_portstates(switchwwn, state, *portwwns)
       payload = {}
-      portwwns.map! { |x| x.upcase }
+      portwwns.map!(&:upcase)
       api_url = @base_url + '/fcswitches/' + switchwwn.upcase + '/fcports/fcportstate'
       payload['fcPortState'] = state
       payload['fcPortWWNs'] = portwwns
       _response, _body = @http_client.post(api_url, body: payload)
     end
 
-    def change_persistentportstates( switchwwn, state , *portwwns)
+    def change_persistentportstates(switchwwn, state, *portwwns)
       payload = {}
       api_url = @base_url + '/fcswitches/' + switchwwn.upcase + '/fcports/fcportpersistentstate'
-      portwwns.map! { |x| x.upcase }
+      portwwns.map!(&:upcase)
       payload['fcPortState'] = state
       payload['fcPortWWNs'] = portwwns
       _response, _body = @http_client.post(api_url, body: payload)
     end
 
-    def set_portname( switchwwn, portwwn, portname)
+    def set_portname(switchwwn, portwwn, portname)
       porthash = {}
       portarray = []
       api_url = @base_url + '/fcswitches/' + switchwwn.upcase + '/fcports/fcportnames'

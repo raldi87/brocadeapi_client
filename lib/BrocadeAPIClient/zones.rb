@@ -19,15 +19,13 @@ module BrocadeAPIClient
     def allzonesinfabric(fabrickey, zones = 'all')
       api_url = @base_url + '/fcfabrics/' + fabrickey + '/zones'
       if zones == 'all'
-        _response, _body = @http_client.get(api_url)
       elsif zones == 'active'
         api_url += '?active=true'
-        _response, _body = @http_client.get(api_url)
       elsif zones == 'defined'
         api_url += '?active=false'
-        _response, _body = @http_client.get(api_url)
       else 'Not supported'
       end
+      _response, _body = @http_client.get(api_url)
     end
 
     def zonedbs(fabrickey)
@@ -35,7 +33,7 @@ module BrocadeAPIClient
       _response, _body = @http_client.get(api_url)
     end
 
-    def alishow(rgkey, fabrickey, zakey = 'none')
+    def alishow(fabrickey, zakey = 'none')
       api_url = @base_url + '/fcfabrics/' + fabrickey + '/zonealiases'
       if zakey == 'none'
         _response, _body = @http_client.get(api_url)
@@ -57,9 +55,22 @@ module BrocadeAPIClient
       _response, _body = @http_client.get(api_url)
     end
 
-    def alicreate(rgkey, fabrickey, wwn, aliname)
-
-
+    def alicreate(fabrickey, aliname, *wwn) 
+      aliarray= []
+      alihash= {}
+      payload = {}
+      wwn.map!(&:upcase)
+      api_url = @base_url + '/fcfabrics/' + fabrickey.upcase + '/createzoningobject'
+      alihash['name'] = aliname
+      alihash['memberNames'] = wwn
+      aliarray.push(alihash)
+      payload['zoneAliases'] = aliarray
+      puts payload
+      puts api_url
+      _response, _body = @http_client.post(api_url, body: payload)
     end
+
+
+
   end
 end
