@@ -175,8 +175,8 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key zones  , Value Array of Hashes with all zones
-    def fabriczones_all(fabrickey)
-      result = @zones.allzonesinfabric(fabrickey)
+    def zoneshow(fabrickey)
+      result = @zones.zoneshow(fabrickey)
       result[1]
     end
 
@@ -190,8 +190,8 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key zones  , Value Array of Hashes with all zones
-    def fabriczones_active(fabrickey)
-      result = @zones.allzonesinfabric(fabrickey, 'active')
+    def zoneshow_active(fabrickey)
+      result = @zones.zoneshow(fabrickey, 'active')
       result[1]
     end
 
@@ -204,8 +204,8 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key zones  , Value Array of Hashes with all zones
-    def fabriczones_defined(fabrickey)
-      result = @zones.allzonesinfabric(fabrickey, 'defined')
+    def zoneshow_defined(fabrickey)
+      result = @zones.zoneshow(fabrickey, 'defined')
       result[1]
     end
 
@@ -233,7 +233,7 @@ module BrocadeAPIClient
       result[1]
     end
 
-    # Get Zones n a fabric
+    # Get Fabric configuration
     # Input:
     # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
     #

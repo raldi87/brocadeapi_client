@@ -16,7 +16,7 @@ module BrocadeAPIClient
       @base_url = '/resourcegroups/All'
     end
 
-    def allzonesinfabric(fabrickey, zones = 'all')
+    def zoneshow(fabrickey, zones = 'all')
       api_url = @base_url + '/fcfabrics/' + fabrickey + '/zones'
       if zones == 'all'
       elsif zones == 'active'

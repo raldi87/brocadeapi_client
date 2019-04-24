@@ -119,7 +119,7 @@ describe 'BrocadeAPIClient::Client' do
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.fabriczones_all(fckey)
+    result = client.zoneshow(fckey)
     expect(result.key?('zones')).to eq(true)
   end
 
@@ -127,7 +127,7 @@ describe 'BrocadeAPIClient::Client' do
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.fabriczones_active(fckey)
+    result = client.zoneshow_active(fckey)
     expect(result.key?('zones')).to eq(true)
   end
 
@@ -135,7 +135,7 @@ describe 'BrocadeAPIClient::Client' do
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.fabriczones_defined(fckey)
+    result = client.zoneshow_defined(fckey)
     expect(result.key?('zones')).to eq(true)
   end
 
