@@ -13,6 +13,8 @@ require 'sinatra'
 class FakeBrocadeAPI < Sinatra::Base
   post '/rest/login' do
     response.headers['WStoken'] = 'logintest'
+    status 200
+    values = File.open(File.dirname(__FILE__) + '/json_files/login.json' , 'rb').read
   end
 
   post '/rest/logout' do
