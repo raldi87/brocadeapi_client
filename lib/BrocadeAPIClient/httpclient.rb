@@ -48,14 +48,15 @@ module BrocadeAPIClient
       @pasword = password
       @session_key = nil
       auth_url = '/login'
-      headers, _body = post(auth_url)
+      headers, body = post(auth_url)
       @session_key = headers['WStoken']
+      JSON.parse(body)
     rescue StandardError => ex
       @client_logger.error('cannot login')
     end
 
     def url(api_url)
-      # should be http://<Server:Port>/api/v1
+      # should be http://<Server:Port>/rest
       @api_url = api_url.chomp('/')
     end
 

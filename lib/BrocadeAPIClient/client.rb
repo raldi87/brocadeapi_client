@@ -13,6 +13,8 @@ require_relative 'switches'
 require_relative 'ports'
 require_relative 'zones'
 require_relative 'exceptions'
+require_relative 'apiversion'
+require_relative 'static'
 
 module BrocadeAPIClient
   # Class for connecting to BNA
@@ -41,11 +43,25 @@ module BrocadeAPIClient
       @ports = Ports.new(@http)
       @zones = Zones.new(@http)
       @app_type = app_type
+      @peer_zone_support = false
     end
 
     def login(username, password, options = nil)
       # Authenticate on the Brocade Network Advisor API
-      @http.authenticate(username, password, options)
+      login_info = @http.authenticate(username, password, options)
+      api_v = APIVersion.parser(login_info['version'])
+      min_api_version = APIVersion.parser(BrocadeAPIClient::BNASupport::BNA_MIN_SUPPORTED)
+      min_peerzoning_version = APIVersion.parser(BrocadeAPIClient::BNASupport::BNA_PEER_ZONING_TDZ_MIN_SUPPORTED)
+      if api_v < min_api_version
+         err_msg = "Unsupported Brocade Network Advisor version #{api_v}, min supported version is, #{BrocadeAPIClient::BNASupport::BNA_MIN_SUPPORTED}"
+         raise BrocadeAPIClient::UnsupportedVersion.new(nil, err_msg)
+      end
+      if api_v < min_peerzoning_version
+         err_msg = "Unsupported Brocade Network Advisor version #{api_v}, min supported version is, #{BrocadeAPIClient::BNASupport::BNA_PEER_ZONING_TDZ_MIN_SUPPORTED}"
+         raise BrocadeAPIClient::UnsupportedVersion.new(nil, err_msg)
+      else
+        @peer_zone_support = true
+      end    
     end
 
     def logout
