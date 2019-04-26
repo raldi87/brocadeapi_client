@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'Brocade Network Advisor REST API Client'
   spec.description   = 'This gem is used query Brocade Network Advisor via API'
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/raldi87/brocadeapi_client"
   spec.license       = 'Apache-2.0'
 
   # Specify which files should be added to the gem when it is released.
