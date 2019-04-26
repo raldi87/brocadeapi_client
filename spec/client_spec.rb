@@ -141,19 +141,19 @@ describe 'BrocadeAPIClient::Client' do
 
   it 'validate_getactivezone_infabric' do
     fckey = '10:00:50:EB:1A:A8:2C:54'
-     zkey = 'test_zone'
+    zkey = 'test_zone'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.zoneshow_active(fckey,zkey)
+    result = client.zoneshow_active(fckey, zkey)
     expect(result.key?('zones')).to eq(true)
   end
 
   it 'validate_getdefinedzone_infabric' do
     fckey = '10:00:50:EB:1A:A8:2C:54'
-     zkey = 'test_zone'
+    zkey = 'test_zone'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.zoneshow_defined(fckey,zkey)
+    result = client.zoneshow_defined(fckey, zkey)
     expect(result.key?('zones')).to eq(true)
   end
 

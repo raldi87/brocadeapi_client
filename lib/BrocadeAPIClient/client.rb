@@ -226,8 +226,8 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key zones  , Value Array of Hashes with all zones
-    def zoneshow_active(fabrickey,zonename)
-      result = @zones.zoneshow(fabrickey,'active', zonename )
+    def zoneshow_active(fabrickey, zonename)
+      result = @zones.zoneshow(fabrickey, 'active', zonename)
       result[1]
     end
 
@@ -238,8 +238,8 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key zones  , Value Array of Hashes with all zones
-    def zoneshow_defined(fabrickey,zonename)
-      result = @zones.zoneshow(fabrickey,'defined', zonename )
+    def zoneshow_defined(fabrickey, zonename)
+      result = @zones.zoneshow(fabrickey, 'defined', zonename)
       result[1]
     end
 

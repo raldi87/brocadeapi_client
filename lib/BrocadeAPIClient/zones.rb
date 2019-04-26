@@ -17,21 +17,21 @@ module BrocadeAPIClient
       @base_url = '/resourcegroups/All'
     end
 
-    def zoneshow(fabrickey, zones = 'all', zkey = 'none' )
+    def zoneshow(fabrickey, zones = 'all', zkey = 'none')
       api_url = @base_url + '/fcfabrics/' + fabrickey.upcase + '/zones'
       if zones == 'all'
       elsif zones == 'active'
-        if zkey == 'none'
-        api_url += '?active=true'
-        else api_url += '/' + zkey + '-true'
-        end
+        api_url += if zkey == 'none'
+                     '?active=true'
+                   else '/' + zkey + '-true'
+                   end
       elsif zones == 'defined'
-        if zkey == 'none'
-        api_url += '?active=false'
-        else api_url += '/' + zkey + '-false'
-        end
-      else 
-        err_msg = "Unsupported Zoning Option, supported ALL is without zonename"
+        api_url += if zkey == 'none'
+                     '?active=false'
+                   else '/' + zkey + '-false'
+                   end
+      else
+        err_msg = 'Unsupported Zoning Option, supported ALL is without zonename'
         raise BrocadeAPIClient::UnsupportedOption.new(nil, err_msg)
       end
       _response, _body = @http_client.get(api_url)

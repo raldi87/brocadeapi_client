@@ -14,7 +14,7 @@ class FakeBrocadeAPI < Sinatra::Base
   post '/rest/login' do
     response.headers['WStoken'] = 'logintest'
     status 200
-    values = File.open(File.dirname(__FILE__) + '/json_files/login.json' , 'rb').read
+    values = File.open(File.dirname(__FILE__) + '/json_files/login.json', 'rb').read
   end
 
   post '/rest/logout' do
@@ -52,7 +52,7 @@ class FakeBrocadeAPI < Sinatra::Base
       json_response 200, 'cfg_defined.json'
     end
   end
- 
+
   get '/rest/resourcegroups/All/fcfabrics/*/zones/*' do
     json_response 200, 'zones.json'
   end
@@ -68,7 +68,7 @@ class FakeBrocadeAPI < Sinatra::Base
   get '/rest/resourcegroups/All/fcports' do
     json_response 200, 'ports.json'
   end
-  
+
   post '/rest/resourcegroups/All/fcswitches/*/fcports/fcportstate' do
     content_type :json
     hashkey = %w[fcPortState fcPortWWNs]
