@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/raldi87/brocadeapi_client.svg?token=mkJwysQXyF3sdXnco1UE&branch=test)](https://travis-ci.com/raldi87/brocadeapi_client)
 # BrocadeAPI_client
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/brocadesan_sdk`. To experiment with that code, run `bin/console` for an interactive prompt.
