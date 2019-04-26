@@ -17,7 +17,7 @@ module BrocadeAPIClient
     end
 
     def fabricswitches(fabricid)
-      api_url = @base_url + '/fcfabrics/' + fabricid + '/fcswitches'
+      api_url = @base_url + '/fcfabrics/' + fabricid.upcase + '/fcswitches'
       _response, _body = @http_client.get(api_url)
     end
 

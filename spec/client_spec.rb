@@ -119,7 +119,7 @@ describe 'BrocadeAPIClient::Client' do
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.zoneshow(fckey)
+    result = client.zoneshow_all(fckey)
     expect(result.key?('zones')).to eq(true)
   end
 
@@ -127,7 +127,7 @@ describe 'BrocadeAPIClient::Client' do
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.zoneshow_active(fckey)
+    result = client.zoneshow_all_active(fckey)
     expect(result.key?('zones')).to eq(true)
   end
 
@@ -135,7 +135,25 @@ describe 'BrocadeAPIClient::Client' do
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.zoneshow_defined(fckey)
+    result = client.zoneshow_all_defined(fckey)
+    expect(result.key?('zones')).to eq(true)
+  end
+
+  it 'validate_getactivezone_infabric' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+     zkey = 'test_zone'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.zoneshow_active(fckey,zkey)
+    expect(result.key?('zones')).to eq(true)
+  end
+
+  it 'validate_getdefinedzone_infabric' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+     zkey = 'test_zone'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.zoneshow_defined(fckey,zkey)
     expect(result.key?('zones')).to eq(true)
   end
 

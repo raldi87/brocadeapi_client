@@ -25,6 +25,9 @@ module BrocadeAPIClient
     end
   end
 
+  class UnsupportedOption < BrocadeException
+  end
+
   class UnsupportedVersion < BrocadeException
   end
 

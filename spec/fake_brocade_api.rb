@@ -52,6 +52,10 @@ class FakeBrocadeAPI < Sinatra::Base
       json_response 200, 'cfg_defined.json'
     end
   end
+ 
+  get '/rest/resourcegroups/All/fcfabrics/*/zones/*' do
+    json_response 200, 'zones.json'
+  end
 
   get '/rest/resourcegroups/All/fcfabrics/*' do
     json_response 200, 'fabrics_withinput.json'
@@ -64,7 +68,7 @@ class FakeBrocadeAPI < Sinatra::Base
   get '/rest/resourcegroups/All/fcports' do
     json_response 200, 'ports.json'
   end
-
+  
   post '/rest/resourcegroups/All/fcswitches/*/fcports/fcportstate' do
     content_type :json
     hashkey = %w[fcPortState fcPortWWNs]

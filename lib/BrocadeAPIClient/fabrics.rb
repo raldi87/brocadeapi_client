@@ -22,7 +22,7 @@ module BrocadeAPIClient
     end
 
     def fabric(fabricid)
-      _response, _body = @http_client.get(@fabrics_url + '/' + fabricid)
+      _response, _body = @http_client.get(@fabrics_url + '/' + fabricid.upcase)
     end
   end
 end

@@ -7,6 +7,7 @@
 # under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
+require_relative 'exceptions'
 
 module BrocadeAPIClient
   # Zones REST API Methods
@@ -16,35 +17,43 @@ module BrocadeAPIClient
       @base_url = '/resourcegroups/All'
     end
 
-    def zoneshow(fabrickey, zones = 'all')
-      api_url = @base_url + '/fcfabrics/' + fabrickey + '/zones'
+    def zoneshow(fabrickey, zones = 'all', zkey = 'none' )
+      api_url = @base_url + '/fcfabrics/' + fabrickey.upcase + '/zones'
       if zones == 'all'
       elsif zones == 'active'
+        if zkey == 'none'
         api_url += '?active=true'
+        else api_url += '/' + zkey + '-true'
+        end
       elsif zones == 'defined'
+        if zkey == 'none'
         api_url += '?active=false'
-      else 'Not supported'
+        else api_url += '/' + zkey + '-false'
+        end
+      else 
+        err_msg = "Unsupported Zoning Option, supported ALL is without zonename"
+        raise BrocadeAPIClient::UnsupportedOption.new(nil, err_msg)
       end
       _response, _body = @http_client.get(api_url)
     end
 
     def zonedbs(fabrickey)
-      api_url = @base_url + '/fcfabrics/' + fabrickey + '/zonedbs'
+      api_url = @base_url + '/fcfabrics/' + fabrickey.upcase + '/zonedbs'
       _response, _body = @http_client.get(api_url)
     end
 
     def alishow(fabrickey, zakey = 'none')
-      api_url = @base_url + '/fcfabrics/' + fabrickey + '/zonealiases'
+      api_url = @base_url + '/fcfabrics/' + fabrickey.upcase + '/zonealiases'
       if zakey == 'none'
         _response, _body = @http_client.get(api_url)
       else
-        api_url += '/' + zakey
+        api_url += '/' + zakey.upcase
         _response, _body = @http_client.get(api_url)
       end
     end
 
     def cfgshow(fabrickey, type)
-      api_url =  @base_url + '/fcfabrics/' + fabrickey + '/zonesets'
+      api_url =  @base_url + '/fcfabrics/' + fabrickey.upcase + '/zonesets'
       if type == 'all'
       elsif type == 'active'
         api_url += '?active=true'

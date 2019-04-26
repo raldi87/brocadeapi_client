@@ -184,44 +184,62 @@ module BrocadeAPIClient
 
     # Get all Zones in a Fabric(both active and defined)
     # Input:
-    # rgkey: - resource group ID(it can be retrived using
-    # the resource method(ussualy the of the Fabric)
     # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
     #
     # ==== Returns
     #
     # Hash - Key zones  , Value Array of Hashes with all zones
-    def zoneshow(fabrickey)
-      result = @zones.zoneshow(fabrickey)
+    def zoneshow_all(fabrickey)
+      result = @zones.zoneshow(fabrickey, 'all')
       result[1]
     end
 
     # Get all Zones in a Fabric(active)
     # Input:
-    # rgkey: - resource group ID(it can be retrived using
-    #          the resource method(ussualy the of the Fabric)
     # fabrickey - fabric key WWN(it can be retrived
     #          using the fabrics methond
     #
     # ==== Returns
     #
     # Hash - Key zones  , Value Array of Hashes with all zones
-    def zoneshow_active(fabrickey)
+    def zoneshow_all_active(fabrickey)
       result = @zones.zoneshow(fabrickey, 'active')
       result[1]
     end
 
     # Get all Zones in a Fabric( defined)
     # Input:
-    # rgkey: - resource group ID(it can be retrived using
-    #         the resource method(ussualy the of the Fabric)
     # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
     #
     # ==== Returns
     #
     # Hash - Key zones  , Value Array of Hashes with all zones
-    def zoneshow_defined(fabrickey)
+    def zoneshow_all_defined(fabrickey)
       result = @zones.zoneshow(fabrickey, 'defined')
+      result[1]
+    end
+
+    # Get INFO about active zone in a Fabric( defined)
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # zonename - string containing the zone name
+    # ==== Returns
+    #
+    # Hash - Key zones  , Value Array of Hashes with all zones
+    def zoneshow_active(fabrickey,zonename)
+      result = @zones.zoneshow(fabrickey,'active', zonename )
+      result[1]
+    end
+
+    # Get INFO about a defined zone in a Fabric( defined)
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # zonename - string containing the zone name
+    # ==== Returns
+    #
+    # Hash - Key zones  , Value Array of Hashes with all zones
+    def zoneshow_defined(fabrickey,zonename)
+      result = @zones.zoneshow(fabrickey,'defined', zonename )
       result[1]
     end
 
