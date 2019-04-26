@@ -12,7 +12,7 @@ namespace :build do
     RSpec::Core::RakeTask.new(:spec) do |t|
       puts '', 'RSpec Task started....'
       t.pattern = Dir.glob('spec/**/*_spec.rb')
-#      t.rspec_opts = '--format html --out test_reports/rspec_results.html'
+      t.rspec_opts = '--format html --out test_reports/rspec_results.html'
       t.fail_on_error = true
     end
 
