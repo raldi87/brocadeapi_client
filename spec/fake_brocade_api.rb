@@ -105,7 +105,13 @@ class FakeBrocadeAPI < Sinatra::Base
   post '/rest/resourcegroups/All/fcfabrics/*/createzoningobject' do
     content_type :json
     input = JSON.parse(request.body.read)
-    status 200 if input.key?('zoneAliases')
+    status 200 if input.key?('zoneAliases') || input.key?('zones')
+  end
+
+  post '/rest/resourcegroups/All/fcfabrics/*/deletezoningobject' do
+    content_type :json
+    input = JSON.parse(request.body.read)
+    status 200 if input.key?('zoneAliasNames') || input.key?('zoneNames')
   end
 
   private

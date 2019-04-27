@@ -67,9 +67,6 @@ module BrocadeAPIClient
     def logout
       # Delete Session on REST API
       @http.unauthenticate
-    rescue BrocadeAPIClient::BrocadeException => ex
-      # we dont do anything because Brocade Network Advisor
-      # return HTTP 204 if logout is OK and session was deleted
     end
 
     # Get All networks
@@ -243,6 +240,44 @@ module BrocadeAPIClient
       result[1]
     end
 
+    # Create standard zone
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # zonename - string containing the zone name
+    # *aliases - list of aliases to be added in the zone
+    # ==== Returns
+    #
+    # Hash - Key zones  , Value Array of Hashes with all zones
+    def zonecreate_standard(fabrickey, zonename, *aliases)
+      result = @zones.zonecreate_standard(fabrickey, zonename, *aliases)
+      result[1]
+    end
+
+    # Create Peerzone
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # zonename - string containing the zone name
+    # *aliases - list of aliases to be added in the zone
+    # ==== Returns
+    #
+    # Hash - Key zones  , Value Array of Hashes with all zones
+    def zonecreate_peerzone(fabrickey, zonename, *aliases)
+      result = @zones.zonecreate_peerzone(fabrickey, zonename, *aliases)
+      result[1]
+    end
+
+    # Delete Zones from defined configuration
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # *zonenames - a list of zones to be delete
+    # ==== Returns
+    #
+    # status of request
+    def zonedelete(fabrickey, *zonenames)
+      result = @zones.zonedelete(fabrickey, *zonenames)
+      result[1]
+    end
+
     # Get Zone DB in a fabric(active and defined)
     # Input:
     # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
@@ -289,6 +324,18 @@ module BrocadeAPIClient
     # Status of request
     def alicreate(fabrickey, aliname, *wwn)
       result = @zones.alicreate(fabrickey, aliname, *wwn)
+      result[1]
+    end
+
+    # Delete Aliases in defined Fabric
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # alinames - list of aliases to be delete
+    # ==== Returns
+    #
+    # Status of request
+    def alidelete(fabrickey, *alinames)
+      result = @zones.alidelete(fabrickey, *alinames)
       result[1]
     end
 

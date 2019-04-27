@@ -14,11 +14,11 @@ module BrocadeAPIClient
   class Zones
     def initialize(http_client)
       @http_client = http_client
-      @base_url = '/resourcegroups/All'
+      @base_url = '/resourcegroups/All/fcfabrics/'
     end
 
     def zoneshow(fabrickey, zones = 'all', zkey = 'none')
-      api_url = @base_url + '/fcfabrics/' + fabrickey.upcase + '/zones'
+      api_url = @base_url + fabrickey.upcase + '/zones'
       if zones == 'all'
       elsif zones == 'active'
         api_url += if zkey == 'none'
@@ -38,12 +38,12 @@ module BrocadeAPIClient
     end
 
     def zonedbs(fabrickey)
-      api_url = @base_url + '/fcfabrics/' + fabrickey.upcase + '/zonedbs'
+      api_url = @base_url + fabrickey.upcase + '/zonedbs'
       _response, _body = @http_client.get(api_url)
     end
 
     def alishow(fabrickey, zakey = 'none')
-      api_url = @base_url + '/fcfabrics/' + fabrickey.upcase + '/zonealiases'
+      api_url = @base_url + fabrickey.upcase + '/zonealiases'
       if zakey == 'none'
         _response, _body = @http_client.get(api_url)
       else
@@ -53,7 +53,7 @@ module BrocadeAPIClient
     end
 
     def cfgshow(fabrickey, type)
-      api_url =  @base_url + '/fcfabrics/' + fabrickey.upcase + '/zonesets'
+      api_url =  @base_url + fabrickey.upcase + '/zonesets'
       if type == 'all'
       elsif type == 'active'
         api_url += '?active=true'
@@ -69,7 +69,7 @@ module BrocadeAPIClient
       alihash = {}
       payload = {}
       wwn.map!(&:upcase)
-      api_url = @base_url + '/fcfabrics/' + fabrickey.upcase + '/createzoningobject'
+      api_url = @base_url + fabrickey.upcase + '/createzoningobject'
       alihash['name'] = aliname
       alihash['memberNames'] = wwn
       aliarray.push(alihash)
@@ -81,7 +81,34 @@ module BrocadeAPIClient
       payload = {}
       payload['lsanZoning'] = 'false'
       payload['action'] = action.upcase
-      api_url = @base_url + '/fcfabrics/' + fabrickey.upcase + '/controlzonetransaction'
+      api_url = @base_url + fabrickey.upcase + '/controlzonetransaction'
+      _response, _body = @http_client.post(api_url, body: payload)
+    end
+
+    def zonecreate_standard(fabrickey, zonename, *aliases)
+      api_url = @base_url + fabrickey.upcase + '/createzoningobject'
+      zonearray = []
+      zonehash = {}
+      payload = {}
+      zonehash['name'] = zonename
+      zonehash['aliasNames'] = aliases
+      zonehash['type'] = 'STANDARD'
+      zonearray.push(zonehash)
+      payload['zones'] = zonearray
+      _response, _body = @http_client.post(api_url, body: payload)
+    end
+
+    def zonedelete(fabrickey, *zonenames)
+      api_url = @base_url + fabrickey.upcase + '/deletezoningobject'
+      payload = {}
+      payload['zoneNames'] = zonenames
+      _response, _body = @http_client.post(api_url, body: payload)
+    end
+
+    def alidelete(fabrickey, *alinames)
+      api_url = @base_url + fabrickey.upcase + '/deletezoningobject'
+      payload = {}
+      payload['zoneAliasNames'] = alinames
       _response, _body = @http_client.post(api_url, body: payload)
     end
   end

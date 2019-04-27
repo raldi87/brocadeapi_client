@@ -231,4 +231,33 @@ describe 'BrocadeAPIClient::Client' do
     result = client.trans_abort(fckey)
     expect(result).to eq(nil)
   end
+
+  it 'validate_zonecreate_standard' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    zonename = 'testzone'
+    alitest1 = '10:00:50:EB:1A:A8:2C:54'
+    alitest2 = '10:00:50:EB:1A:A8:2C:54'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.zonecreate_standard(fckey, zonename, alitest1, alitest2)
+    expect(result).to eq(nil)
+  end
+
+  it 'validate_alidelete' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    alinames = ['test1_hba0']
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.alidelete(fckey, alinames)
+    expect(result).to eq(nil)
+  end
+
+  it 'validate_zonedelete' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    zonenames = ['test1_zone']
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.alidelete(fckey, zonenames)
+    expect(result).to eq(nil)
+  end
 end
