@@ -7,6 +7,7 @@
 # under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
+require_relative 'exceptions'
 module BrocadeAPIClient
   # Class for checking supported API versions
   class APIVersion
@@ -30,7 +31,7 @@ module BrocadeAPIClient
     end
 
     def self.validate(version)
-      raise 'Invalid Version detected ' if version.length != 3
+      raise BrocadeAPIClient::InvalidVersion.new(nil, 'Invalid API Version Detected') if version.length != 3
     end
 
     def self.parser(version)

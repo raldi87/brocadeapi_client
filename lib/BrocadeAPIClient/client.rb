@@ -15,6 +15,7 @@ require_relative 'zones'
 require_relative 'exceptions'
 require_relative 'apiversion'
 require_relative 'static'
+require_relative 'events'
 
 module BrocadeAPIClient
   # Class for connecting to BNA
@@ -42,6 +43,7 @@ module BrocadeAPIClient
       @switches = Switches.new(@http)
       @ports = Ports.new(@http)
       @zones = Zones.new(@http)
+      @events = Events.new(@http)
       @app_type = app_type
       @peer_zone_support = false
     end
@@ -56,12 +58,7 @@ module BrocadeAPIClient
         err_msg = "Unsupported Brocade Network Advisor version #{api_v}, min supported version is, #{BrocadeAPIClient::BNASupport::BNA_MIN_SUPPORTED}"
         raise BrocadeAPIClient::UnsupportedVersion.new(nil, err_msg)
       end
-      if api_v < min_peerzoning_version
-        err_msg = "Unsupported Brocade Network Advisor version #{api_v}, min supported version is, #{BrocadeAPIClient::BNASupport::BNA_PEER_ZONING_TDZ_MIN_SUPPORTED}"
-        raise BrocadeAPIClient::UnsupportedVersion.new(nil, err_msg)
-      else
-        @peer_zone_support = true
-      end
+      @peer_zone_support = true if api_v >= min_peerzoning_version
     end
 
     def logout
@@ -261,8 +258,12 @@ module BrocadeAPIClient
     # ==== Returns
     #
     # Hash - Key zones  , Value Array of Hashes with all zones
-    def zonecreate_peerzone(fabrickey, zonename, *aliases)
-      result = @zones.zonecreate_peerzone(fabrickey, zonename, *aliases)
+    def zonecreate_peerzone(fabrickey, zonename, **members)
+      unless @peer_zone_support
+        err_msg = "Unsupported Brocade Network Advisor version #{api_v}, min supported version is, #{BrocadeAPIClient::BNASupport::BNA_PEER_ZONING_TDZ_MIN_SUPPORTED}"
+        raise BrocadeAPIClient::UnsupportedVersion.new(nil, err_msg)
+      end
+      result = @zones.zonecreate_peerzone(fabrickey, zonename, **members)
       result[1]
     end
 
@@ -407,6 +408,39 @@ module BrocadeAPIClient
     # Status of request
     def trans_abort(fabrickey)
       result = @zones.control_transaction(fabrickey, 'abort')
+      result[1]
+    end
+
+    # Get syslog events
+    # Input:
+    # count -  String value to retrive the number of last events
+    #
+    # ==== Returns
+    # Status of request
+    def syslog_events(count)
+      result = @events.syslog_events(count)
+      result[1]
+    end
+
+    # Get trap events
+    # Input:
+    # count -  String value to retrive the number of last events
+    #
+    # ==== Returns
+    # Status of request
+    def trap_events(count)
+      result = @events.trap_events(count)
+      result[1]
+    end
+
+    # Get custom events based on params
+    # Input:
+    # count -  String value to retrive the number of last events
+    #
+    # ==== Returns
+    # Status of request
+    def custom_events(startindex = '0', count = '10', origin = 'syslog', severity = 'INFO')
+      result = @events.custom_events(startindex, count, origin, severity)
       result[1]
     end
 

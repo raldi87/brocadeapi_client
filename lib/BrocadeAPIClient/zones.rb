@@ -98,6 +98,29 @@ module BrocadeAPIClient
       _response, _body = @http_client.post(api_url, body: payload)
     end
 
+    def zonecreate_peerzone(fabrickey, zonename, **members)
+      unless members.key?(:principal) && members.key?(:members)
+        err_msg = 'Invalid hash keys for peerzone, use principal and members when passing to function'
+        raise BrocadeAPIClient::InvalidPeerzoneOptions.new(nil, err_msg)
+      end
+      api_url = @base_url + fabrickey.upcase + '/createzoningobject'
+      payload = {}
+      peerdetails = {}
+      peermembers = {}
+      zonedetails = {}
+      zonearray = []
+      peermembers['peerMemberName'] = members[:members]
+      peerdetails['principalMemberName'] = members[:principal]
+      peerdetails['peerMembers'] = peermembers
+      zonedetails['name'] = zonename
+      zonedetails['type'] = 'STANDARD'
+      zonedetails['peerZone'] = 'True'
+      zonedetails['peerZoneDetails'] = peerdetails
+      zonearray.push(zonedetails)
+      payload['zones'] = zonearray
+      _response, _body = @http_client.post(api_url, body: payload)
+    end
+
     def zonedelete(fabrickey, *zonenames)
       api_url = @base_url + fabrickey.upcase + '/deletezoningobject'
       payload = {}

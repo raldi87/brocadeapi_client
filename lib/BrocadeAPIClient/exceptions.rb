@@ -31,6 +31,15 @@ module BrocadeAPIClient
   class UnsupportedVersion < BrocadeException
   end
 
+  class UnsupportedSeverityOption < BrocadeException
+  end
+
+  class InvalidPeerzoneOptions < BrocadeException
+  end
+
+  class InvalidVersion < BrocadeException
+  end
+
   # Failed SSL cert class
   class SSLCertFailed < BrocadeException
     @http_status = ''

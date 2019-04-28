@@ -243,6 +243,17 @@ describe 'BrocadeAPIClient::Client' do
     expect(result).to eq(nil)
   end
 
+  it 'validate_zonecreate_peerzone' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    zonename = 'testzone'
+    principal = [ '10:00:50:EB:1A:A8:2C:54' ]
+    members = [ '10:00:50:EB:1A:A8:2C:54']
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.zonecreate_peerzone(fckey, zonename, principal: principal, members: principal)
+    expect(result).to eq(nil)
+  end
+
   it 'validate_alidelete' do
     fckey = '10:00:50:EB:1A:A8:2C:54'
     alinames = ['test1_hba0']
@@ -288,5 +299,32 @@ describe 'BrocadeAPIClient::Client' do
     client.login(@user, @password)
     result = client.cfgenable(fckey, cfgname)
     expect(result).to eq(nil)
+  end
+
+  it 'validate_syslogevents' do
+    count = '2'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.syslog_events(count)
+    expect(result.key?('events')).to eq(true)
+  end
+
+  it 'validate_trapevents' do
+    count = '2'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.trap_events(count)
+    expect(result.key?('events')).to eq(true)
+  end
+
+  it 'validate_customevents' do
+    startindex = '0'
+    count = '2'
+    origin = 'trap'
+    severity = 'INFO'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.custom_events(startindex, count, origin, severity)
+    expect(result.key?('events')).to eq(true)
   end
 end

@@ -15,6 +15,7 @@ class FakeBrocadeAPI < Sinatra::Base
     response.headers['WStoken'] = 'logintest'
     status 200
     values = File.open(File.dirname(__FILE__) + '/json_files/login.json', 'rb').read
+    values
   end
 
   post '/rest/logout' do
@@ -85,6 +86,10 @@ class FakeBrocadeAPI < Sinatra::Base
     content_type :json
     input = JSON.parse(request.body.read)
     status 200 if input.key?('fcPortNameChangeReqEntry')
+  end
+
+  get '/rest/resourcegroups/All/events' do
+    json_response 200, 'events.json'
   end
 
   post '/rest/resourcegroups/All/fcfabrics/*/controlzonetransaction' do
