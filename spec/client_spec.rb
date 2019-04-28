@@ -260,4 +260,33 @@ describe 'BrocadeAPIClient::Client' do
     result = client.alidelete(fckey, zonenames)
     expect(result).to eq(nil)
   end
+
+  it 'validate_cfgadd' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    zonenames = ['test1_zone']
+    cfgname = 'cfg_test'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.cfgadd(fckey, cfgname, zonenames)
+    expect(result).to eq(nil)
+  end
+
+  it 'validate_cfgremove' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    zonenames = ['test1_zone']
+    cfgname = 'cfg_test'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.cfgremove(fckey, cfgname, zonenames)
+    expect(result).to eq(nil)
+  end
+
+  it 'validate_cfgenable' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    cfgname = 'cfg_test'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.cfgenable(fckey, cfgname)
+    expect(result).to eq(nil)
+  end
 end

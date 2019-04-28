@@ -114,6 +114,18 @@ class FakeBrocadeAPI < Sinatra::Base
     status 200 if input.key?('zoneAliasNames') || input.key?('zoneNames')
   end
 
+  post '/rest/resourcegroups/All/fcfabrics/*/updatezoningobject' do
+    content_type :json
+    input = JSON.parse(request.body.read)
+    status 200 if input.key?('zoneSets')
+  end
+
+  post '/rest/resourcegroups/All/fcfabrics/*/zonesets/*/activate' do
+    content_type :json
+    input = JSON.parse(request.body.read)
+    status 200 if input.empty?
+  end
+
   private
 
   def json_response(response_code, file_name)

@@ -111,5 +111,30 @@ module BrocadeAPIClient
       payload['zoneAliasNames'] = alinames
       _response, _body = @http_client.post(api_url, body: payload)
     end
+
+    def altercfg(fabrickey, action, cfgname, *zonenames)
+      api_url = @base_url + fabrickey.upcase + '/updatezoningobject'
+      payload = {}
+      cfghash = {}
+      cfgarray = []
+      case action.upcase
+      when 'ADD', 'REMOVE'
+        payload['action'] = action.upcase
+      else
+        err_msg = 'Invalid Action selected, Allowed action is ADD/REMOVE'
+        raise BrocadeAPIClient::UnsupportedOption.new(nil, err_msg)
+      end
+      cfghash['name'] = cfgname
+      cfghash['zoneNames'] = zonenames
+      cfgarray.push(cfghash)
+      payload['zoneSets'] = cfgarray
+      _response, _body = @http_client.post(api_url, body: payload)
+    end
+
+    def cfgenable(fabrickey, cfgname)
+      api_url = @base_url + fabrickey.upcase + '/zonesets/' + cfgname + '-false/activate'
+      payload = {}
+      _response, _body = @http_client.post(api_url, body: payload)
+    end
   end
 end

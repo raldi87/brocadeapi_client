@@ -314,6 +314,44 @@ module BrocadeAPIClient
       result[1]
     end
 
+    # Add zones to defined configuration
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # cfgname - Fabric configuration name to which to add the zones
+    # zonenames - list of zones to be added to the cfg
+    # ==== Returns
+    #
+    # Status of request
+    def cfgadd(fabrickey, cfgname, *zonenames)
+      result = @zones.altercfg(fabrickey, 'ADD', cfgname, *zonenames)
+      result[1]
+    end
+
+    # Remove zones to defined configuration
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # cfgname - Fabric configuration name from which to remove the zones
+    # zonenames - list of zones to be removed to the cfg
+    # ==== Returns
+    #
+    # Status of request
+    def cfgremove(fabrickey, cfgname, *zonenames)
+      result = @zones.altercfg(fabrickey, 'REMOVE', cfgname, *zonenames)
+      result[1]
+    end
+
+    # Enable defined zoning by configuration by name
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # cfgname - Fabric configuration name from which to remove the zones
+    # ==== Returns
+    #
+    # Status of request
+    def cfgenable(fabrickey, cfgname)
+      result = @zones.cfgenable(fabrickey, cfgname)
+      result[1]
+    end
+
     # Create Zone Aliases in a fabric
     # Input:
     # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
