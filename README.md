@@ -206,7 +206,7 @@ Or install it yourself as:
  client.cfgshow('FabricWWN','active')
  # Both active and defined configuration
  client.cfgshow('FabricWWN','all')
- 
+``` 
  
 ## Unit Tests
 ==========
