@@ -279,6 +279,55 @@ module BrocadeAPIClient
       result[1]
     end
 
+    # Add aliases to standard zone
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # *aliasnames - a list of zones to be delete
+    # ==== Returns
+    #
+    # status of request
+    def zoneadd_standard(fabrickey, zonename, *aliases)
+      result = @zones.alterzoning_standard(fabrickey, 'ADD', zonename, *aliases)
+      result[1]
+    end
+
+    # Add aliases to standard zone
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # *aliasnames - a list of zones to be delete
+    # ==== Returns
+    #
+    # status of request
+    def zoneremove_standard(fabrickey, zonename, *aliases)
+      result = @zones.alterzoning_standard(fabrickey, 'REMOVE', zonename, *aliases)
+      result[1]
+    end
+
+    # Add aliases to standard zone
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # **wwns - hash with principal and members as keys and values as an array of wwns
+    # ==== Returns
+    #
+    # status of request
+    def zoneadd_peerzone(fabrickey, zonename, **wwns)
+      result = @zones.alterzoning_peerzone(fabrickey, 'ADD', zonename, **wwns)
+      result[1]
+    end
+
+    # Remove members/principal from peerzone
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # **wwns - hash with principal and members as keys and values as an array of wwns
+    # ==== Returns
+    #
+    # status of request
+    def zoneremove_peerzone(fabrickey, zonename, **wwns)
+      result = @zones.alterzoning_peerzone(fabrickey, 'REMOVE', zonename, **wwns)
+      result[1]
+    end
+
+
     # Get Zone DB in a fabric(active and defined)
     # Input:
     # fabrickey - fabric key WWN(it can be retrived using the fabrics methond

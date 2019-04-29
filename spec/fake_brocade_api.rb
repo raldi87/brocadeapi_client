@@ -122,7 +122,7 @@ class FakeBrocadeAPI < Sinatra::Base
   post '/rest/resourcegroups/All/fcfabrics/*/updatezoningobject' do
     content_type :json
     input = JSON.parse(request.body.read)
-    status 200 if input.key?('zoneSets')
+    status 200 if input.key?('zoneSets') || input.key?('zones')
   end
 
   post '/rest/resourcegroups/All/fcfabrics/*/zonesets/*/activate' do

@@ -246,11 +246,11 @@ describe 'BrocadeAPIClient::Client' do
   it 'validate_zonecreate_peerzone' do
     fckey = '10:00:50:EB:1A:A8:2C:54'
     zonename = 'testzone'
-    principal = [ '10:00:50:EB:1A:A8:2C:54' ]
-    members = [ '10:00:50:EB:1A:A8:2C:54']
+    principal = ['10:00:50:EB:1A:A8:2C:54']
+    members = ['10:00:50:EB:1A:A8:2C:54']
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
-    result = client.zonecreate_peerzone(fckey, zonename, principal: principal, members: principal)
+    result = client.zonecreate_peerzone(fckey, zonename, principal: principal, members: members)
     expect(result).to eq(nil)
   end
 
@@ -269,6 +269,50 @@ describe 'BrocadeAPIClient::Client' do
     client = BrocadeAPIClient::Client.new(@url)
     client.login(@user, @password)
     result = client.alidelete(fckey, zonenames)
+    expect(result).to eq(nil)
+  end
+
+  it 'validate_zoneadd_standard' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    zonename = 'test1_zone'
+    aliname = 'test_ali1'
+    aliname2 = 'test_ali2'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.zoneadd_standard(fckey, zonename, aliname, aliname2)
+    expect(result).to eq(nil)
+  end
+
+  it 'validate_zoneremove_standard' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    zonename = 'test1_zone'
+    aliname = 'test_ali1'
+    aliname2 = 'test_ali2'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.zoneremove_standard(fckey, zonename, aliname, aliname2)
+    expect(result).to eq(nil)
+  end
+
+  it 'validate_zoneadd_peerzone' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    zonename = 'test1_zone'
+    principal = ['10:00:50:EB:1A:A8:2C:54']
+    members = ['10:00:50:EB:1A:A8:2C:54']
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.zoneadd_standard(fckey, zonename, principal: principal, members: members)
+    expect(result).to eq(nil)
+  end
+
+  it 'validate_zoneremove_peerzone' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    zonename = 'test1_zone'
+    principal = ['10:00:50:EB:1A:A8:2C:54']
+    members = ['10:00:50:EB:1A:A8:2C:54']
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.zoneremove_standard(fckey, zonename, principal: principal, members: members)
     expect(result).to eq(nil)
   end
 
