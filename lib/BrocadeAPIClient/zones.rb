@@ -185,20 +185,20 @@ module BrocadeAPIClient
         err_msg = 'Invalid Action selected, Allowed action is ADD/REMOVE'
         raise BrocadeAPIClient::UnsupportedOption.new(nil, err_msg)
       end
-      case (wwn.keys & [:principal,:members]).sort
-      when [:members,:principal]
-                wwn[:members].map!(&:upcase)
-                wwn[:principal].map!(&:upcase)
-                peermembers['peerMemberName'] = wwn[:members]
-                peerdetails['principalMemberName'] = wwn[:principal]
+      case (wwn.keys & %i[principal members]).sort
+      when %i[members principal]
+        wwn[:members].map!(&:upcase)
+        wwn[:principal].map!(&:upcase)
+        peermembers['peerMemberName'] = wwn[:members]
+        peerdetails['principalMemberName'] = wwn[:principal]
       when [:principal]
-           wwn[:principal].map!(&:upcase)
-           peerdetails['principalMemberName'] = wwn[:principal]
+        wwn[:principal].map!(&:upcase)
+        peerdetails['principalMemberName'] = wwn[:principal]
       when [:members]
-           wwn[:members].map!(&:upcase)
-           peermembers['peerMemberName'] = wwn[:members]
-      else 
-         err_msg = 'Invalid hash keys for peerzone, use principal and members when passing to function'
+        wwn[:members].map!(&:upcase)
+        peermembers['peerMemberName'] = wwn[:members]
+      else
+        err_msg = 'Invalid hash keys for peerzone, use principal and members when passing to function'
         raise BrocadeAPIClient::InvalidPeerzoneOptions.new(nil, err_msg)
       end
       zonedetails = {}
@@ -212,7 +212,6 @@ module BrocadeAPIClient
       payload['zones'] = zonearray
       _response, _body = @http_client.post(api_url, body: payload)
     end
-
 
     def cfgenable(fabrickey, cfgname)
       api_url = @base_url + fabrickey.upcase + '/zonesets/' + cfgname + '-false/activate'

@@ -327,7 +327,6 @@ module BrocadeAPIClient
       result[1]
     end
 
-
     # Get Zone DB in a fabric(active and defined)
     # Input:
     # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
