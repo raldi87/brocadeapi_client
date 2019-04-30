@@ -44,12 +44,8 @@ module BrocadeAPIClient
 
     def alishow(fabrickey, zakey = 'none')
       api_url = @base_url + fabrickey.upcase + '/zonealiases'
-      if zakey == 'none'
-        _response, _body = @http_client.get(api_url)
-      else
-        api_url += '/' + zakey.upcase
-        _response, _body = @http_client.get(api_url)
-      end
+      api_url += '/' + zakey unless zakey == 'none'
+      _response, _body = @http_client.get(api_url)
     end
 
     def cfgshow(fabrickey, type)
@@ -114,13 +110,7 @@ module BrocadeAPIClient
 
     def altercfg(fabrickey, action, cfgname, *zonenames)
       api_url = @base_url + fabrickey.upcase + '/updatezoningobject'
-      case action.upcase
-      when 'ADD', 'REMOVE'
-        payload ||= { action: action.upcase }
-      else
-        err_msg = 'Invalid Action selected, Allowed action is ADD/REMOVE'
-        raise BrocadeAPIClient::UnsupportedOption.new(nil, err_msg)
-      end
+      payload ||= { action: validate_answer(action) }
       cfghash ||= { name: cfgname, zoneNames: zonenames }
       (cfgarray ||= []) << cfghash
       payload.store(:zoneSets, cfgarray)
@@ -129,13 +119,7 @@ module BrocadeAPIClient
 
     def alteralias(fabrickey, action, aliname, *wwn)
       api_url = @base_url + fabrickey.upcase + '/updatezoningobject'
-      case action.upcase
-      when 'ADD', 'REMOVE'
-        payload ||= { action: action.upcase }
-      else
-        err_msg = 'Invalid Action selected, Allowed action is ADD/REMOVE'
-        raise BrocadeAPIClient::UnsupportedOption.new(nil, err_msg)
-      end
+      payload ||= { action: validate_answer(action) }
       wwn.map!(&:upcase)
       alihash ||= { name: aliname, memberNames: wwn }
       (aliarray ||= []) << alihash
@@ -145,13 +129,7 @@ module BrocadeAPIClient
 
     def alterzoning_standard(fabrickey, action, zonename, *aliases)
       api_url = @base_url + fabrickey.upcase + '/updatezoningobject'
-      case action.upcase
-      when 'ADD', 'REMOVE'
-        payload ||= { action: action.upcase }
-      else
-        err_msg = 'Invalid Action selected, Allowed action is ADD/REMOVE'
-        raise BrocadeAPIClient::UnsupportedOption.new(nil, err_msg)
-      end
+      payload ||= { action: validate_answer(action) }
       zonehash ||= { name: zonename, aliasNames: aliases }
       (zonearray ||= []) << zonehash
       payload.store(:zones, zonearray)
@@ -162,13 +140,7 @@ module BrocadeAPIClient
       api_url = @base_url + fabrickey.upcase + '/updatezoningobject'
       peerdetails = {}
       peermembers = {}
-      case action.upcase
-      when 'ADD', 'REMOVE'
-        payload ||= { action: action.upcase }
-      else
-        err_msg = 'Invalid Action selected, Allowed action is ADD/REMOVE'
-        raise BrocadeAPIClient::UnsupportedOption.new(nil, err_msg)
-      end
+      payload ||= { action: validate_answer(action) }
       case (wwn.keys & %i[principal members]).sort
       when %i[members principal]
         wwn[:members].map!(&:upcase)
@@ -198,6 +170,18 @@ module BrocadeAPIClient
       api_url = @base_url + fabrickey.upcase + '/zonesets/' + cfgname + '-false/activate'
       payload = {}
       _response, _body = @http_client.post(api_url, body: payload)
+    end
+
+    private
+
+    def validate_answer(action)
+      case action.upcase
+      when 'ADD', 'REMOVE'
+        action.upcase
+      else
+        err_msg = 'Invalid Action selected, Allowed action is ADD/REMOVE'
+        raise BrocadeAPIClient::UnsupportedOption.new(nil, err_msg)
+      end
     end
   end
 end
