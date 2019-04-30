@@ -62,17 +62,17 @@ module BrocadeAPIClient
     end
 
     def get(url, **kwargs)
-      headers, _payload = get_headers_and_payload(kwargs)
+      headers, _payload = headers_payload(kwargs)
       response = HTTParty.get(api_url + url,
                               headers: headers,
                               verify: false, logger: @client_logger,
                               log_level: @httparty_log_level,
                               log_format: @client_logger)
-      process_response(response)
+      validate_answer(response)
     end
 
     def post(url, **kwargs)
-      headers, payload = get_headers_and_payload(kwargs)
+      headers, payload = headers_payload(kwargs)
       response = HTTParty.post(api_url + url,
                                headers: headers,
                                body: payload,
@@ -80,31 +80,31 @@ module BrocadeAPIClient
                                logger: @client_logger,
                                log_level: @httparty_log_level,
                                log_format: @httparty_log_format)
-      process_response(response)
+      validate_answer(response)
     end
 
     def put(url, **kwargs)
-      headers, payload = get_headers_and_payload(kwargs)
+      headers, payload = headers_payload(kwargs)
       response = HTTParty.put(api_url + url,
                               headers: headers,
                               body: payload,
                               verify: false, logger: @client_logger,
                               log_level: @httparty_log_level,
                               log_format: @httparty_log_format)
-      process_response(response)
+      validate_answer(response)
     end
 
     def delete(url, **kwargs)
-      headers, _payload = get_headers_and_payload(kwargs)
+      headers, _payload = headers_payload(kwargs)
       response = HTTParty.delete(api_url + url,
                                  headers: headers,
                                  verify: false, logger: @client_logger,
                                  log_level: @httparty_log_level,
                                  log_format: @httparty_log_format)
-      process_response(response)
+      validate_answer(response)
     end
 
-    def process_response(response)
+    def validate_answer(response)
       headers = response.headers
       body = response.parsed_response
       code_array = %w[200 204]
@@ -126,7 +126,7 @@ module BrocadeAPIClient
       end
     end
 
-    def get_headers_and_payload(**kwargs)
+    def headers_payload(**kwargs)
       kwargs['headers'] = kwargs.fetch('headers', {})
       if session_key
         kwargs['headers'] = kwargs.fetch('headers', {})

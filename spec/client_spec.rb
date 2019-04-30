@@ -208,6 +208,26 @@ describe 'BrocadeAPIClient::Client' do
     expect(result).to eq(nil)
   end
 
+  it 'validate_aliadd' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    aliname = 'test1_hba0'
+    aliwwn  = '10:00:50:EB:1A:A8:2C:54'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.aliadd(fckey, aliname, aliwwn)
+    expect(result).to eq(nil)
+  end
+
+  it 'validate_aliremove' do
+    fckey = '10:00:50:EB:1A:A8:2C:54'
+    aliname = 'test1_hba0'
+    aliwwn  = '10:00:50:EB:1A:A8:2C:54'
+    client = BrocadeAPIClient::Client.new(@url)
+    client.login(@user, @password)
+    result = client.aliremove(fckey, aliname, aliwwn)
+    expect(result).to eq(nil)
+  end
+
   it 'validate_transstart' do
     fckey = '10:00:50:EB:1A:A8:2C:54'
     client = BrocadeAPIClient::Client.new(@url)

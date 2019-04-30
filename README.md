@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.com/raldi87/brocadeapi_client.svg?token=mkJwysQXyF3sdXnco1UE&branch=master)](https://travis-ci.com/raldi87/brocadeapi_client)
 
-Brocade API Client for SAN tasks Automation
+Brocade Network Advisor API Client for SAN tasks Automation
 ====================
 This is a Client library that can talk to the Brocade Network Advisor API. The BNA 
 has a REST web service interface which can be queried.
@@ -11,7 +11,7 @@ Prerequsites
 * Brocade Network Advisor
   * 14.2.0 
   * 14.4.0 for Peer Zoning Support
-* Ruby - 2.4.x or higher.
+* Ruby - 2.2.x or higher.
 * Brocade Network Advisor REST API Service must be enabled on the Server.
 * Different vendors have there own flavor of Brocade Network Advisor which they are named accordingly: HPE Network Advisor, IBM Network Advisor. All are compatible as they are all based on Brocade Network Advisor.
 
@@ -46,6 +46,8 @@ Features
     * cfgremove
     * cfgenable
     * alicreate
+    * aliadd
+    * aliremove
     * alidelete
     * trans_start
     * trans_commit
@@ -59,7 +61,7 @@ Features
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'brocadeapi_client'
+gem 'brocade_api_client'
 ```
 
 And then execute:
@@ -68,13 +70,16 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install brocadeapi_client
+    $ gem install brocade_api_client
 
 ## Usage
 =============
 ```ruby
  #Create an instance of brocadeapi_client::Client
  client = BrocadeAPIClient::Client.new('https://BNA_IP/rest')
+ # The Client supports logging and debug mode . Log format is :logstash
+ client = BrocadeAPIClient::Client.new('https://BNA_IP/rest', enable_logger: true, log_file_path: 'test.log'
+ # Also debug mode is supported by the debug parameters on the Client class constructor. By default its set to false.
 
  #Login using Brocade Network Advisor API credential
  client.login('BNA_user', 'BNA_password')
@@ -158,7 +163,13 @@ Or install it yourself as:
  client.alidelete('FabricWWN','alias1','alias2')
 
  # Create Alias
- client.alicreate'FabricWWN','aliasname','wwn1','wwn2')
+ client.alicreate('FabricWWN','aliasname','wwn1','wwn2')
+
+ # Add wwn to existing alias
+ client.aliadd('FabricWWN','aliasname','wwn1','wwn2')
+
+ # Remove wwns from existing alias 
+ client.aliremove('FabricWWN','aliasname','wwn1','wwn2')
 
  # Zone add/remove (standard)
  # supports unlimited number of arguments as aliases 

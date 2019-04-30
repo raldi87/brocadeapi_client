@@ -154,6 +154,26 @@ module BrocadeAPIClient
       _response, _body = @http_client.post(api_url, body: payload)
     end
 
+    def alteralias(fabrickey, action, aliname, *wwn)
+      api_url = @base_url + fabrickey.upcase + '/updatezoningobject'
+      payload = {}
+      alihash = {}
+      aliarray = [] 
+      case action.upcase
+      when 'ADD', 'REMOVE'
+        payload['action'] = action.upcase
+      else
+        err_msg = 'Invalid Action selected, Allowed action is ADD/REMOVE'
+        raise BrocadeAPIClient::UnsupportedOption.new(nil, err_msg)
+      end
+      wwn.map!(&:upcase)
+      alihash['name']= aliname
+      alihash['memberNames'] = wwn
+      aliarray.push(alihash)
+      payload['zoneAliases'] = aliarray
+      _response, _body = @http_client.post(api_url, body: payload)
+    end
+
     def alterzoning_standard(fabrickey, action, zonename, *aliases)
       api_url = @base_url + fabrickey.upcase + '/updatezoningobject'
       payload = {}

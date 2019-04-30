@@ -414,6 +414,32 @@ module BrocadeAPIClient
       result[1]
     end
 
+    # Add wwn to existing Alias
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # aliname - name for new alias
+    # wwn - to be added to aliname , it supports multiple wwns separated by comma
+    # ==== Returns
+    #
+    # Status of request
+    def aliadd(fabrickey, aliname, *wwn)
+      result = @zones.alteralias(fabrickey,'ADD', aliname, *wwn)
+      result[1]
+    end
+
+    # Remove wwn to existing Alias
+    # Input:
+    # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
+    # aliname - name for new alias
+    # wwn - to be added to aliname , it supports multiple wwns separated by comma
+    # ==== Returns
+    #
+    # Status of request
+    def aliremove(fabrickey, aliname, *wwn)
+      result = @zones.alteralias(fabrickey,'REMOVE', aliname, *wwn)
+      result[1]
+    end
+
     # Delete Aliases in defined Fabric
     # Input:
     # fabrickey - fabric key WWN(it can be retrived using the fabrics methond
