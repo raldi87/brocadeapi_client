@@ -65,22 +65,16 @@ module BrocadeAPIClient
     end
 
     def alicreate(fabrickey, aliname, *wwn)
-      aliarray = []
-      alihash = {}
-      payload = {}
       wwn.map!(&:upcase)
       api_url = @base_url + fabrickey.upcase + '/createzoningobject'
-      alihash['name'] = aliname
-      alihash['memberNames'] = wwn
-      aliarray.push(alihash)
-      payload['zoneAliases'] = aliarray
+      alihash ||= { name: aliname, memberNames: wwn }
+      (aliarray ||= []) << alihash
+      payload ||= { zoneAliases: aliarray }
       _response, _body = @http_client.post(api_url, body: payload)
     end
 
     def control_transaction(fabrickey, action)
-      payload = {}
-      payload['lsanZoning'] = 'false'
-      payload['action'] = action.upcase
+      payload ||= { lsanZoning: 'false', action: action.upcase }
       api_url = @base_url + fabrickey.upcase + '/controlzonetransaction'
       _response, _body = @http_client.post(api_url, body: payload)
     end
@@ -88,119 +82,89 @@ module BrocadeAPIClient
     def zonecreate_standard(fabrickey, zonename, *aliases)
       api_url = @base_url + fabrickey.upcase + '/createzoningobject'
       zonearray = []
-      zonehash = {}
-      payload = {}
-      zonehash['name'] = zonename
-      zonehash['aliasNames'] = aliases
-      zonehash['type'] = 'STANDARD'
-      zonearray.push(zonehash)
-      payload['zones'] = zonearray
+      zonehash ||= { name: zonename, aliasNames: aliases, type: 'STANDARD' }
+      (zonearray ||= []) << zonehash
+      payload ||= { zones: zonearray }
       _response, _body = @http_client.post(api_url, body: payload)
     end
 
     def zonecreate_peerzone(fabrickey, zonename, **members)
-      unless members.key?(:principal) && members.key?(:members)
-        err_msg = 'Invalid hash keys for peerzone, use principal and members when passing to function'
-        raise BrocadeAPIClient::InvalidPeerzoneOptions.new(nil, err_msg)
-      end
+      raise BrocadeAPIClient::InvalidPeerzoneOptions.new(nil, 'Use principal and members as hash keys') unless members.key?(:principal) && members.key?(:members)
+
       api_url = @base_url + fabrickey.upcase + '/createzoningobject'
-      payload = {}
-      peerdetails = {}
-      peermembers = {}
-      zonedetails = {}
-      zonearray = []
-      peermembers['peerMemberName'] = members[:members]
-      peerdetails['principalMemberName'] = members[:principal]
-      peerdetails['peerMembers'] = peermembers
-      zonedetails['name'] = zonename
-      zonedetails['type'] = 'STANDARD'
-      zonedetails['peerZone'] = 'True'
-      zonedetails['peerZoneDetails'] = peerdetails
-      zonearray.push(zonedetails)
-      payload['zones'] = zonearray
+      peermembers ||= { peerMemberName: members[:members] }
+      peerdetails ||= { principalMemberName: members[:principal], peerMembers: peermembers }
+      zonedetails ||= { name: zonename, type: 'STANDARD', peerZone: 'True', peerZoneDetails: peerdetails }
+      (zonearray ||= []) << zonedetails
+      payload ||= { zones: zonearray }
       _response, _body = @http_client.post(api_url, body: payload)
     end
 
     def zonedelete(fabrickey, *zonenames)
       api_url = @base_url + fabrickey.upcase + '/deletezoningobject'
-      payload = {}
-      payload['zoneNames'] = zonenames
+      payload ||= { zoneNames: zonenames }
       _response, _body = @http_client.post(api_url, body: payload)
     end
 
     def alidelete(fabrickey, *alinames)
       api_url = @base_url + fabrickey.upcase + '/deletezoningobject'
-      payload = {}
-      payload['zoneAliasNames'] = alinames
+      payload ||= { zoneAliasNames: alinames }
       _response, _body = @http_client.post(api_url, body: payload)
     end
 
     def altercfg(fabrickey, action, cfgname, *zonenames)
       api_url = @base_url + fabrickey.upcase + '/updatezoningobject'
-      payload = {}
-      cfghash = {}
-      cfgarray = []
       case action.upcase
       when 'ADD', 'REMOVE'
-        payload['action'] = action.upcase
+        payload ||= { action: action.upcase }
       else
         err_msg = 'Invalid Action selected, Allowed action is ADD/REMOVE'
         raise BrocadeAPIClient::UnsupportedOption.new(nil, err_msg)
       end
-      cfghash['name'] = cfgname
-      cfghash['zoneNames'] = zonenames
-      cfgarray.push(cfghash)
-      payload['zoneSets'] = cfgarray
+      cfghash ||= { name: cfgname, zoneNames: zonenames }
+      (cfgarray ||= []) << cfghash
+      payload.store(:zoneSets, cfgarray)
       _response, _body = @http_client.post(api_url, body: payload)
     end
 
     def alteralias(fabrickey, action, aliname, *wwn)
       api_url = @base_url + fabrickey.upcase + '/updatezoningobject'
-      payload = {}
-      alihash = {}
-      aliarray = [] 
       case action.upcase
       when 'ADD', 'REMOVE'
-        payload['action'] = action.upcase
+        payload ||= { action: action.upcase }
       else
         err_msg = 'Invalid Action selected, Allowed action is ADD/REMOVE'
         raise BrocadeAPIClient::UnsupportedOption.new(nil, err_msg)
       end
       wwn.map!(&:upcase)
-      alihash['name']= aliname
-      alihash['memberNames'] = wwn
-      aliarray.push(alihash)
-      payload['zoneAliases'] = aliarray
+      alihash ||= { name: aliname, memberNames: wwn }
+      (aliarray ||= []) << alihash
+      payload.store(:zoneAliases, aliarray)
       _response, _body = @http_client.post(api_url, body: payload)
     end
 
     def alterzoning_standard(fabrickey, action, zonename, *aliases)
       api_url = @base_url + fabrickey.upcase + '/updatezoningobject'
-      payload = {}
-      zonehash = {}
-      zonearray = []
       case action.upcase
       when 'ADD', 'REMOVE'
-        payload['action'] = action.upcase
+        payload ||= { action: action.upcase }
       else
         err_msg = 'Invalid Action selected, Allowed action is ADD/REMOVE'
         raise BrocadeAPIClient::UnsupportedOption.new(nil, err_msg)
       end
-      zonehash['name'] = zonename
-      zonehash['aliasNames'] = aliases
-      zonearray.push(zonehash)
-      payload['zones'] = zonearray
+      zonehash ||= { name: zonename, aliasNames: aliases }
+      (zonearray ||= []) << zonehash
+      payload.store(:zones, zonearray)
       _response, _body = @http_client.post(api_url, body: payload)
     end
 
     def alterzoning_peerzone(fabrickey, action, zonename, **wwn)
       api_url = @base_url + fabrickey.upcase + '/updatezoningobject'
-      payload = {}
       peerdetails = {}
       peermembers = {}
       case action.upcase
       when 'ADD', 'REMOVE'
-        payload['action'] = action.upcase
+        payload ||= { action: action.upcase }
       else
         err_msg = 'Invalid Action selected, Allowed action is ADD/REMOVE'
         raise BrocadeAPIClient::UnsupportedOption.new(nil, err_msg)
@@ -209,27 +173,24 @@ module BrocadeAPIClient
       when %i[members principal]
         wwn[:members].map!(&:upcase)
         wwn[:principal].map!(&:upcase)
-        peermembers['peerMemberName'] = wwn[:members]
-        peerdetails['principalMemberName'] = wwn[:principal]
+        peermembers = { peerMemberName: wwn[:members] }
+        peerdetails = { principalMemberName: wwn[:principal] }
       when [:principal]
         wwn[:principal].map!(&:upcase)
-        peerdetails['principalMemberName'] = wwn[:principal]
+        peerdetails = { principalMemberName: wwn[:principal] }
       when [:members]
         wwn[:members].map!(&:upcase)
-        peermembers['peerMemberName'] = wwn[:members]
+        peermembers = { peerMemberName: wwn[:members] }
       else
         err_msg = 'Invalid hash keys for peerzone, use principal and members when passing to function'
         raise BrocadeAPIClient::InvalidPeerzoneOptions.new(nil, err_msg)
       end
-      zonedetails = {}
-      zonearray = []
-      peerdetails['peerMembers'] = peermembers
-      zonedetails['name'] = zonename
-      zonedetails['type'] = 'STANDARD'
-      zonedetails['peerZone'] = 'True'
-      zonedetails['peerZoneDetails'] = peerdetails
-      zonearray.push(zonedetails)
-      payload['zones'] = zonearray
+      puts peermembers
+      peerdetails.store(:peerMembers, peermembers)
+      zonedetails ||= { name: zonename, type: 'STANDARD', peerZone: 'True', peerZoneDetails: peerdetails }
+      (zonearray ||= []) << zonedetails
+      payload.store(:zones, zonearray)
+      puts payload.to_json
       _response, _body = @http_client.post(api_url, body: payload)
     end
 

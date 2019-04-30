@@ -423,7 +423,7 @@ module BrocadeAPIClient
     #
     # Status of request
     def aliadd(fabrickey, aliname, *wwn)
-      result = @zones.alteralias(fabrickey,'ADD', aliname, *wwn)
+      result = @zones.alteralias(fabrickey, 'ADD', aliname, *wwn)
       result[1]
     end
 
@@ -436,7 +436,7 @@ module BrocadeAPIClient
     #
     # Status of request
     def aliremove(fabrickey, aliname, *wwn)
-      result = @zones.alteralias(fabrickey,'REMOVE', aliname, *wwn)
+      result = @zones.alteralias(fabrickey, 'REMOVE', aliname, *wwn)
       result[1]
     end
 
