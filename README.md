@@ -167,7 +167,6 @@ Or install it yourself as:
 
  # Add wwn to existing alias
  client.aliadd('FabricWWN','aliasname','wwn1','wwn2')
-
  # Remove wwns from existing alias 
  client.aliremove('FabricWWN','aliasname','wwn1','wwn2')
 
@@ -234,13 +233,13 @@ To run a specific test:
 ```
 
 ## Contributing
-
+```
 1.Fork it
 2.Create your feature branch (git checkout -b my-new-feature)
 3.Commit your changes (git commit -am 'Added some feature')
 4.Push to the branch (git push origin my-new-feature)
 5.Create new Pull Request
-
+```
 
 ## License
 
