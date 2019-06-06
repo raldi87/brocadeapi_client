@@ -55,8 +55,7 @@ module BrocadeAPIClient
       min_api_version = APIVersion.parser(BrocadeAPIClient::BNASupport::BNA_MIN_SUPPORTED)
       min_peerzoning_version = APIVersion.parser(BrocadeAPIClient::BNASupport::BNA_PEER_ZONING_TDZ_MIN_SUPPORTED)
       if api_v < min_api_version
-        err_msg = "Unsupported Brocade Network Advisor version #{api_v}, min supported version is, #{BrocadeAPIClient::BNASupport::BNA_MIN_SUPPORTED}"
-        raise BrocadeAPIClient::UnsupportedVersion.new(nil, err_msg)
+        raise BrocadeAPIClient::UnsupportedVersion
       end
       @peer_zone_support = true if api_v >= min_peerzoning_version
     end
@@ -260,8 +259,7 @@ module BrocadeAPIClient
     # Hash - Key zones  , Value Array of Hashes with all zones
     def zonecreate_peerzone(fabrickey, zonename, **members)
       unless @peer_zone_support
-        err_msg = "Unsupported Brocade Network Advisor version #{api_v}, min supported version is, #{BrocadeAPIClient::BNASupport::BNA_PEER_ZONING_TDZ_MIN_SUPPORTED}"
-        raise BrocadeAPIClient::UnsupportedVersion.new(nil, err_msg)
+        raise BrocadeAPIClient::UnsupportedVersion
       end
       result = @zones.zonecreate_peerzone(fabrickey, zonename, **members)
       result[1]

@@ -24,11 +24,12 @@ module BrocadeAPIClient
       super(formatted_string)
     end
   end
-  exceptions_map = [{ name: 'UnsupportedOption' },
-                    { name: 'UnsupportedVersion' },
+  exceptions_map = [{ name: 'UnsupportedOption', message: 'Unsupported Zoning Option, supported ALL is without zonename' },
+                    { name: 'UnsupportedAction', message: 'Unsupported Action, only ADD/Remove allowed'},
+                    { name: 'UnsupportedVersion', message: 'Unsupported Brocade Network Advisor version, min supported version is, #{BrocadeAPIClient::BNASupport::BNA_MIN_SUPPORTED}' },
                     { name: 'UnsupportedSeverityOption' },
-                    { name: 'InvalidPeerzoneOptions' },
-                    { name: 'InvalidVersion' },
+                    { name: 'InvalidPeerzoneOptions', message: 'Use principal and members as hash keys' },
+                    { name: 'InvalidVersion', message: 'Invalid API Version Detected' },
                     { name: 'RequestException' },
                     { name: 'ConnectionError', message: 'Connection Error to Brocade Network Advisor version' },
                     { name: 'HTTPError' },

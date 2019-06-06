@@ -32,7 +32,7 @@ module BrocadeAPIClient
                    end
       else
         err_msg = 'Unsupported Zoning Option, supported ALL is without zonename'
-        raise BrocadeAPIClient::UnsupportedOption.new(nil, err_msg)
+        raise BrocadeAPIClient::UnsupportedOption
       end
       _response, _body = @http_client.get(api_url)
     end
@@ -55,7 +55,7 @@ module BrocadeAPIClient
         api_url += '?active=true'
       elsif type == 'defined'
         api_url +=  '?active=false'
-      else puts 'Not supported'
+      else raise BrocadeAPIClient::UnsupportedOption
       end
       _response, _body = @http_client.get(api_url)
     end
@@ -85,7 +85,7 @@ module BrocadeAPIClient
     end
 
     def zonecreate_peerzone(fabrickey, zonename, **members)
-      raise BrocadeAPIClient::InvalidPeerzoneOptions.new(nil, 'Use principal and members as hash keys') unless members.key?(:principal) && members.key?(:members)
+      raise BrocadeAPIClient::InvalidPeerzoneOptions unless members.key?(:principal) && members.key?(:members)
 
       api_url = @base_url + fabrickey.upcase + '/createzoningobject'
       peermembers ||= { peerMemberName: members[:members] }
@@ -154,15 +154,12 @@ module BrocadeAPIClient
         wwn[:members].map!(&:upcase)
         peermembers = { peerMemberName: wwn[:members] }
       else
-        err_msg = 'Invalid hash keys for peerzone, use principal and members when passing to function'
-        raise BrocadeAPIClient::InvalidPeerzoneOptions.new(nil, err_msg)
+        raise BrocadeAPIClient::InvalidPeerzoneOptions
       end
-      puts peermembers
       peerdetails.store(:peerMembers, peermembers)
       zonedetails ||= { name: zonename, type: 'STANDARD', peerZone: 'True', peerZoneDetails: peerdetails }
       (zonearray ||= []) << zonedetails
       payload.store(:zones, zonearray)
-      puts payload.to_json
       _response, _body = @http_client.post(api_url, body: payload)
     end
 
@@ -179,8 +176,7 @@ module BrocadeAPIClient
       when 'ADD', 'REMOVE'
         action.upcase
       else
-        err_msg = 'Invalid Action selected, Allowed action is ADD/REMOVE'
-        raise BrocadeAPIClient::UnsupportedOption.new(nil, err_msg)
+        raise BrocadeAPIClient::UnsupportedAction
       end
     end
   end

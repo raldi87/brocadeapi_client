@@ -31,7 +31,7 @@ module BrocadeAPIClient
     end
 
     def self.validate(version)
-      raise BrocadeAPIClient::InvalidVersion.new(nil, 'Invalid API Version Detected') if version.length != 3
+      raise BrocadeAPIClient::InvalidVersion if version.length != 3
     end
 
     def self.parser(version)
