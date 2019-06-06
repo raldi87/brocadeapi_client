@@ -35,6 +35,7 @@ module BrocadeAPIClient
                     { name: 'URLRequired' },
                     { name: 'TooManyRedirects' },
                     { name: 'Timeout' },
+                    { name: 'SSLCertFailed' },
                     { name: 'HTTPBadRequest', http_status: 400, message: 'Bad request'}, 
                     { name: 'HTTPUnauthorized',  http_status: 401, message: 'Unauthorized'},
                     { name: 'HTTPForbidden', http_status: 403, message: 'Forbidden'},
@@ -61,11 +62,6 @@ module BrocadeAPIClient
                     { name: 'HTTPVersionNotSupported', http_status: 505, message: 'Version Not Supported'}]
 
   exceptions_map.each { |x| BrocadeAPIClient.const_set(x[:name], BrocadeException.new(http_status: x[:http_status],message: x[:message])) }
-  # Failed SSL cert class
-  class SSLCertFailed < BrocadeException
-    @http_status = ''
-    @message = 'SSL Certificate Verification Failed'
-  end
 
   attr_accessor :code_map
   @@code_map = Hash.new('BrocadeException')
