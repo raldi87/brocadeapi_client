@@ -52,8 +52,7 @@ module BrocadeAPIClient
       @session_key = headers['WStoken']
       JSON.parse(body)
     rescue StandardError
-      err_msg = 'Connection Error to Brocade Network Advisor version '
-      raise BrocadeAPIClient::ConnectionError.new(nil, err_msg)
+      raise BrocadeAPIClient::ConnectionError
     end
 
     def url(api_url)
