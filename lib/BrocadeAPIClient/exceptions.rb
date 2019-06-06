@@ -36,38 +36,38 @@ module BrocadeAPIClient
                     { name: 'TooManyRedirects' },
                     { name: 'Timeout' },
                     { name: 'SSLCertFailed' },
-                    { name: 'HTTPBadRequest', http_status: 400, message: 'Bad request'}, 
-                    { name: 'HTTPUnauthorized',  http_status: 401, message: 'Unauthorized'},
-                    { name: 'HTTPForbidden', http_status: 403, message: 'Forbidden'},
-                    { name: 'HTTPNotFound', http_status: 404, message: 'Not found'},
-                    { name: 'HTTPMethodNotAllowed', http_status: 405, message: 'Method Not Allowed'},
-                    { name: 'HTTPNotAcceptable', http_status: 406, message: 'Method Not Acceptable'},
-                    { name: 'HTTPProxyAuthRequired', http_status: 407, message: 'Proxy Authentication Required'},
-                    { name: 'HTTPRequestTimeout', http_status: 408, message: 'Request Timeout'},
-                    { name: 'HTTPConflict', http_status: 409, message: 'Conflict'},
-                    { name: 'HTTPGone', http_status: 410, message: 'Gone'},
-                    { name: 'HTTPLengthRequired', http_status: 411, message: 'Length Required'},
-                    { name: 'HTTPPreconditionFailed', http_status: 412, message: 'Over limit'},
-                    { name: 'HTTPRequestEntityTooLarge', http_status: 413, message: 'Request Entity Too Large'},
-                    { name: 'HTTPRequestURITooLong', http_status: 414, message: 'Request URI Too Large'},
-                    { name: 'HTTPUnsupportedMediaType', http_status: 415, message: 'Unsupported Media Type'},
-                    { name: 'HTTPRequestedRangeNotSatisfiable', http_status: 416, message: 'Requested Range Not Satisfiable'},
-                    { name: 'HTTPExpectationFailed', http_status: 417, message: 'Expectation Failed'},
-                    { name: 'HTTPTeaPot', http_status: 418, message: 'I\'m A Teapot. (RFC 2324)'},
-                    { name: 'HTTPInternalServerError', http_status: 500, message: 'Internal Server Error'},
-                    { name: 'HTTPNotImplemented', http_status: 501, message: 'Not Implemented'},
-                    { name: 'HTTPBadGateway', http_status: 502, message: 'Bad Gateway'},
-                    { name: 'HTTPServiceUnavailable', http_status: 503, message: 'Service Unavailable'},
-                    { name: 'HTTPGatewayTimeout', http_status: 504, message: 'Gateway Timeout'},
-                    { name: 'HTTPVersionNotSupported', http_status: 505, message: 'Version Not Supported'}]
+                    { name: 'HTTPBadRequest', http_status: 400, message: 'Bad request' },
+                    { name: 'HTTPUnauthorized', http_status: 401, message: 'Unauthorized' },
+                    { name: 'HTTPForbidden', http_status: 403, message: 'Forbidden' },
+                    { name: 'HTTPNotFound', http_status: 404, message: 'Not found' },
+                    { name: 'HTTPMethodNotAllowed', http_status: 405, message: 'Method Not Allowed' },
+                    { name: 'HTTPNotAcceptable', http_status: 406, message: 'Method Not Acceptable' },
+                    { name: 'HTTPProxyAuthRequired', http_status: 407, message: 'Proxy Authentication Required' },
+                    { name: 'HTTPRequestTimeout', http_status: 408, message: 'Request Timeout' },
+                    { name: 'HTTPConflict', http_status: 409, message: 'Conflict' },
+                    { name: 'HTTPGone', http_status: 410, message: 'Gone' },
+                    { name: 'HTTPLengthRequired', http_status: 411, message: 'Length Required' },
+                    { name: 'HTTPPreconditionFailed', http_status: 412, message: 'Over limit' },
+                    { name: 'HTTPRequestEntityTooLarge', http_status: 413, message: 'Request Entity Too Large' },
+                    { name: 'HTTPRequestURITooLong', http_status: 414, message: 'Request URI Too Large' },
+                    { name: 'HTTPUnsupportedMediaType', http_status: 415, message: 'Unsupported Media Type' },
+                    { name: 'HTTPRequestedRangeNotSatisfiable', http_status: 416, message: 'Requested Range Not Satisfiable' },
+                    { name: 'HTTPExpectationFailed', http_status: 417, message: 'Expectation Failed' },
+                    { name: 'HTTPTeaPot', http_status: 418, message: 'I\'m A Teapot. (RFC 2324)' },
+                    { name: 'HTTPInternalServerError', http_status: 500, message: 'Internal Server Error' },
+                    { name: 'HTTPNotImplemented', http_status: 501, message: 'Not Implemented' },
+                    { name: 'HTTPBadGateway', http_status: 502, message: 'Bad Gateway' },
+                    { name: 'HTTPServiceUnavailable', http_status: 503, message: 'Service Unavailable' },
+                    { name: 'HTTPGatewayTimeout', http_status: 504, message: 'Gateway Timeout' },
+                    { name: 'HTTPVersionNotSupported', http_status: 505, message: 'Version Not Supported' }]
 
-  exceptions_map.each { |x| BrocadeAPIClient.const_set(x[:name], BrocadeException.new(http_status: x[:http_status],message: x[:message])) }
+  exceptions_map.each { |x| BrocadeAPIClient.const_set(x[:name], BrocadeException.new(http_status: x[:http_status], message: x[:message])) }
 
   attr_accessor :code_map
   @@code_map = Hash.new('BrocadeException')
   exceptions_map.each do |c|
-     inst = BrocadeAPIClient.const_get(c[:name])
-     @@code_map[inst.http_status] = c
+    inst = BrocadeAPIClient.const_get(c[:name])
+    @@code_map[inst.http_status] = c
   end
   def self.exception_from_response(response, _body)
     # Return an instance of an ClientException
