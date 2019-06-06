@@ -54,9 +54,8 @@ module BrocadeAPIClient
       api_v = APIVersion.parser(login_info['version'])
       min_api_version = APIVersion.parser(BrocadeAPIClient::BNASupport::BNA_MIN_SUPPORTED)
       min_peerzoning_version = APIVersion.parser(BrocadeAPIClient::BNASupport::BNA_PEER_ZONING_TDZ_MIN_SUPPORTED)
-      if api_v < min_api_version
-        raise BrocadeAPIClient::UnsupportedVersion
-      end
+      raise BrocadeAPIClient::UnsupportedVersion if api_v < min_api_version
+
       @peer_zone_support = true if api_v >= min_peerzoning_version
     end
 
@@ -258,9 +257,8 @@ module BrocadeAPIClient
     #
     # Hash - Key zones  , Value Array of Hashes with all zones
     def zonecreate_peerzone(fabrickey, zonename, **members)
-      unless @peer_zone_support
-        raise BrocadeAPIClient::UnsupportedVersion
-      end
+      raise BrocadeAPIClient::UnsupportedVersion unless @peer_zone_support
+
       result = @zones.zonecreate_peerzone(fabrickey, zonename, **members)
       result[1]
     end

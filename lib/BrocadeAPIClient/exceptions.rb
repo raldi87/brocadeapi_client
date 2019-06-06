@@ -7,6 +7,7 @@
 # under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
+require_relative 'static'
 module BrocadeAPIClient
   # Brocade Exception Classes
   class BrocadeException < StandardError
@@ -25,8 +26,8 @@ module BrocadeAPIClient
     end
   end
   exceptions_map = [{ name: 'UnsupportedOption', message: 'Unsupported Zoning Option, supported ALL is without zonename' },
-                    { name: 'UnsupportedAction', message: 'Unsupported Action, only ADD/Remove allowed'},
-                    { name: 'UnsupportedVersion', message: 'Unsupported Brocade Network Advisor version, min supported version is, #{BrocadeAPIClient::BNASupport::BNA_MIN_SUPPORTED}' },
+                    { name: 'UnsupportedAction', message: 'Unsupported Action, only ADD/Remove allowed' },
+                    { name: 'UnsupportedVersion', message: "Unsupported Brocade Network Advisor version, min supported version is, #{BrocadeAPIClient::BNASupport::BNA_MIN_SUPPORTED}" },
                     { name: 'UnsupportedSeverityOption' },
                     { name: 'InvalidPeerzoneOptions', message: 'Use principal and members as hash keys' },
                     { name: 'InvalidVersion', message: 'Invalid API Version Detected' },
