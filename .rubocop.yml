@@ -4,10 +4,10 @@ Metrics/BlockLength:
     - '**/*.rake'
     - 'spec/*.rb'
 Metrics/LineLength:
-  Max: 120
+  Max: 200
 Metrics/MethodLength:
   Max: 30
 Metrics/ClassLength:
-  Max: 140
+  Max: 300
 Metrics/ParameterLists:
   Max: 10

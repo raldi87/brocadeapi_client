@@ -15,4 +15,5 @@ require 'BrocadeAPIClient/version'
 module BrocadeAPIClient
   require 'BrocadeAPIClient/exceptions'
   require 'BrocadeAPIClient/client'
+  require 'BrocadeAPIClient/static'
 end

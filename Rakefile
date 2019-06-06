@@ -2,7 +2,7 @@ require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 
 task :console do
-  exec 'irb -r BrocadeAPIClient -I ./lib'
+  exec 'irb -r brocade_api_client -I ./lib'
 end
 
 namespace :build do
@@ -17,9 +17,9 @@ namespace :build do
     end
 
     task default: :spec
-  rescue LoadError => le
+  rescue LoadError => error
     # no rspec available
-    puts "(#{le.message})"
+    puts "(#{error.message})"
   end
 
   begin
@@ -32,8 +32,7 @@ namespace :build do
       task.formatters = ['simple']
       task.options = ['--out', 'rubocop_report.txt']
     end
-  rescue LoadError => le
-    # no rspec available
-    puts "(#{le.message})"
+  rescue LoadError => error
+    puts "(#{error.message})"
   end
 end

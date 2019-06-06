@@ -1,15 +1,67 @@
-# BrocadeAPI_client
+[![Build Status](https://travis-ci.com/raldi87/brocadeapi_client.svg?token=mkJwysQXyF3sdXnco1UE&branch=master)](https://travis-ci.com/raldi87/brocadeapi_client)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/brocadesan_sdk`. To experiment with that code, run `bin/console` for an interactive prompt.
+Brocade Network Advisor API Client for SAN tasks Automation
+====================
+This is a Client library that can talk to the Brocade Network Advisor API. The BNA 
+has a REST web service interface which can be queried.
+This library implements an interface for talking to the Brocade Advisor and help SAN Admins automate SAN tasks.
 
-TODO: Delete this and the text above, and describe your gem
+Prerequsites
+============
+* Brocade Network Advisor
+  * 14.2.0 
+  * 14.4.0 for Peer Zoning Support
+* Ruby - 2.2.x or higher.
+* Brocade Network Advisor REST API Service must be enabled on the Server.
+* Different vendors have there own flavor of Brocade Network Advisor which they are named accordingly: HPE Network Advisor, IBM Network Advisor. All are compatible as they are all based on Brocade Network Advisor.
+
+Features
+============
+
+    * resourcegroups
+    * fabrics
+    * fabric
+    * fabricswitches
+    * allswitches
+    * allports
+    * change_portstates
+    * change_persistentportstates
+    * set_portname
+    * zoneshow_all
+    * zoneshow_all_active
+    * zoneshow_all_defined
+    * zoneshow_active
+    * zoneshow_defined
+    * zonecreate_standard
+    * zonecreate_peerzone
+    * zonedelete
+    * zoneadd_standard
+    * zoneremove_standard
+    * zoneadd_peerzone
+    * zoneremove_peerzone
+    * zonedbs
+    * alishow
+    * cfgshow
+    * cfgadd
+    * cfgremove
+    * cfgenable
+    * alicreate
+    * aliadd
+    * aliremove
+    * alidelete
+    * trans_start
+    * trans_commit
+    * trans_abort
+    * syslog_events
+    * trap_events
+    * custom_events
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'brocadeapi_client'
+gem 'brocade_api_client'
 ```
 
 And then execute:
@@ -18,29 +70,179 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install brocadeapi_client
+    $ gem install brocade_api_client
 
 ## Usage
+=============
+```ruby
+ #Create an instance of brocadeapi_client::Client
+ client = BrocadeAPIClient::Client.new('https://BNA_IP/rest')
+ # The Client supports logging and debug mode . Log format is :logstash
+ client = BrocadeAPIClient::Client.new('https://BNA_IP/rest', enable_logger: true, log_file_path: 'test.log'
+ # Also debug mode is supported by the debug parameters on the Client class constructor. By default its set to false.
 
-TODO: Write usage instructions here
+ #Login using Brocade Network Advisor API credential
+ client.login('BNA_user', 'BNA_password')
 
-## Development
+ #Call any method from client class 
+ client.alishow(FABRICKEY,'alitest_port1')
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+ #Logout once you have finished all of your operations
+ client.logout
+ 
+ # For zoning operations (zonecreate/add/remove , alicreate/add/remove and cfgadd/cfgremove) 
+ # you must start a transaction before sending a request to the Advisor
+ # After submitting, you must commit your transactions. 
+ # Below you can how to create a zone and peerzone
+ # FabricWWN is the seed switch WWN from the fabric on which you want to make the changes. 
+ # Using the fabrics and fabric method you can obtain it easily. Keep in mind this WWN might change, 
+ # so you might want to use the methods first tobtain de fabric WWN
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+ client.trans_start('FabricWWN')
+ # Alicreate supports unlimited number of arguments as WWN
+ client.alicreate('FabricWWN', 'test_alias', '10:00:00:10:9b:52:a8:0b')
+ # Zonecreate supports unlimited number of arguments as zonealiases 
+ client.zonecreate_standard('FabricWWN', 'test_zone', 'test_alias', 'testalias')
+ # cfgadd method supports unlimited number to added as arguments/cfgremove is similar 
+ client.cfgadd('FabricWWN','test_config','test_zone')
+ client.trans_commit('FabricWWN')
+ # To enable the modification 
+ client.cfgenable('FabrickWWN')
+
+ # For Peerzoning use:
+ # The array support unlimited number of WWN that should be part of the zone
+ client.zonecreate_peerzone('FabricWWN', 'test_zone', principal: [ WWN ARRAY ], members: [WWN ARRAY])
+ 
+ # List all fabrics
+ client.fabrics
+ 
+ # List fabric description(including seed switch WWN)
+ client.fabric('FabricName')
+
+ # List all active zones in a Fabric
+ client.zoneshow_all_active('FabricWWN')
+ 
+ # List all defined zones in Fabric
+ client.zoneshow_all_defined('FabricWWN')
+ 
+ # List a specific active zones information
+ client.zoneshow_active('FabricWWN','zonename')
+
+ # List a specific define zones information
+ client.zoneshow_define('FabricWWN','zonename')
+
+ # Show aliases in fabric or for info for a specific alias
+ client.alishow('FabricWWN')
+ client.alishow('FabricWWN','aliasname')
+
+ # Set port name(PortWWN can be retrieved from allports method)
+ client.set_portname('FabricWWN','PortWWN','test_porname')
+
+ # Get all ports
+ client.allports
+
+ # Get all switches
+ client.allswitches
+
+ # Get all switchs from a specified Fabric
+ client.fabricswitches('FabricWWN')
+
+ # Change port state in a switch(non-persistent)
+ # Method support unlimited number or portwwns after disale|enable
+ client.change_portstates('FabricWWN', 'enable', 'PortWWN1', 'PortWWN2')
+
+ # Change port state in a switch(persistent)
+ # Method support unlimited number or portwwns after disale|enable
+ client.change_persistentportstates('FabricWWN', 'enable', 'PortWWN1', 'PortWWN2')
+
+ # Delete zones
+ # supports unlimited number of zones as arguments 
+ client.zonedelete('FabricWWN', 'zone1','zone2')
+
+ # Delete Aliases
+ client.alidelete('FabricWWN','alias1','alias2')
+
+ # Create Alias
+ client.alicreate('FabricWWN','aliasname','wwn1','wwn2')
+
+ # Add wwn to existing alias
+ client.aliadd('FabricWWN','aliasname','wwn1','wwn2')
+
+ # Remove wwns from existing alias 
+ client.aliremove('FabricWWN','aliasname','wwn1','wwn2')
+
+ # Zone add/remove (standard)
+ # supports unlimited number of arguments as aliases 
+ client.zoneremove_standard('10:00:00:27:f8:f7:6b:00', 'test_zone', 'alias1','alias2')
+ client.zoneadd_standard('10:00:00:27:f8:f7:6b:00', 'test_zone', 'alias1','alias2')
+
+ # Zone add/remove (peerzone)
+ # method supports both principal/members as hash keys or only one of them
+ client.zoneadd_peerzone('FabricWWN', 'test_zone', principal: ['wwn1','wwn2'],members: ['wwn1','wwn2'])
+ client.zoneremove_peerzone('FabricWWN', 'test_zone', principal: ['wwn1','wwn2'],members: ['wwn1','wwn2'])
+ client.zoneadd_peerzone('FabricWWN', 'test_zone', principal: ['wwn1','wwn2'])
+ client.zoneremove_peerzone('FabricWWN', 'test_zone', principal: ['wwn1','wwn2'])
+ client.zoneadd_peerzone('FabricWWN', 'test_zone', members: ['wwn1','wwn2'])
+ client.zoneremove_peerzone('FabricWWN', 'test_zone', members: ['wwn1','wwn2'])
+
+ # List latest syslog evets
+ client.syslog_events('999')
+
+ # List latest trap events
+ client.trap_events('999')
+ 
+ # List custom events 
+ # Below method lists latest 10 events from syslog with warning severity
+ client.custom_events('0', '10', 'syslog', 'WARNING')
+ 
+ # Commit changes to fabric defined configuration
+ client.trans_commit('FabricWWN')
+ 
+ # Start transaction on defined configuration
+ client.trans_start('FabricWWN')
+ 
+ # Abort/Rollback transaction
+ client.trans_abort('FabricWWN')
+
+ # Enable defined configuration as an active configuration
+ client.cfgenable('FabricWWN') 
+
+ # List zone Databases
+ client.zonedbs('FabricWWN')
+
+ # List fabric configuration
+ # Defined configuration
+ client.cfgshow('FabricWWN','defined')
+ # Active configuration
+ client.cfgshow('FabricWWN','active')
+ # Both active and defined configuration
+ client.cfgshow('FabricWWN','all')
+``` 
+ 
+## Unit Tests
+==========
+
+To run all unit tests:
+```bash
+ $ rake build:spec
+```
+The output of the coverage tests will be placed into the ``test_reports`` dir.
+
+To run a specific test:
+```bash
+ $ rspec spec/client_spec.rb
+```
 
 ## Contributing
+===========
+1.Fork it
+2.Create your feature branch (git checkout -b my-new-feature)
+3.Commit your changes (git commit -am 'Added some feature')
+4.Push to the branch (git push origin my-new-feature)
+5.Create new Pull Request
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/brocadesan_sdk. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
 This project is licensed under the Apache 2.0 license.
 
-## Code of Conduct
-
-Everyone interacting in the BrocadesanSdk project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/brocadesan_sdk/blob/master/CODE_OF_CONDUCT.md).
-# brocade_api_client
-# brocade_api_client
-# brocade_api_client

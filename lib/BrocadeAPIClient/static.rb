@@ -7,23 +7,10 @@
 # under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
-
 module BrocadeAPIClient
-  # Switches REST API Methods
-  class Switches
-    def initialize(http_client)
-      @http_client = http_client
-      @base_url = '/resourcegroups/All'
-    end
-
-    def fabricswitches(fabricid)
-      api_url = @base_url + '/fcfabrics/' + fabricid.upcase + '/fcswitches'
-      _response, _body = @http_client.get(api_url)
-    end
-
-    def allswitches
-      api_url =  @base_url + '/fcswitches'
-      _response, _body = @http_client.get(api_url)
-    end
+  # Class to support versions checks for Brocade Network Advisor
+  class BNASupport
+    BNA_MIN_SUPPORTED = '14.2.0'.freeze
+    BNA_PEER_ZONING_TDZ_MIN_SUPPORTED = '14.4.0'.freeze
   end
 end
