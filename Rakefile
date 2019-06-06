@@ -17,9 +17,9 @@ namespace :build do
     end
 
     task default: :spec
-  rescue LoadError => error
+  rescue LoadError => e
     # no rspec available
-    puts "(#{error.message})"
+    puts "(#{e.message})"
   end
 
   begin
@@ -32,7 +32,7 @@ namespace :build do
       task.formatters = ['simple']
       task.options = ['--out', 'rubocop_report.txt']
     end
-  rescue LoadError => error
-    puts "(#{error.message})"
+  rescue LoadError => e
+    puts "(#{e.message})"
   end
 end
