@@ -16,7 +16,7 @@ require 'BrocadeAPIClient/version'
 Gem::Specification.new do |spec|
   spec.name          = 'brocade_api_client'
   spec.version       = BrocadeAPIClient::VERSION
-  spec.authors       = ['Raldi87']
+  spec.authors       = ['raldi87']
   spec.email         = ['dima.radu.lucian@gmail.com']
 
   spec.summary       = 'Brocade Network Advisor REST API Client'
