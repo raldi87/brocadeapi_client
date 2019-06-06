@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/raldi87/brocadeapi_client.svg?token=mkJwysQXyF3sdXnco1UE&branch=master)](https://travis-ci.com/raldi87/brocadeapi_client)
+[![Gem Version](https://badge.fury.io/rb/brocade_api_client.svg)](https://badge.fury.io/rb/brocade_api_client)
 
 Brocade Network Advisor API Client for SAN tasks Automation
 ====================
