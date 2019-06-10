@@ -9,5 +9,5 @@
 # specific language governing permissions and limitations under the License.
 
 module BrocadeAPIClient
-  VERSION = '0.1.1'.freeze
+  VERSION = '0.1.2'.freeze
 end

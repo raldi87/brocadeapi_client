@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['dima.radu.lucian@gmail.com']
 
   spec.summary       = 'Brocade Network Advisor REST API Client'
-  spec.description   = 'This gem is used query to Brocade Network Advisor via API'
+  spec.description   = 'This gem is used to query Brocade Network Advisor via API'
   spec.homepage      = 'https://github.com/raldi87/brocadeapi_client'
   spec.license       = 'Apache-2.0'
 
@@ -34,12 +34,12 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
   
-  spec.required_ruby_version = '~> 2.3.0'
+  spec.required_ruby_version = '>= 2.3.0'
   spec.add_development_dependency 'bundler', '~> 1.16'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '~> 0.66'
   spec.add_development_dependency 'sinatra', '~> 2.0', '>= 2.0.3'
   spec.add_development_dependency 'webmock', '~> 3.5', '>= 3.5.1'
-  spec.add_runtime_dependency 'httparty', '~> 0.16.4'
+  spec.add_runtime_dependency 'httparty', '~> 0.16', '>= 0.16.4'
 end
