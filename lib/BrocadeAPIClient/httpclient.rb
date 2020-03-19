@@ -45,7 +45,7 @@ module BrocadeAPIClient
 
     def authenticate(user, password, _optional = nil)
       @username = user
-      @pasword = password
+      @password = password
       @session_key = nil
       auth_url = '/login'
       headers, body = post(auth_url)
@@ -129,10 +129,10 @@ module BrocadeAPIClient
       kwargs['headers'] = kwargs.fetch('headers', {})
       if session_key
         kwargs['headers'] = kwargs.fetch('headers', {})
-        kwargs['headers'][SESSION_COOKIE_NAME] = session_key
+        kwargs['headers'][SESSION_COOKIE_NAME] = @session_key
       else
         kwargs['headers']['WSUsername'] = @username
-        kwargs['headers']['WSPassword'] = @username
+        kwargs['headers']['WSPassword'] = @password
       end
       kwargs['headers']['User-Agent'] = USER_AGENT
       kwargs['headers']['Accept'] = ACCEPT_TYPE
